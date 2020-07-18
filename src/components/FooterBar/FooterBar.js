@@ -89,7 +89,7 @@ const FooterBar = () => {
     return (
         <div className="FooterBar">
             <div className="filter">
-                <button className="resizable-plus"><MdExpandLess/>확대</button>
+                <button className="resizabl mne"><MdExpandLess/>확대</button>
                 <button className="resizable-minus"><MdExpandMore/>축소</button>
             </div>
             <div className="table-body">

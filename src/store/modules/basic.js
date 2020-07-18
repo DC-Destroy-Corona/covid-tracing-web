@@ -12,7 +12,7 @@ export const sbSelect = createAction(SB_SELECT);
 const initialState = Map({
     basic: Map({
         select: 1
-    })
+    }),
 });
 
 /*--------reducer--------*/
