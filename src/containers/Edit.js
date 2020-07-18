@@ -2,17 +2,10 @@ import React, { Component, Fragment } from 'react';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import * as tracingActions from 'store/modules/tracing';
-import {
-    MapPallet,
-    SideBar,
-    Header,
-    MainSideBar,
-    FooterBar
-} from 'components';
+import * as editActions from 'store/modules/edit';
 
 
-class Tracing extends Component {
+class Edit extends Component {
 
     componentDidMount() {
     }
@@ -21,12 +14,6 @@ class Tracing extends Component {
 
         return (
             <Fragment>
-                <MainSideBar/>
-                <SideBar/>
-                <MapPallet/>
-                <Header/>
-                <FooterBar>
-                </FooterBar>
             </Fragment>
         )
     }
@@ -41,7 +28,7 @@ export default withRouter(
         }),
         // props 로 넣어줄 액션 생성함수
         dispatch => ({
-            tracingActions: bindActionCreators(tracingActions, dispatch),
+            editActions: bindActionCreators(editActions, dispatch),
         })
-    )(Tracing)
+    )(Edit)
 )

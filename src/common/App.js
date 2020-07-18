@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import {
     Welcome,
+    Tracing
     // Main,
     // Device,
     // OAuth2RedirectHandler,
     // NotFound,
     // HubAdmin
 } from 'containers';
-// import './App.css'
+import './App.css'
 
 // const DynamicRoute = ({ match, location }) => {
 
@@ -33,6 +34,7 @@ class App extends Component {
             <div className="App">
                 <Switch>
                     <Route exact path="/" component={Welcome} />
+                    <Route exact path="/tracing" component={Tracing}/>
                     {/* <Route path="/main" component={Main} />
                     <Route path="/device" component={DynamicRoute} />
                     <Route path="/hub" component={DynamicRoute} />
