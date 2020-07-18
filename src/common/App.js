@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import {
     Welcome,
-    Tracing
+    Tracing,
+    Edit
     // Main,
     // Device,
     // OAuth2RedirectHandler,
@@ -35,6 +36,7 @@ class App extends Component {
                 <Switch>
                     <Route exact path="/" component={Welcome} />
                     <Route exact path="/tracing" component={Tracing}/>
+                    <Route exact path="/edit" component={Edit}/>
                     {/* <Route path="/main" component={Main} />
                     <Route path="/device" component={DynamicRoute} />
                     <Route path="/hub" component={DynamicRoute} />

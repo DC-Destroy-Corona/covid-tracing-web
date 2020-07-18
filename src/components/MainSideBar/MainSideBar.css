@@ -23,7 +23,16 @@
     cursor: pointer;
 }
 
+.MainSideBar #select {
+    background-color: white;
+    color: black;
+}
+
 .MainSideBarItem:hover{
     background-color: white;
     color: black;
+}
+
+.MainSideBarItem:disabled{
+    cursor: default;
 }

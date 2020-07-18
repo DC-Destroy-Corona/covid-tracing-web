@@ -22,7 +22,7 @@ const MapNavi = ({}) => {
     )
 }
 
-const MapPallet = ({toggle}) => {
+const MapPallet = ({}) => {
     // const mapContainer = useRef();
     // useEffect(()=>{
     //     kakao.maps.load(()=>{

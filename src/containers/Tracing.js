@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import * as tracingActions from 'store/modules/tracing';
+import * as basicActions from 'store/modules/basic';
 import {
     MapPallet,
     SideBar,
@@ -14,14 +15,20 @@ import {
 
 class Tracing extends Component {
 
+    _sbSelect = (idx) => {
+        const { basicActions } = this.props;
+        basicActions.sbSelect(idx);
+    }
+
     componentDidMount() {
     }
 
     render() {
+        const {select} = this.props;
 
         return (
             <Fragment>
-                <MainSideBar/>
+                <MainSideBar select={select} sbSelect={this._sbSelect}/>
                 <SideBar/>
                 <MapPallet/>
                 <Header/>
@@ -37,11 +44,12 @@ export default withRouter(
     connect(
         // props 로 넣어줄 스토어 상태값
         state => ({
-
+            select: state.basic.getIn(['basic', 'select']),
         }),
         // props 로 넣어줄 액션 생성함수
         dispatch => ({
             tracingActions: bindActionCreators(tracingActions, dispatch),
+            basicActions: bindActionCreators(basicActions, dispatch),
         })
     )(Tracing)
 )

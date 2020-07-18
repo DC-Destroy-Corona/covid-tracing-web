@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import './FooterBar.css';
 import {MdDescription} from 'react-icons/md'
 import {CONTACTER_THEAD} from 'constants/index'
+import {MdExpandLess, MdExpandMore} from 'react-icons/md'
 
 const SelectTable = ({data, columns, title, style}) => {
     return (
@@ -87,8 +88,9 @@ const SelectTable = ({data, columns, title, style}) => {
 const FooterBar = () => {
     return (
         <div className="FooterBar">
-            {/* <button className="resizable"></button> */}
             <div className="filter">
+                <button className="resizable-plus"><MdExpandLess/>확대</button>
+                <button className="resizable-minus"><MdExpandMore/>축소</button>
             </div>
             <div className="table-body">
                 <SelectTable data={[]} title="확진자 리스트" columns={CONTACTER_THEAD} style={{
