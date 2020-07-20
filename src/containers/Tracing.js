@@ -20,17 +20,32 @@ class Tracing extends Component {
         basicActions.sbSelect(idx);
     }
 
+    _chCenter = (center) => {
+        const { tracingActions } = this.props;
+        tracingActions.chCenter(center);
+    }
+
     componentDidMount() {
     }
 
     render() {
-        const {select} = this.props;
+        const {
+            select, 
+            mainPerson,
+            mapOption
+        } = this.props;
 
         return (
             <Fragment>
                 <MainSideBar select={select} sbSelect={this._sbSelect}/>
-                <SideBar/>
-                <MapPallet/>
+                <SideBar 
+                    mainPerson={mainPerson}
+                    chCenter={this._chCenter}
+                />
+                <MapPallet 
+                    mainPerson={mainPerson} 
+                    mapOption={mapOption}
+                />
                 <Header/>
                 <FooterBar>
                 </FooterBar>
@@ -45,6 +60,8 @@ export default withRouter(
         // props 로 넣어줄 스토어 상태값
         state => ({
             select: state.basic.getIn(['basic', 'select']),
+            mainPerson: state.tracing.get('person'),
+            mapOption: state.tracing.get('mapOption'), 
         }),
         // props 로 넣어줄 액션 생성함수
         dispatch => ({

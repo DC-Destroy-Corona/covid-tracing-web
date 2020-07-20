@@ -2,69 +2,82 @@ import React, { Fragment } from 'react';
 import './SideBar.css';
 import {MdAccessTime} from 'react-icons/md'
 
-const VisitNode = ({startTime, endTime, desc}) => {
+const VisitNode = ({node, type, idx}) => {
     return (
         <button className="VisitNode">
             <div className="head">
                 <div className="idx">
-                    <span>1</span>
+                    <span>{idx+1}</span>
                 </div>
-                <div className="loc">수성구 상록로69</div>
+                <div className="loc">{node.get('location')}</div>
             </div>
             <div className="body">
-                <div className="elem">
-                    <MdAccessTime style={{
-                        marginTop: 1,
-                        marginRight: 2,
-                        float: 'left'
-                    }}/>
-                    <span className="key">최초</span>
-                    <span className="val">2020-05-17 13:05</span>
-                </div>
-                <div className="elem">
-                    <MdAccessTime style={{
-                        marginTop: 1,
-                        marginRight: 2,
-                        float: 'left'
-                    }}/>
-                    <span className="key">최종</span>
-                    <span className="val">2020-05-17 13:05</span>
-                </div>
-                <div className="elem">
-                    <MdAccessTime style={{
-                        marginTop: 1,
-                        marginRight: 2,
-                        float: 'left'
-                    }}/>
-                    <span className="key">누적</span>
-                    <span className="val">2020-05-17 13:05</span>
-                </div>
+                {
+                    type===2 ?
+                    <Fragment>
+                        <div className="elem">
+                            <MdAccessTime style={{
+                                marginTop: 1,
+                                marginRight: 2,
+                                float: 'left'
+                            }}/>
+                            <span className="key">최초</span>
+                            <span className="val">{node.get('firstDateTime')}</span>
+                        </div>
+                        <div className="elem">
+                            <MdAccessTime style={{
+                                marginTop: 1,
+                                marginRight: 2,
+                                float: 'left'
+                            }}/>
+                            <span className="key">최종</span>
+                            <span className="val">{node.get('lastDateTime')}</span>
+                        </div>
+                        <div className="elem">
+                            <MdAccessTime style={{
+                                marginTop: 1,
+                                marginRight: 2,
+                                float: 'left'
+                            }}/>
+                            <span className="key">누적</span>
+                            <span className="val">{}</span>
+                        </div>
+                    </Fragment>
+                    :
+                    <Fragment>
+                        <div className="elem">
+                            <MdAccessTime style={{
+                                marginTop: 1,
+                                marginRight: 2,
+                                float: 'left'
+                            }}/>
+                            <span className="key">최초</span>
+                            <span className="val">{node.get('dateTime')}</span>
+                        </div>
+                    </Fragment>
+                }
                 <div className="total">
                     <div className="total-key">접촉자 수</div>
                     <div className="total-val">
-                        <span id="bold">N/A</span></div>
+                    <span id="bold">{node.get('cntctPatientNum')}</span></div>
                 </div>
             </div>
         </button>
     )
 }
 
-const SideBar = ({toggle}) => {
+const SideBar = ({mainPerson}) => {
+    let movingInfo = mainPerson.get('movingInfo')
     return (
         <div className="SideBar">
             <div id="comp-title">
-                <span>동선 정보 <span id="bold">{`( 8 )`}</span></span>
+                <span>동선 정보 <span id="bold">( {movingInfo.size} )</span></span>
             </div>
             <div className="body">
-                <VisitNode/>
-                <VisitNode/>
-                <VisitNode/>
-                <VisitNode/>
-                {/* <VisitNode/>
-                <VisitNode/>
-                <VisitNode/>
-                <VisitNode/>
-                <VisitNode/> */}
+                {movingInfo.map((elem,idx)=>{
+                    console.log(elem)
+                    return(<VisitNode key={idx} node={elem} type={mainPerson.get('type')} idx={idx}/>)
+                })}
             </div>
         </div>
     )

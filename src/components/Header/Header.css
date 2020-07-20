@@ -18,6 +18,15 @@
     text-align: center;
 }
 
+.Header > .title {
+    left: 101px;
+    position: absolute;
+    width: 250px;
+    height: 45px;
+    text-align: center;
+    font-weight: bolder;
+}
+
 .Header > button {
     background-color: #217BBF;
     color: #fff;
