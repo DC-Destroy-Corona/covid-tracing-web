@@ -28,9 +28,9 @@ const MainSideBar = ({select, sbSelect}) => {
             </MainSideBarItem>
 
             {/* 링크 추가해야함 */}
-            <MainSideBarItem text="통계" onClick={()=>sbSelect(3)} isSelect={select==3}>
+            {/* <MainSideBarItem text="통계" onClick={()=>sbSelect(3)} isSelect={select==3}>
                 <MdInsertChart size={30}/>
-            </MainSideBarItem>
+            </MainSideBarItem> */}
         </div>
     )
 }

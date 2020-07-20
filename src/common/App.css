@@ -19,8 +19,75 @@
     width: 100%;
 }
 
+#infowindow{
+    width: 300px;
+    height: 200px;
+    font-size: 14px;
+}
+
+#infowindow header{
+    padding: 4px 8px;
+    border-bottom: 1px solid #eee;
+    background-color: #F9F9F9;
+}
+
+#infowindow .infowindow-h2{
+    padding-top: 6px;
+    padding-bottom: 6px;
+    margin-left: 8px;
+    margin-right: 8px;
+    border-bottom: 1px solid #eee;
+    font-size: 13px;;
+}
+
+#infowindow .infowindow-table-form > table{
+    width: 100%;
+    font-size: 12px;
+    font-weight: 500;
+    color: #313338;
+}
+
+#infowindow .infowindow-table-form > table thead{
+    font-weight: 500;
+    background-color: #F9F9F9;
+    border-bottom: 1px solid #eee;
+}
+
+#infowindow .infowindow-table-form > tbody{
+    overflow: visible;
+}
+
+#infowindow .infowindow-table-form > table table{
+    width: 100%;
+    font-size: 12px;
+    text-align: center;
+    overflow: auto;
+}
+
+#infowindow .infowindow-h2::before{
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    background-color: #313338;
+    margin-bottom: 2px;
+}
+
+#infowindow .infowindow-table-form{
+    width: 280px;
+    height: 100px;
+    margin: 0 auto;
+    margin-top: 6px;
+    border: 1px solid #eee;
+}
+
 #bold{
     font-weight: 600;
 }
 
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');

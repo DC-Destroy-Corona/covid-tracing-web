@@ -1,13 +1,51 @@
 import React, { Fragment } from 'react';
 import './SideBar.css';
-import {MdAccessTime} from 'react-icons/md'
+import {
+    MdAccessTime,
+    MdKeyboardArrowLeft,
+    MdKeyboardArrowRight,
+} from 'react-icons/md'
 
-const VisitNode = ({node, type, idx}) => {
+const VisitNodeFold = ({idx,chCenter, node, nodeSelect}) => {
+    return(
+        <button className="VisitNodeFold" onClick={
+            ()=>{
+                chCenter(node, idx)
+            }   
+        }
+        style={
+            nodeSelect===idx ? {
+                backgroundColor: '#238CFA',
+                color: '#fff'
+            }
+            :
+            {}
+        }>
+            <span>{idx}</span>
+        </button>
+    )
+}
+
+const VisitNode = ({node, type, idx,chCenter, sidebarFold, nodeSelect}) => {
+    //const back = nodeSelect===idx ? '#238CFA' : ''
     return (
-        <button className="VisitNode">
+        <button className="VisitNode" onClick={
+            ()=>{
+                chCenter(node, idx)
+            }
+        }
+        style={sidebarFold ? {
+            width: 44,
+            height: 50,
+            //backgroundColor: back
+        } : {
+            width: 275,
+            height: 100,
+            //backgroundColor: back
+        }}>
             <div className="head">
                 <div className="idx">
-                    <span>{idx+1}</span>
+                    <span>{idx}</span>
                 </div>
                 <div className="loc">{node.get('location')}</div>
             </div>
@@ -66,17 +104,41 @@ const VisitNode = ({node, type, idx}) => {
     )
 }
 
-const SideBar = ({mainPerson}) => {
+const SideBar = ({mainPerson, chCenter, sidebarFold, sbFold, nodeSelect}) => {
     let movingInfo = mainPerson.get('movingInfo')
     return (
-        <div className="SideBar">
+        <div className="SideBar" id={sidebarFold ? 'SideBar-fold' : ''}>
             <div id="comp-title">
-                <span>동선 정보 <span id="bold">( {movingInfo.size} )</span></span>
+                <button className="fold" onClick={sbFold}>{
+                    sidebarFold ? <MdKeyboardArrowLeft/> : <MdKeyboardArrowRight/>
+                }</button>
+                {
+                    sidebarFold ? null : <span>동선 정보 <span id="bold">( {movingInfo.size} )</span></span>
+                }
             </div>
             <div className="body">
                 {movingInfo.map((elem,idx)=>{
-                    console.log(elem)
-                    return(<VisitNode key={idx} node={elem} type={mainPerson.get('type')} idx={idx}/>)
+                    idx+=1;
+                    return(
+                        sidebarFold ? 
+                        <VisitNodeFold 
+                            idx={idx} 
+                            key={idx}
+                            chCenter={chCenter}
+                            node={elem}
+                            nodeSelect={nodeSelect}
+                        /> 
+                        :
+                        <VisitNode 
+                            key={idx} 
+                            node={elem} 
+                            type={mainPerson.get('type')} 
+                            idx={idx}
+                            chCenter={chCenter}
+                            sidebarFold={sidebarFold}
+                            nodeSelect={nodeSelect}
+                        />
+                    )
                 })}
             </div>
         </div>

@@ -4,12 +4,19 @@ import { pender } from 'redux-pender';
 
 /*--------action type--------*/
 const CH_CENTER = 'tracing/CH_CENTER';
+const CH_LEVEL = 'tracing/CH_LEVEL';
+const CH_SELECT = 'tracing/CH_SELECT';
 
 /*--------create action--------*/
 export const chCenter = createAction(CH_CENTER);
+export const chLevel = createAction(CH_LEVEL);
+export const chSelect = createAction(CH_SELECT);
 
 /*--------state definition--------*/
 const initialState = Map({
+    pageSets: Map({
+        select: null
+    }),
     mapOption: Map({
         center: Map({
             latitude: 523951.25,
@@ -53,6 +60,14 @@ const initialState = Map({
 export default handleActions({
     [CH_CENTER]: (state, action) => {
         return state.setIn(['mapOption', 'center'], Map(action.payload));
+    },
+
+    [CH_LEVEL]: (state, action) => {
+        return state.setIn(['mapOption', 'level'], action.payload);
+    },
+
+    [CH_SELECT]: (state, action) => {
+        return state.setIn(['pageSets', 'select'], action.payload);
     },
     
 }, initialState);
