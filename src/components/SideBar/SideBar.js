@@ -16,7 +16,8 @@ const VisitNodeFold = ({idx,chCenter, node, nodeSelect}) => {
         style={
             nodeSelect===idx ? {
                 backgroundColor: '#238CFA',
-                color: '#fff'
+                color: '#fff',
+                border: '1px solid #fff'
             }
             :
             {}
@@ -105,7 +106,6 @@ const VisitNode = ({node, type, idx,chCenter, sidebarFold, nodeSelect}) => {
 }
 
 const SideBar = ({mainPerson, chCenter, sidebarFold, sbFold, nodeSelect}) => {
-    let movingInfo = mainPerson.get('movingInfo')
     return (
         <div className="SideBar" id={sidebarFold ? 'SideBar-fold' : ''}>
             <div id="comp-title">
@@ -113,11 +113,11 @@ const SideBar = ({mainPerson, chCenter, sidebarFold, sbFold, nodeSelect}) => {
                     sidebarFold ? <MdKeyboardArrowLeft/> : <MdKeyboardArrowRight/>
                 }</button>
                 {
-                    sidebarFold ? null : <span>동선 정보 <span id="bold">( {movingInfo.size} )</span></span>
+                    sidebarFold ? null : <span>동선 정보 <span id="bold">( {mainPerson ? mainPerson.get('movingInfo').size : null} )</span></span>
                 }
             </div>
             <div className="body">
-                {movingInfo.map((elem,idx)=>{
+                {mainPerson ? mainPerson.get('movingInfo').map((elem,idx)=>{
                     idx+=1;
                     return(
                         sidebarFold ? 
@@ -139,7 +139,7 @@ const SideBar = ({mainPerson, chCenter, sidebarFold, sbFold, nodeSelect}) => {
                             nodeSelect={nodeSelect}
                         />
                     )
-                })}
+                }) : null}
             </div>
         </div>
     )

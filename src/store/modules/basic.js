@@ -14,7 +14,7 @@ export const sbFold = createAction(SB_FOLD);
 const initialState = Map({
     basic: Map({
         select: 1,
-        sidebarFold: false
+        sidebarFold: true
     }),
 });
 

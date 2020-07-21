@@ -232,6 +232,18 @@ class Tracing extends Component {
         map.relayout();
     }
 
+    //접촉자 선택
+    _selectContacter = (id) =>{
+        const { tracingActions } = this.props;
+        tracingActions.getContactorInfo(id)
+    }
+
+    //확진자 선택
+    _selectConfirmer = (id) =>{
+        const { tracingActions } = this.props;
+        tracingActions.getConfirmerInfo(id)
+    }
+
     componentDidMount() {
 
         const {
@@ -241,6 +253,7 @@ class Tracing extends Component {
 
         //default props initialze
         tracingActions.chSelect(null);
+        tracingActions.getGlobalInfo();
 
         //map settings
         const script = document.createElement("script");
@@ -257,9 +270,19 @@ class Tracing extends Component {
                 map = new kakao.maps.Map(el, mapOption)
 
                 this._createMapControl()
-                this._createVisitInfo(mainPerson, map)
+
+                
             })
         }
+    }
+
+    componentDidUpdate(){
+        const {
+            mainPerson
+        } = this.props;
+
+        if(mainPerson)
+            this._createVisitInfo(mainPerson, map)
     }
 
     render() {
@@ -268,7 +291,8 @@ class Tracing extends Component {
             mainPerson,
             mapOption,
             sidebarFold,
-            nodeSelect
+            nodeSelect,
+            globalInfo
         } = this.props;
 
         return (
@@ -283,10 +307,14 @@ class Tracing extends Component {
                 />
                 <MapPallet 
                     sidebarFold={sidebarFold}
+                    person={mainPerson}
                 />
                 <Header/>
-                <FooterBar>
-                </FooterBar>
+                <FooterBar 
+                    globalInfo={globalInfo}
+                    selectContacter={this._selectContacter}
+                    selectConfirmer={this._selectConfirmer}
+                />
             </Fragment>
         )
     }
@@ -302,6 +330,7 @@ export default withRouter(
             nodeSelect: state.tracing.getIn(['pageSets', 'select']),
             mainPerson: state.tracing.get('person'),
             mapOption: state.tracing.get('mapOption'), 
+            globalInfo: state.tracing.get('globalInfo'), 
         }),
         // props 로 넣어줄 액션 생성함수
         dispatch => ({

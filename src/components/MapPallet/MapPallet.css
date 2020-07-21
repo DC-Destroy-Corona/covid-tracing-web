@@ -24,16 +24,15 @@
     width: 200px;
     height: 200px;
     z-index: 9999;
-    opacity: 0.7;
-    background: #ffffff;
-    background: rgba(255, 255, 255, 1.0);
+    background-color: #ffffff;
+    background: rgba(255, 255, 255, 0.8);
     border: 1px solid #dadada;
 }
 
 .PersonInfo header{
     text-align: center;
     font-size: 16px;
-    font-weight: 800;
+    font-weight: 500;
     color: black;
     background-color: #F9F9F9;
     border-bottom: 1px solid #dadada;
@@ -41,17 +40,19 @@
 }
 
 .PersonInfo .PersonInfo-row{
-    width: 90%;
-    font-size: 14px;
+    display: block;
+    width: 95%;
+    font-size: 13px;
     border-bottom: 1px solid #eee;
     padding-bottom: 5px;
     margin-bottom: 3px;
     padding-left: 5px;
-    font-weight: 500;
+    font-weight: 400;
 }
 
 .PersonInfo .PersonInfo-key{
-    width: 45%;
+    width: 50%;
+    display: inline-block;
 }
 
 .PersonInfo .PersonInfo-key::before{
@@ -65,8 +66,20 @@
     background-color: #313338;
     margin-bottom: 2px;
     margin-right: 5px;
+    
 }
 
 .PersonInfo .PersonInfo-val{
-    
+    width: 50%;
+    display: inline-block;
+    text-align: right;
+}
+
+.PersonInfo .color-bold{
+    background-color: #3396FF;
+    color: white;
+    padding: 1px 8px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 400;
 }

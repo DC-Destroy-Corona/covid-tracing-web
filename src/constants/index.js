@@ -1,4 +1,4 @@
-export const CONTACTER_THEAD=[
+export const CONTACTER_LEFT_THEAD=[
     {
         header: '식별번호',
         accessor: 'idx'
@@ -9,6 +9,25 @@ export const CONTACTER_THEAD=[
     },
     {
         header: '접촉자수',
+        accessor: 'contacters'
+    },
+    {
+        header: '방문지점수',
+        accessor: 'nodes'
+    }
+]
+
+export const CONTACTER_RIGHT_THEAD=[
+    {
+        header: '식별번호',
+        accessor: 'idx'
+    },
+    {
+        header: '성별',
+        accessor: 'gender'
+    },
+    {
+        header: '접촉 확진자',
         accessor: 'contacters'
     },
     {
@@ -53,3 +72,5 @@ export const MARKER_OPT = {
         }
     }
 }
+
+export const API_BASE_URL = 'http://203.250.32.29:8083'
