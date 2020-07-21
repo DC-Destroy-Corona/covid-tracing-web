@@ -11,7 +11,7 @@ import {
 } from 'components';
 import './ConfirmerInfoAdd.css';
 import DatePicker from "react-datepicker";
-
+import Dropdown from 'react-dropdown';
 import "react-datepicker/dist/react-datepicker.css";
 import { FcCalendar } from "react-icons/fc";
 class ConfirmerInfoAdd extends Component {
@@ -26,9 +26,14 @@ class ConfirmerInfoAdd extends Component {
         editActions.selectGender(e.target.value);
     }
 
-    _pickConfirmDatetime  = (date) => {
+    _selectRegion = (option) => {
         const { editActions } = this.props;
-        editActions.pickConfirmDatetime(date);
+        editActions.selectRegion(option.value);
+    }
+
+    _pickConfirmDate  = (date) => {
+        const { editActions } = this.props;
+        editActions.pickConfirmDate(date);
     }
     _registerConfirmer = () => {
         const { 
@@ -39,20 +44,10 @@ class ConfirmerInfoAdd extends Component {
         editActions.registerConfirmer({
             confirmerId : confirmerInfo.confirmerId,
             gender : confirmerInfo.gender,
-            confirmDatetime : confirmerInfo.confirmerId
+            region : confirmerInfo.region,
+            confirmDate : confirmerInfo.confirmDate
         })
     }
-    // //캘린더 상태
-    // state = {
-    //     startDate: new Date()
-    // };
-
-    // handleChange = date => {
-    //     this.setState({
-    //         startDate: date
-    //     });
-    // };
-
     componentDidMount() {
     }
 
@@ -64,9 +59,17 @@ class ConfirmerInfoAdd extends Component {
         const {
             confirmerId,
             gender,
-            confirmDatetime
+            region,
+            confirmDate
         } = confirmerInfo;
-
+        const options = [
+            '서울특별시','부산광역시','대구광역시', 
+            '인천광역시', '광주광역시','대전광역시',
+            '울산광역시','경기도','강원도','충청북도',
+            '충청남도','전라북도','전라남도','경상북도',
+            '경상남도','제주특별자치도','세종특별자치시'
+        ]          
+        const defaultOption = region;
         return (
             <div className="confirmerInfoAdd">
                 <InputContainer title="확진자 정보 등록" bold={true}>
@@ -106,18 +109,33 @@ class ConfirmerInfoAdd extends Component {
                         </label>
                     </div>
                     <div style={{
-                        height:'10px'
+                        height:'15px'
+                    }}> </div>
+                    <InputItem
+                        display={false}
+                        name='소재지'
+                        label='region'
+                        must={true}
+                    />
+                    <Dropdown 
+                        options={options} 
+                        onChange={this._selectRegion} 
+                        value={region}
+                        placeholder="시/도 선택" 
+                    />
+                    <div style={{
+                        height:'5px'
                     }}> </div>
                     <InputItem
                         display={false}
                         name='확진 일자'
-                        label='visit_date'
+                        label='confirm_date'
                         must={true}
                     />
                     <div className="datepicker_form">
                     <DatePicker 
-                        selected={confirmDatetime}
-                        onChange={this._pickConfirmDatetime}
+                        selected={confirmDate}
+                        onChange={this._pickConfirmDate}
                         dateFormat="yyyy-MM-dd"
                     />
                         <div className="calender_icon">
@@ -145,7 +163,12 @@ export default withRouter(
             confirmerInfo : {
                 confirmerId: state.edit.getIn(['confirmerInfo', 'confirmerId']),
                 gender: state.edit.getIn(['confirmerInfo', 'gender']),
-                confirmDatetime: state.edit.getIn(['confirmerInfo', 'confirmDatetime']),
+                region: state.edit.getIn(['confirmerInfo', 'region']),
+                confirmDate: state.edit.getIn(['confirmerInfo', 'confirmDate']),
+            },
+            visitPointInfo : {
+                roadNameAddr : state.edit.getIn(['visitPointInfo', 'roadNameAddr']),
+                visitDatetime : state.edit.getIn(['visitPointInfo', 'visitDatetime']),
             }
         }),
         // props 로 넣어줄 액션 생성함수

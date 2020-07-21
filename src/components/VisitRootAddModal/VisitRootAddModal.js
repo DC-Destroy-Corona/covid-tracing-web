@@ -1,50 +1,69 @@
 import React, { Component, Fragment } from 'react';
 import { MdClose } from 'react-icons/md'
 import './VisitRootAddModal.css';
-import Modal from 'react-modal';
+import { bindActionCreators } from 'redux';
+import { withRouter } from 'react-router';
+import { connect } from 'react-redux';
+import * as editActions from 'store/modules/edit';
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 import { FcCalendar } from "react-icons/fc";
 
-const VisitRootAddModal = ({
-    dataModal,
-    _handleIsModal,
-    createVisitRoot
-}) => {
+// const VisitRootAddModal = ({
+//     _handleIsModal,
+//     createVisitRoot
+// }) => {
+class VisitRootAddModal extends Component {
+    
+    _pickVisitDatetime  = (date) => {
+        const { editActions } = this.props;
+        editActions.pickVisitDatetime(date);
+    }
+    _setIsModalWithTrue = () => {
+        // this.setState({ showModal: true });
+        const { editActions, showModal
+            } = this.props;   
+        editActions.setIsModalWithTrue(!showModal);
+        }
+    
+        _setIsModalWithFalse = () => {
+        // this.setState({ showModal: false });
+        const { editActions, showModal
+        } = this.props;   
+        editActions.setIsModalWithFalse(!showModal);
+        }
 
+        _registerVisitPoint =() => {
+            const { 
+                editActions,
+                visitPointInfo
+            } = this.props;
+    
+            editActions.registerVisitPoint({
+                roadNameAddr : visitPointInfo.roadNameAddr,
+                visitDatetime : visitPointInfo.visitDatetime
+            })
+        }
+    componentDidMount() {
+    }
+
+    render(){
+        const {
+            visitPointInfo,
+            showModal
+        } = this.props;
+
+        const {
+            roadNameAddr,
+            visitDatetime
+        } = visitPointInfo;
     return (
-        <Modal
-            isOpen={dataModal}
-            style={{
-                overlay: {
-                    zIndex: 9999,
-                    backgroundColor: 'rgba(33,33,33,0.2)'
-                },
-                content: {
-                    padding: 0,
-                    borderRadius: '2px',
-                    border: '1px solid #555',
-                    backgroundColor: '#fff',
-                    top: '70px',
-                    left: '100px',
-                    right: '100px',
-                    bottom: '70px',
-                    // left: '70px',
-                    // right: '70px',
-                    marginLeft: 'auto',
-                    marginRight: 'auto',
-                    //height: 175,
-                    //maxWidth: '550px',
-                    overflow: 'hidden'
-                    // bottom: '85px',
-                }
-            }}>
-            <div id="VisitRootAddModal">
+        <div id="VisitRootAddModal">
             <header>
                     <span>방문 지점 등록</span>
-                    <button onClick={_handleIsModal}>
-                        <MdClose/>
+                    <button id="close_btn" onClick={this._setIsModalWithFalse}>
+                        <MdClose size={20}/>
                     </button>
             </header>
             <div className="wrap">
@@ -56,7 +75,7 @@ const VisitRootAddModal = ({
                             <input
                                 className="input"
                                 name="devName"
-                                type="text" >
+                                type="text">
                             </input>
                         </div>
                     </div>
@@ -66,13 +85,11 @@ const VisitRootAddModal = ({
                         </div>
                         <div className="input-item">
                         <div className="datepicker_form">
-                        <DatePicker
-                            selected={this.state.startDate}
-                            onChange={this.handleChange}
-                            timeInputLabel="Time:"
-                            dateFormat="yyyy-MM-dd  hh:mm aa"
-                            showTimeInput
-                        />
+                        <DatePicker 
+                        selected={visitDatetime}
+                        onChange={this._pickVisitDatetime}
+                        dateFormat="yyyy-MM-dd"
+                    />
                         <div className="calender_icon">
                             <FcCalendar size={20} />
                         </div>
@@ -80,13 +97,33 @@ const VisitRootAddModal = ({
                         </div>
                     </div>
                     <div className="center">
-                        <button onClick={_handleIsModal}>취소</button>
-                        <button style={{ marginRight: 0 }} onClick={createVisitRoot}>등록</button>
+                    <button onClick={this._setIsModalWithFalse}>취소</button>
+                    <button onClick={this._registerVisitPoint}>등록</button>
                     </div>
             </div>
-            </div>
-        </Modal>
+        </div>
     )
 }
-
-export default VisitRootAddModal;
+}
+export default withRouter(
+    connect(
+        // props 로 넣어줄 스토어 상태값
+        state => ({
+            confirmerInfo : {
+                confirmerId: state.edit.getIn(['confirmerInfo', 'confirmerId']),
+                gender: state.edit.getIn(['confirmerInfo', 'gender']),
+                confirmDate: state.edit.getIn(['confirmerInfo', 'confirmDate']),
+            },
+            visitPointInfo : {
+                roadNameAddr : state.edit.getIn(['visitPointInfo', 'roadNameAddr']),
+                visitDatetime : state.edit.getIn(['visitPointInfo', 'visitDatetime']),
+            },
+            
+            showModal : state.edit.get('showModal'),
+        }),
+        // props 로 넣어줄 액션 생성함수
+        dispatch => ({
+            editActions: bindActionCreators(editActions, dispatch),
+        })
+    )(VisitRootAddModal)
+)

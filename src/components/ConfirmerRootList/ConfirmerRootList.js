@@ -1,9 +1,13 @@
-import React, { Fragment } from 'react';
+import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { withRouter } from 'react-router';
+import { connect } from 'react-redux';
+import * as editActions from 'store/modules/edit';
 import './ConfirmerRootList.css';
 import { FaMapSigns } from "react-icons/fa";
 import { MdDateRange } from "react-icons/md";
 
-const VisitNode = ({}) => {
+const VisitNode = ({roadNameAddr,visitDatetime}) => {
     return (
         <button className="VisitNode">
             <div className="node-row">
@@ -14,7 +18,8 @@ const VisitNode = ({}) => {
                         float: 'left'
                     }}/>
                     <span className="key">도로명 주소</span>
-                    <span className="val">경상북도 경산시 하양읍 하양로 13-13(대구가톨릭대학교 공학관 526호)</span>
+                <span className="val">{roadNameAddr}</span>
+                    {/* <span className="val">경상북도 경산시 하양읍 하양로 13-13(대구가톨릭대학교 공학관 526호)</span> */}
                 </div>  
                 </div>
                 
@@ -26,29 +31,64 @@ const VisitNode = ({}) => {
                         float: 'left'
                     }}/>
                     <span className="key">방문 일자</span>
-                    <span className="val">2020-05-17 13:05</span>
+                <span className="val">{visitDatetime}</span>
+                    {/* <span className="val">2020-05-17 13:05</span> */}
                 </div>
             </div>
         </button>
     )
 }
 
-const ConfirmerRootList = ({}) => {
-    return (
-        <div className="ConfirmerRootList">
-            <div id="comp-title">
-                <span>방문 지점 정보</span>
+class ConfirmerRootList extends Component {
+    render(){
+        return (
+            <div className="ConfirmerRootList">
+                <div id="comp-title">
+                    <span>방문 지점 정보</span>
+                </div>
+                <div className="body">
+                    <VisitNode 
+                    roadNameAddr='경상북도 경산시 하양읍 하양로 13-13(대구가톨릭대학교 공학관 526호)'
+                    visitDatetime='2020-05-17'
+                    />
+                    <VisitNode 
+                    roadNameAddr='경상북도 경산시 하양읍 하양로 13-13(대구가톨릭대학교 공학관 526호)'
+                    visitDatetime='2020-05-17'
+                    /><VisitNode 
+                    roadNameAddr='경상북도 경산시 하양읍 하양로 13-13(대구가톨릭대학교 공학관 526호)'
+                    visitDatetime='2020-05-17'
+                    /><VisitNode 
+                    roadNameAddr='경상북도 경산시 하양읍 하양로 13-13(대구가톨릭대학교 공학관 526호)'
+                    visitDatetime='2020-05-17'
+                    /><VisitNode 
+                    roadNameAddr='경상북도 경산시 하양읍 하양로 13-13(대구가톨릭대학교 공학관 526호)'
+                    visitDatetime='2020-05-17'
+                    />
+                </div>
             </div>
-            <div className="body">
-                <VisitNode/>
-                <VisitNode/>
-                <VisitNode/>
-                <VisitNode/>
-                <VisitNode/>
-                <VisitNode/>
-            </div>
-        </div>
-    )
+        )
+    }
+    
 }
-
-export default ConfirmerRootList;
+export default withRouter(
+    //subscribe redux store
+    connect(
+        state => ({
+            confirmerInfo : {
+                confirmerId: state.edit.getIn(['confirmerInfo', 'confirmerId']),
+                gender: state.edit.getIn(['confirmerInfo', 'gender']),
+                confirmDate: state.edit.getIn(['confirmerInfo', 'confirmDate']),
+            },
+            visitPointInfo : {
+                roadNameAddr : state.edit.getIn(['visitPointInfo', 'roadNameAddr']),
+                visitDatetime : state.edit.getIn(['visitPointInfo', 'visitDatetime']),
+            },
+            
+            showModal : state.edit.get('showModal'),
+        }),
+        // props 로 넣어줄 액션 생성함수
+        dispatch => ({
+            editActions: bindActionCreators(editActions, dispatch),
+        })
+    )(ConfirmerRootList)
+);
