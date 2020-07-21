@@ -1,0 +1,72 @@
+#VisitRootAddModal{
+    font-family: 'Noto Sans KR', sans-serif;
+    cursor: default;
+}
+
+#VisitRootAddModal > header{
+    color: #fff;
+    background-color: #555555 !important;
+    height: 20px !important;
+    display: block;
+}
+
+#VisitRootAddModal > header > span{
+    width: 100%;
+    font-size: 12px;
+    margin-left: 10px;
+}
+
+#VisitRootAddModal .wrap{
+    font-size: 13px;
+    padding: 10px 11px 15px 11px;
+}
+
+#VisitRootAddModal .wrap-item{
+    margin-bottom: 20px;
+    margin-left: 10px;
+    font-size: 12px;
+}
+
+#VisitRootAddModal .input-title{
+    color: rgb(51,51,51);
+    font-weight: 400;
+    float: left;
+    width: 142px;
+}
+#VisitRootAddModal .must > span::after{
+    position: absolute;
+    /* right: -8px; */
+    width: 4px;
+    height: 4px;
+    border-radius: 2px;
+    margin-top: 3px;
+    margin-left: 4px;
+    background-color: rgb(255,86,64);
+    content: '';
+}
+
+#VisitRootAddModal .center > button{
+    width: 80px;
+    padding: 1px 0 2px 0;
+    border: 1px solid #000;
+    background-color: #fff;
+    border-radius: 2px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+#VisitRootAddModal .center > button:hover{
+    background-color: #74737D;
+    border: 1px solid #74737D;
+    color: white;
+}
+
+#VisitRootAddModal .center {
+    margin: auto;
+    width: 178px;
+}
+
+#VisitRootAddModal .center > button {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 13px;
+}

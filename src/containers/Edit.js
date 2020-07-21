@@ -7,25 +7,36 @@ import * as basicActions from 'store/modules/basic';
 import {
     Header,
     MainSideBar,
+    ConfirmerInfoAdd,
+    ConfirmerInfoList,
+    BeaconInfoAdd,
+    BeaconInfoList,
+    ConfirmerRootList
 } from 'components';
-
+import VisitRootAddModal from '../components/VisitRootAddModal/VisitRootAddModal';
 
 class Edit extends Component {
-
     _sbSelect = (idx) => {
         const { basicActions } = this.props;
         basicActions.sbSelect(idx);
     }
-
+    
     componentDidMount() {
     }
 
     render() {
-        const {select} = this.props;
+        const { 
+            select
+        } = this.props;
         return (
             <Fragment>
-                <MainSideBar select={select} sbSelect={this._sbSelect}/>
-                <Header/>
+                <MainSideBar select={select} sbSelect={this._sbSelect} />
+                <Header />
+                <ConfirmerInfoAdd />
+                <ConfirmerInfoList />
+                <ConfirmerRootList />
+                <BeaconInfoAdd />
+                <BeaconInfoList />
             </Fragment>
         )
     }

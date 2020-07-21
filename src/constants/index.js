@@ -16,3 +16,5 @@ export const CONTACTER_THEAD=[
         accessor: 'nodes'
     }
 ]
+
+export const API_BASE_URL = 'http://203.250.32.29:8083';
