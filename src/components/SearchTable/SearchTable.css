@@ -1,0 +1,244 @@
+.SearchTable{
+    position: absolute;
+    bottom: 6px;
+    left: 104px;
+    right: 5px;
+    /* height: 265px; */
+    top: 47px;
+    position: absolute;
+    z-index: 9999;
+    background-color: #F9F9F9;
+    border: 1px solid #dadada;
+    border-radius: 2px;
+    /* opacity: 0.85; */
+}
+
+.SearchTable .navigation-bar{
+    height: 450px;
+    width: 100%;
+    border-bottom: 1px solid #dadada;
+    background-color: #fff;
+}
+
+.SearchTable .table-pallet{
+    position: absolute;
+    top: 450px;
+    left: -1px;
+    right: -1px;
+    bottom: 1px;
+    padding: 5px 0;
+    border: 1px solid #dadada;
+    background-color: #fff;
+    display: flex;
+}
+
+.PersonsList{
+    position: relative;
+    display: inline-block;
+    height: 100%;
+    width: 49.3%;
+    margin: 0 auto;
+}
+
+.PersonsList header{
+    height: 20px;
+    font-size: 14px;
+    text-align: center;
+    padding: 4px 0;
+    border: 1px solid #eee;
+}
+
+.PersonsList .list-body{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 31px;
+    bottom: 45px;
+    border-left: 1px solid #eee;
+    border-right: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    /* overflow-x: scroll;
+    overflow-y: scroll; */
+}
+
+.PersonsList .table-thead{
+    z-index: 9999;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    font-size: 12px;
+    height: 26px;
+    white-space: nowrap;
+    width: 100%;
+}
+
+.PersonsList .table-thead > div{
+    position: relative;
+    height: 24px;
+    display: inline-block;
+    padding-top: 3px;
+    text-align: center;
+    border-right: 1px solid #fff;
+    background-color: #F0F0F0;
+}
+
+.PersonsList .table-body{
+    position: absolute;
+    top: 26px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    font-size: 12px;
+    /* white-space: nowrap; */
+    background-color: #fff;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.PersonsList .table-row{
+    white-space: nowrap;
+    display: block;
+    position: relative;
+    font-size: 12px;
+    height: 26px;
+    width: 100%;
+}
+
+.PersonsList .table-body > div{
+    position: relative;
+    height: 24px;
+    display: inline-block;
+    padding-top: 3px;
+    text-align: center;
+    border-right: 1px solid #fff;
+}
+
+.PersonsList .table-body > .table-row > div{
+    position: relative;
+    height: 24px;
+    display: inline-block;
+    padding-top: 3px;
+    text-align: center;
+    border-right: 1px solid #fff;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.PersonsList .table-no{
+    min-width: 50px;
+    width: 100px;
+    max-width: auto;
+}
+
+.PersonsList .table-idx{
+    min-width: 100px;
+    width: 150px;
+    max-width: auto;
+}
+
+.PersonsList .table-arg1{
+    min-width: 50px;
+    width: 100px;
+    max-width: auto;
+}
+
+.PersonsList .table-arg2{
+    min-width: 100px;
+    width: 110px;
+    max-width: auto;
+}
+
+.PersonsList .table-arg3{
+    min-width: 100px;
+    width: 111px;
+    max-width: auto;
+}
+
+.PersonsList footer{
+    position: absolute;
+    bottom: 0;
+    left: 1px;
+    right: 1px;
+    height: 36px;
+}
+
+.PersonsList .table-index{
+    font-size: 13px;
+    font-weight: bold;
+    color: #313338;
+    padding-left: 10px;
+}
+
+.PersonsList .table-index-btns{
+    font-weight: bold;
+    color: #313338;
+    width: 390px;
+    height: 50px;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.PersonsList .table-index-btns > button{
+    float: right;
+    font-size: 11px;
+    height: 25px;
+    margin-right: 3px;
+}
+
+.PersonsList .table-body::-webkit-scrollbar {
+    width: 10px;
+}
+
+.PersonsList .table-body::-webkit-scrollbar-thumb {
+    background-color: #aaa;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+}
+.PersonsList .table-body::-webkit-scrollbar-track {
+    background-color: #cfcfcf;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+}
+
+.SearchTable .table-title{
+    background-color: #f1f1f1;
+    font-size: 15px;
+    border-bottom: 1px solid #eee;
+    height: 25px;
+}
+
+.SearchTable .table-title > div{
+    border: 0;
+    text-align: center;
+    float: left;
+    height: 25px;
+    color: #303030;
+    padding-top:2px;
+    padding-left:6px;
+}
+
+.SearchTable .table-title > span{
+    display: block;
+    padding-top: 2px;
+    padding-bottom: 5px;
+    padding-left: 30px;
+}
+
+.SearchTable .navi-cont{
+    margin: 5px;
+    border: 1px solid #eee;
+    position: relative;
+    width: 49%;
+    height: 410px;
+    overflow: hidden;
+}
+
+#korea{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}

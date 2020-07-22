@@ -1,10 +1,12 @@
 import React, { Fragment } from 'react';
 import './SideBar.css';
+import TextTruncate from 'react-text-truncate';
 import {
     MdAccessTime,
     MdKeyboardArrowLeft,
     MdKeyboardArrowRight,
 } from 'react-icons/md'
+import Moment from 'react-moment';
 
 const VisitNodeFold = ({idx,chCenter, node, nodeSelect}) => {
     return(
@@ -29,6 +31,7 @@ const VisitNodeFold = ({idx,chCenter, node, nodeSelect}) => {
 
 const VisitNode = ({node, type, idx,chCenter, sidebarFold, nodeSelect}) => {
     //const back = nodeSelect===idx ? '#238CFA' : ''
+    console.log(node.get('datetime'))
     return (
         <button className="VisitNode" onClick={
             ()=>{
@@ -48,7 +51,14 @@ const VisitNode = ({node, type, idx,chCenter, sidebarFold, nodeSelect}) => {
                 <div className="idx">
                     <span>{idx}</span>
                 </div>
-                <div className="loc">{node.get('location')}</div>
+                <div className="loc">
+                    <TextTruncate 
+                        line={1} 
+                        element="span" 
+                        truncateText="..."
+                        text={node.get('location')}
+                    />
+                </div>
             </div>
             <div className="body">
                 {
@@ -61,7 +71,11 @@ const VisitNode = ({node, type, idx,chCenter, sidebarFold, nodeSelect}) => {
                                 float: 'left'
                             }}/>
                             <span className="key">최초</span>
-                            <span className="val">{node.get('firstDateTime')}</span>
+                            <span className="val">
+                                <Moment format="YYYY/MM/DD hh:mm">
+                                        {node.get('firstDateTime')}
+                                </Moment>
+                            </span>
                         </div>
                         <div className="elem">
                             <MdAccessTime style={{
@@ -70,9 +84,13 @@ const VisitNode = ({node, type, idx,chCenter, sidebarFold, nodeSelect}) => {
                                 float: 'left'
                             }}/>
                             <span className="key">최종</span>
-                            <span className="val">{node.get('lastDateTime')}</span>
+                            <span className="val">
+                                <Moment format="YYYY/MM/DD hh:mm">
+                                        {node.get('lastDateTime')}
+                                </Moment>
+                            </span>
                         </div>
-                        <div className="elem">
+                        {type===2 ? <div className="elem">
                             <MdAccessTime style={{
                                 marginTop: 1,
                                 marginRight: 2,
@@ -80,7 +98,7 @@ const VisitNode = ({node, type, idx,chCenter, sidebarFold, nodeSelect}) => {
                             }}/>
                             <span className="key">누적</span>
                             <span className="val">{}</span>
-                        </div>
+                        </div> : null}
                     </Fragment>
                     :
                     <Fragment>
@@ -90,8 +108,14 @@ const VisitNode = ({node, type, idx,chCenter, sidebarFold, nodeSelect}) => {
                                 marginRight: 2,
                                 float: 'left'
                             }}/>
-                            <span className="key">최초</span>
-                            <span className="val">{node.get('dateTime')}</span>
+                            <span className="key">시각</span>
+                            <span className="val">
+                                <span className="moment-time">
+                                    <Moment format="YYYY/MM/DD hh:mm">
+                                        {node.get('dateTime')}
+                                    </Moment>
+                                </span>
+                            </span>
                         </div>
                     </Fragment>
                 }

@@ -15,6 +15,7 @@ import * as tracingApi from 'store/api/tracing';
 const CH_CENTER = "tracing/CH_CENTER";
 const CH_LEVEL = "tracing/CH_LEVEL";
 const CH_SELECT = "tracing/CH_SELECT";
+const CH_LIST = "tracing/CH_LIST";
 const SELECT_PERSON = "tracing/SELECT_PERSON";
 const GET_GLOBAL_INFO = "tracing/GET_GLOBAL_INFO";
 const GET_CONTACTER_INFO = "tracing/GET_CONTACTER_INFO";
@@ -24,7 +25,9 @@ const GET_CONFIRMER_INFO = "tracing/GET_CONFIRMER_INFO";
 export const chCenter = createAction(CH_CENTER);
 export const chLevel = createAction(CH_LEVEL);
 export const chSelect = createAction(CH_SELECT);
+export const chList = createAction(CH_LIST);
 export const selectPerson = createAction(SELECT_PERSON);
+
 
 export const getGlobalInfo = createAction(GET_GLOBAL_INFO, tracingApi.getGlobalInfo);
 export const getContactorInfo = createAction(GET_CONTACTER_INFO, tracingApi.getContactorInfo);
@@ -34,6 +37,7 @@ export const getConfirmerInfo = createAction(GET_CONFIRMER_INFO, tracingApi.getC
 const initialState = Map({
     pageSets: Map({
         select: null,
+        isHide: false,
     }),
     mapOption: Map({
         center: Map({
@@ -110,6 +114,10 @@ export default handleActions({
             return state.setIn(["pageSets", "select"], action.payload);
         },
 
+        [CH_LIST]: (state, action) => {
+            return state.setIn(["pageSets", "isHide"], action.payload);
+        },
+
         [SELECT_PERSON]: (state, action) => {
             return state.setIn(["pageSets", "select"], action.payload);
         },
@@ -180,6 +188,8 @@ export default handleActions({
                                 cntctPatientNum: item.cntctPatientNum,
                             }))
                         ),
+                        // cntctPatientInfo: List(data.cntctPatientInfo.map(item=>Map(item))),
+                        cntctPatientInfo: List([]),
                     }),
                 );
             },

@@ -2,7 +2,7 @@
     position: absolute;
     top: 49px;
     right: 5px;
-    bottom: 275px;
+    bottom: 200px;
     width: 300px;
     z-index: 9999;
     background-color: #F8F8F8;
@@ -98,11 +98,16 @@
     background-color: #eee;
 }
 
-.VisitNode > .head > .loc{
-    float: left;
+.VisitNode .loc{
+    display: block;
     font-size: 12px;
     text-align: left;
     padding: 3px 2px 2px 5px;
+}
+
+.VisitNode .loc span {
+    padding-left: 2px;
+    font-size: 11px;
 }
 
 .VisitNode > .head > .idx > span {

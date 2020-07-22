@@ -3,7 +3,8 @@
     bottom: 6px;
     left: 104px;
     right: 5px;
-    height: 265px;
+    /* height: 265px; */
+    top: 47px;
     position: absolute;
     z-index: 9999;
     background-color: #F8F8F8;

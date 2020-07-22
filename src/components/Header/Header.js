@@ -11,7 +11,7 @@ const Header = () => {
                 <img src={govLogo} draggable="false"/>
             </div>
             <div className="title">
-                <span>IDT (Infectious Diseases Tracer)</span>
+                <span>COVID-19 TRACE SYSTEM</span>
             </div>
             <button>
                 <MdAccountCircle size={26} style={{

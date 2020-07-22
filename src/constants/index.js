@@ -1,9 +1,5 @@
 export const CONTACTER_LEFT_THEAD=[
     {
-        header: '식별번호',
-        accessor: 'idx'
-    },
-    {
         header: '성별',
         accessor: 'gender'
     },
@@ -18,10 +14,6 @@ export const CONTACTER_LEFT_THEAD=[
 ]
 
 export const CONTACTER_RIGHT_THEAD=[
-    {
-        header: '식별번호',
-        accessor: 'idx'
-    },
     {
         header: '성별',
         accessor: 'gender'

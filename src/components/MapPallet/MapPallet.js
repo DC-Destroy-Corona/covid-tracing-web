@@ -27,10 +27,12 @@ const PersonInfo = ({person})=>{
                     <span className="color-bold">{`${person.get('movingInfo').size}개`}</span>
                 </div>
             </div>
-            <div className="PersonInfo-row">
+            {person.get('type')===1 ? <div className="PersonInfo-row">
                 <div className="PersonInfo-key">접촉자수</div>
-                <div className="PersonInfo-val"></div>
-            </div>
+                <div className="PersonInfo-val">
+                    <span className="color-bold">{`${person.get('cntctPatientInfo').size}명`}</span>
+                </div>
+            </div> : null}
         </div>
     )
 }

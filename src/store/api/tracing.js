@@ -2,8 +2,8 @@ import axios from 'axios';
 import { API_BASE_URL } from 'constants/index';
 
 //전체 정보 조회
-export const getGlobalInfo = () => {
-    const baseURL = `${API_BASE_URL}/epid/login-success/covid-info`
+export const getGlobalInfo = (region, date, confpageIndex, cntctpageIndex) => {
+    const baseURL = `${API_BASE_URL}/epid/login-success/covid-info/${region}/${date}/cntct/${confpageIndex}/conf/${cntctpageIndex}`
 
     return axios.get(baseURL)
     .then(res=> {

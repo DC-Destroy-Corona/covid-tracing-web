@@ -12,17 +12,17 @@
     padding: 0;
     top: 49px;
     left: 104px;
-    bottom: 275px;
+    bottom: 200px;
     border: 1px solid #eee;
 }
 
 .PersonInfo{
     position: absolute;
-    top: 53px;
-    left: 108px;
+    top: 52px;
+    left: 144px;
     border-radius: 5px;
     width: 200px;
-    height: 200px;
+    height: 188px;
     z-index: 9999;
     background-color: #ffffff;
     background: rgba(255, 255, 255, 0.8);

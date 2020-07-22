@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 import './FooterBar.css';
 import {MdDescription} from 'react-icons/md'
 import {CONTACTER_LEFT_THEAD, CONTACTER_RIGHT_THEAD} from 'constants/index'
-import {MdExpandLess, MdExpandMore} from 'react-icons/md'
 
 const SelectTable = ({
     data, 
@@ -48,7 +47,7 @@ const SelectTable = ({
                                             <Fragment>
                                                 <td>{elem.get('confPatientId')}</td>
                                                 <td>{elem.get('gender')}</td>
-                                                <td>{elem.get('cntctPatientNum')}</td>
+                                                <td>{elem.get('contactorNum')}</td>
                                                 <td>{elem.get('visitPointNum')}</td>
                                             </Fragment> 
                                             :

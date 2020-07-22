@@ -1,0 +1,39 @@
+.InfoTable{
+    position: absolute;
+    bottom: 6px;
+    left: 104px;
+    right: 5px;
+    /* height: 265px; */
+    height: 190px;
+    position: absolute;
+    z-index: 9999;
+    background-color: #fff;
+    border: 1px solid #dadada;
+    border-radius: 2px;
+}
+
+.InfoTable header{
+    background-color: #f1f1f1;
+    font-size: 15px;
+    border-bottom: 1px solid #eee;
+    height: 25px;
+}
+
+.InfoTable header > button{
+    border: 0;
+    text-align: center;
+    float: left;
+    height: 25px;
+    cursor: pointer;
+}
+
+.InfoTable header > span{
+    display: block;
+    padding-top: 2px;
+    padding-bottom: 5px;
+    padding-left: 43px;
+}
+
+.InfoTable header button:hover{
+    background-color: #fff;
+}
