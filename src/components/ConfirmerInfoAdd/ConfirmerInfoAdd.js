@@ -51,7 +51,7 @@ class ConfirmerInfoAdd extends Component {
         editActions.confirmerRegInputClear();
     }
     componentDidMount() {
-
+        
     }
 
     render() {
@@ -178,8 +178,8 @@ export default withRouter(
                 confDatetime: state.edit.getIn(['confirmerInfo', 'confDatetime']),
             },
             visitPointInfo : {
-                roadNameAddr : state.edit.getIn(['visitPointInfo', 'roadNameAddr']),
-                visitDatetime : state.edit.getIn(['visitPointInfo', 'visitDatetime']),
+                streetNameAddr : state.edit.getIn(['visitPointInfo', 'streetNameAddr']),
+                firstDateTime : state.edit.getIn(['visitPointInfo', 'firstDateTime']),
             }
         }),
         // props 로 넣어줄 액션 생성함수

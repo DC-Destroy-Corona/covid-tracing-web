@@ -34,7 +34,7 @@ import { get } from 'immutable';
 
 //     render(){
 //         const {showModal} = this.props;
-const ConfirmerInfoListContent = ({confPatientId,gender,region,confDatetime,_setIsModalWithTrue,showModal}) => {
+const ConfirmerInfoListContent = ({confPatientId,gender,region,confDatetime}) => {
     return (
         <div className="listview">
                 <div className="comp-body">
@@ -52,52 +52,11 @@ const ConfirmerInfoListContent = ({confPatientId,gender,region,confDatetime,_set
                                 <td>대구광역시</td>   
                                 <td>2020-07-01</td>  */}
                             <tr>
-                                
-
                                 <td>{confPatientId}</td>
                                 <td>{gender}</td>
                                 <td>{region}</td>
                                 <td>{confDatetime}</td>
                                 <td>
-                                    <button className="register-btn"
-                                    onClick={_setIsModalWithTrue}>
-                                        <div className="btn-label">
-                                            등록하기
-                                            <FiPlusCircle size={15} style={{ 
-                                                marginTop:'5px',
-                                                marginLeft :'5px'
-                                            }} /> 
-                                        </div>
-                                    </button>
-                                    <Modal 
-                    isOpen={showModal}
-                    style={{
-                        overlay: {
-                            zIndex: 9999,
-                            backgroundColor: 'rgba(33,33,33,0.2)'
-                        },
-                        content: {
-                            padding: 0,
-                            borderRadius: '2px',
-                            border: '1px solid #dadce0',
-                            backgroundColor: '#fff',
-                            top: '0',
-                            left: '0',
-                            right: '0',
-                            bottom: '0',
-                            // left: '70px',
-                            // right: '70px',
-                            margin: 'auto',
-                            height: '400px',
-                            maxWidth: '500px',
-                            overflow: 'hidden'
-                            // bottom: '85px',
-                        }
-                    }}
-                    >
-                        <VisitRootAddModal />
-                        
-                    </Modal>
                                     <button className="wrap-btn">
                                         <div className="btn-label">정보보기
                                         

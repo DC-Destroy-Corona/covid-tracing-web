@@ -19,7 +19,15 @@ class BeaconInfoList extends Component {
         
         return (
             <div className="BeaconInfoList">
+                <div className="infoList">
+                <div id="comp-title">
+                    <span><strong>비콘 목록</strong></span>
+                </div>
                 
+                <div className="body">
+                    
+                </div>
+                </div>
             </div>
         )
     }

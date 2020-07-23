@@ -15,13 +15,13 @@ import { FcCalendar } from "react-icons/fc";
 
 class VisitRootAddModal extends Component {
     
-    _inputRoadNameAddr = (e) => {
+    _inputStreetNameAddr = (e) => {
         const { editActions } = this.props;
-        editActions.inputRoadNameAddr(e.target.value);
+        editActions.inputStreetNameAddr(e.target.value);
     }
-    _pickVisitDatetime  = (date) => {
+    _pickFirstDatetime  = (date) => {
         const { editActions } = this.props;
-        editActions.pickVisitDatetime(date);
+        editActions.pickFirstDatetime(date);
     }
     _inputLatitude  = (e) => {
         const { editActions } = this.props;
@@ -59,12 +59,15 @@ class VisitRootAddModal extends Component {
             const { 
                 editActions,
                 visitPointInfo,
-                showModal
+                showModal,
+                location
             } = this.props;
-    
+            // const {confirmerInfo} =location.state;
+            // editActions.registerVisitPoint(confirmerInfo.confPatientId);
+            
             editActions.registerVisitPoint({
-                roadNameAddr : visitPointInfo.roadNameAddr,
-                visitDatetime : visitPointInfo.visitDatetime,
+                streetNameAddr : visitPointInfo.streetNameAddr,
+                firstDateTime : visitPointInfo.firstDateTime,
                 latitude : visitPointInfo.latitude,
                 longitude : visitPointInfo.longitude,
                 type : visitPointInfo.type,
@@ -75,6 +78,7 @@ class VisitRootAddModal extends Component {
             editActions.setIsModalWithFalse(!showModal);
         }
     componentDidMount() {
+        
     }
 
     render(){
@@ -84,8 +88,8 @@ class VisitRootAddModal extends Component {
         } = this.props;
 
         const {
-            roadNameAddr,
-            visitDatetime,
+            streetNameAddr,
+            firstDateTime,
             latitude,
             longitude,
             type,
@@ -107,11 +111,11 @@ class VisitRootAddModal extends Component {
                         </div>
                         <div className="input-item">
                             <input
-                                name="roadNameAddr"
+                                name="streetNameAddr"
                                 type="text"
-                                value={roadNameAddr}
+                                value={streetNameAddr}
                                 placeholder='주소'
-                                onChange={this._inputRoadNameAddr}>
+                                onChange={this._inputStreetNameAddr}>
                             </input>
                         </div>
                     </div>
@@ -122,8 +126,8 @@ class VisitRootAddModal extends Component {
                         <div className="input-item">
                         <div className="datepicker_form">
                         <DatePicker 
-                        selected={visitDatetime}
-                        onChange={this._pickVisitDatetime}
+                        selected={firstDateTime}
+                        onChange={this._pickFirstDatetime}
                         dateFormat="yyyy-MM-dd"
                         />
                         <div className="calender_icon">
@@ -203,7 +207,7 @@ class VisitRootAddModal extends Component {
                     <button 
                     id="reg_btn"
                     disabled ={
-                        roadNameAddr ==''|| visitDatetime==''||latitude==''|| 
+                        streetNameAddr ==''|| firstDateTime==''||latitude==''|| 
                         longitude=='' || type=='' || province=='' ?
                         true : false
                     }
@@ -226,8 +230,8 @@ export default withRouter(
                 confDatetime: state.edit.getIn(['confirmerInfo', 'confDatetime']),
             },
             visitPointInfo : {
-                roadNameAddr : state.edit.getIn(['visitPointInfo', 'roadNameAddr']),
-                visitDatetime : state.edit.getIn(['visitPointInfo', 'visitDatetime']),
+                streetNameAddr : state.edit.getIn(['visitPointInfo', 'streetNameAddr']),
+                firstDateTime : state.edit.getIn(['visitPointInfo', 'firstDateTime']),
                 latitude : state.edit.getIn(['visitPointInfo', 'latitude']),
                 longitude : state.edit.getIn(['visitPointInfo', 'longitude']),
                 type : state.edit.getIn(['visitPointInfo', 'type']),
