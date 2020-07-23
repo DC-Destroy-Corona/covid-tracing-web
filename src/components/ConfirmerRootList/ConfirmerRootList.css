@@ -42,6 +42,7 @@
 }
 .ConfirmerRootList > #comp-title {
     border-top-right-radius: 7px;
+    font-size: 15px;
 }
 .VisitNode{
     display: block;

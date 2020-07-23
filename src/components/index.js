@@ -12,6 +12,7 @@ import BeaconInfoAdd from 'components/BeaconInfoAdd/BeaconInfoAdd';
 import BeaconInfoList from 'components/BeaconInfoList/BeaconInfoList';
 import ConfirmerRootList from 'components/ConfirmerRootList/ConfirmerRootList'; 
 import VisitRootAddModal from 'components/VisitRootAddModal/VisitRootAddModal';
+import ConfirmerInfoListContent from 'components/ConfirmerInfoListContent/ConfirmerInfoListContent';
 
 
 
@@ -29,5 +30,6 @@ export {
     ConfirmerRootList,
     BeaconInfoAdd,
     BeaconInfoList,
-    VisitRootAddModal
+    VisitRootAddModal,
+    ConfirmerInfoListContent
 }

@@ -5,7 +5,7 @@ import {
 } from '../../constants';
 
 export const registerConfirmer = (confirmerInfo) => {
-    const baseURL = `${API_BASE_URL}/confirmer`
+    const baseURL = `${API_BASE_URL}/epid/record/confPatient`
     return axios
         .post(baseURL, confirmerInfo) //get 방식이면 get으로 변경 필요
         .then(res => {
@@ -15,7 +15,7 @@ export const registerConfirmer = (confirmerInfo) => {
 } // confirmerInfo 부분 수정 필요..?
 
 export const registerVisitPoint = (visitPointInfo) => {
-    const baseURL = `${API_BASE_URL}/visitPoint`
+    // const baseURL = `${API_BASE_URL}/epid/record/confPatient/${confPatientId}/movingInfoList`
     return axios
         .post(baseURL, visitPointInfo) //get 방식이면 get으로 변경 필요
         .then(res => {

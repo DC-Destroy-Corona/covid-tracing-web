@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import * as editActions from 'store/modules/edit';
-import * as basicActions from 'store/modules/basic';
 import {
     InputContainer,
     InputItem,
@@ -14,11 +13,14 @@ import DatePicker from "react-datepicker";
 import Dropdown from 'react-dropdown';
 import "react-datepicker/dist/react-datepicker.css";
 import { FcCalendar } from "react-icons/fc";
+
 class ConfirmerInfoAdd extends Component {
 
-    _inputConfirmerid =(e) => {
-        const {editActions} = this.props;
-        editActions.inputConfirmerid(e.target.value);
+    _inputConfPatientId =(e) => {
+        const {editActions, regexp} = this.props;
+        if(e.target.value === '' || regexp.test(e.target.value)){
+            editActions.inputConfPatientId(e.target.value);
+        }
     }
 
     _selectGender = (e) => {
@@ -31,24 +33,25 @@ class ConfirmerInfoAdd extends Component {
         editActions.selectRegion(option.value);
     }
 
-    _pickConfirmDate  = (date) => {
+    _pickConfDateTime  = (date) => {
         const { editActions } = this.props;
-        editActions.pickConfirmDate(date);
+        editActions.pickConfDateTime(date);
     }
     _registerConfirmer = () => {
         const { 
             editActions,
             confirmerInfo
         } = this.props;
-
         editActions.registerConfirmer({
-            confirmerId : confirmerInfo.confirmerId,
+            confPatientId : confirmerInfo.confPatientId,
             gender : confirmerInfo.gender,
             region : confirmerInfo.region,
-            confirmDate : confirmerInfo.confirmDate
-        })
+            confDatetime : confirmerInfo.confDatetime
+        });
+        editActions.confirmerRegInputClear();
     }
     componentDidMount() {
+
     }
 
     render() {
@@ -56,12 +59,14 @@ class ConfirmerInfoAdd extends Component {
             confirmerInfo
         } = this.props;
 
+        
         const {
-            confirmerId,
+            confPatientId,
             gender,
             region,
-            confirmDate
+            confDatetime
         } = confirmerInfo;
+        
         const options = [
             '서울특별시','부산광역시','대구광역시', 
             '인천광역시', '광주광역시','대전광역시',
@@ -76,11 +81,11 @@ class ConfirmerInfoAdd extends Component {
                     <InputItem
                         display={true}
                         name='확진자 번호'
-                        label='confirmerId'
+                        label='confPatientId'
                         must={true}
-                        value={confirmerId}
+                        value={confPatientId}
                         placeholder='확진 번호'
-                        onChange={this._inputConfirmerid}
+                        onChange={this._inputConfPatientId}
                     />
                     <InputItem
                         display={false}
@@ -134,8 +139,8 @@ class ConfirmerInfoAdd extends Component {
                     />
                     <div className="datepicker_form">
                     <DatePicker 
-                        selected={confirmDate}
-                        onChange={this._pickConfirmDate}
+                        selected={confDatetime}
+                        onChange={this._pickConfDateTime}
                         dateFormat="yyyy-MM-dd"
                     />
                         <div className="calender_icon">
@@ -149,7 +154,12 @@ class ConfirmerInfoAdd extends Component {
                     marginLeft:'10px',
                     marginBottom:'0'
                 }} />
-                <SubmitBtn onClick={this._registerConfirmer} context='등록' />
+                <SubmitBtn 
+                    disabled ={
+                        confPatientId==''|| gender=='' || region=='' || confDatetime=='' ?
+                        true : false}
+                    onClick={this._registerConfirmer} 
+                    context='등록' />
             </div>
         )
     }
@@ -160,11 +170,12 @@ export default withRouter(
     connect(
         // props 로 넣어줄 스토어 상태값
         state => ({
+            regexp : /^[0-9\b]+$/,
             confirmerInfo : {
-                confirmerId: state.edit.getIn(['confirmerInfo', 'confirmerId']),
+                confPatientId: state.edit.getIn(['confirmerInfo', 'confPatientId']),
                 gender: state.edit.getIn(['confirmerInfo', 'gender']),
                 region: state.edit.getIn(['confirmerInfo', 'region']),
-                confirmDate: state.edit.getIn(['confirmerInfo', 'confirmDate']),
+                confDatetime: state.edit.getIn(['confirmerInfo', 'confDatetime']),
             },
             visitPointInfo : {
                 roadNameAddr : state.edit.getIn(['visitPointInfo', 'roadNameAddr']),

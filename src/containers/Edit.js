@@ -20,7 +20,6 @@ class Edit extends Component {
         const { basicActions } = this.props;
         basicActions.sbSelect(idx);
     }
-    
     componentDidMount() {
     }
 

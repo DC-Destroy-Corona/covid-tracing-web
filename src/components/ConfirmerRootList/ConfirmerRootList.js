@@ -44,7 +44,7 @@ class ConfirmerRootList extends Component {
         return (
             <div className="ConfirmerRootList">
                 <div id="comp-title">
-                    <span>방문 지점 정보</span>
+                    <span><strong>방문 지점 정보</strong></span>
                 </div>
                 <div className="body">
                     <VisitNode 
@@ -75,9 +75,9 @@ export default withRouter(
     connect(
         state => ({
             confirmerInfo : {
-                confirmerId: state.edit.getIn(['confirmerInfo', 'confirmerId']),
+                confPatientId: state.edit.getIn(['confirmerInfo', 'confPatientId']),
                 gender: state.edit.getIn(['confirmerInfo', 'gender']),
-                confirmDate: state.edit.getIn(['confirmerInfo', 'confirmDate']),
+                confDatetime: state.edit.getIn(['confirmerInfo', 'confDatetime']),
             },
             visitPointInfo : {
                 roadNameAddr : state.edit.getIn(['visitPointInfo', 'roadNameAddr']),
