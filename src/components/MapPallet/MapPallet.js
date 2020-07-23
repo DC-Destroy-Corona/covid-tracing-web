@@ -6,7 +6,7 @@ import {SIDEBAR_OPT} from 'constants/index'
 const PersonInfo = ({person})=>{
     return(
         <div className="PersonInfo">
-            <header>대상 상세정보</header>
+            <header>대상 요약정보</header>
             <div className="PersonInfo-row">
                 <div className="PersonInfo-key">분류</div>
                 <div className="PersonInfo-val">

@@ -94,3 +94,5 @@ export const SPECIAL_LOC = {
     "대구광역시": 'daegu',
     "제주특별자치도": 'jeju'
 };
+
+export const PAGE_INDEX_STANDARD = 35

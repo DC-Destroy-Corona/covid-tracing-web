@@ -120,6 +120,30 @@ class Welcome extends Component {
         })
     }
 
+    _changeIndex = ({type, index}) =>{
+        const {
+            tracingActions,
+            filter
+        } = this.props;
+
+        if(type===1){
+            tracingActions.getGlobalInfo({
+                region: filter.get('region'),
+                date: filter.get('date'),
+                confPageIndex: index,
+                cntctPageIndex: filter.get('cntctPageIndex')
+            })
+        }
+        else{
+            tracingActions.getGlobalInfo({
+                region: filter.get('region'),
+                date: filter.get('date'),
+                confPageIndex: filter.get('confPageIndex'),
+                cntctPageIndex: index
+            })
+        }
+    }
+
     componentDidMount() {
 
         const {
@@ -204,6 +228,7 @@ class Welcome extends Component {
                     selectConfirmer={this._selectConfirmer}
                     filter={filter}
                     clickKorea={this._clickKorea}
+                    changeIndex={this._changeIndex}
                 />
             </Fragment>
         )

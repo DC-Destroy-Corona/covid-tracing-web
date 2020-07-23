@@ -136,36 +136,6 @@ class Tracing extends Component {
                     <div class="infowindow-h2">
                         접촉자 ()
                     </div>
-                    <div class="infowindow-grp">
-                        <div class="infowindow-key">식별번호</div>
-                        <div class="infowindow-key">방문지점수</div>
-                    <div>
-                    <div class="infowindow-tb">
-                        <div class="infowindow-tb-row">
-                            <div class="infowindow-tb-val">11</div>
-                            <div class="infowindow-tb-val">11</div>
-                        <div>
-                        <div class="infowindow-tb-row">
-                            <div class="infowindow-tb-val">11</div>
-                            <div class="infowindow-tb-val">11</div>
-                        <div>
-                        <div class="infowindow-tb-row">
-                            <div class="infowindow-tb-val">11</div>
-                            <div class="infowindow-tb-val">11</div>
-                        <div>
-                        <div class="infowindow-tb-row">
-                            <div class="infowindow-tb-val">11</div>
-                            <div class="infowindow-tb-val">11</div>
-                        <div>
-                        <div class="infowindow-tb-row">
-                            <div class="infowindow-tb-val">11</div>
-                            <div class="infowindow-tb-val">11</div>
-                        <div>
-                        <div class="infowindow-tb-row">
-                            <div class="infowindow-tb-val">11</div>
-                            <div class="infowindow-tb-val">11</div>
-                        <div>
-                    </div>
                 </div>
             </div>
         ` // 오버레이
@@ -253,10 +223,10 @@ class Tracing extends Component {
             location
         } = this.props;
 
-        // if(match.params.type===1)
-        //     tracingActions.getContactorInfo(match.params.id)
-        // else
-        //     tracingActions.getContactorInfo(match.params.id)
+        if(match.params.type===1)
+            tracingActions.getConfirmerInfo(match.params.id)
+        else
+            tracingActions.getConfirmerInfo(match.params.id)
 
         //default props initialze
         tracingActions.chSelect(null);
@@ -282,12 +252,19 @@ class Tracing extends Component {
 
     componentDidUpdate(){
         const {
-            mainPerson
+            mainPerson,
+            nodeSelect
         } = this.props;
 
         this._clearVisitInfo(null) //마커 초기화
-        if(mainPerson)
+        if(mainPerson){
             this._createVisitInfo(mainPerson, map)
+
+            //처음 진입했을 때
+            if(nodeSelect===null && mainPerson.get('movingInfo').size>=1)
+                this._chCenter(mainPerson.getIn(['movingInfo','0']),1)
+        }
+            
     }
 
     render() {
@@ -321,10 +298,6 @@ class Tracing extends Component {
                     selectContacter={this._selectContacter}
                     selectConfirmer={this._selectConfirmer}
                 /> */}
-                <InfoTable
-                    chListPage={this._chListPage}
-                >
-                </InfoTable>
             </Fragment>
         )
     }

@@ -2,13 +2,12 @@
     position: absolute;
     top: 49px;
     right: 5px;
-    bottom: 200px;
+    bottom: 5px;
     width: 300px;
     z-index: 9999;
     background-color: #F8F8F8;
     border: 1px solid #dadada;
     border-radius: 2px;
-    opacity: 0.85;
 }
 
 #SideBar-fold {
