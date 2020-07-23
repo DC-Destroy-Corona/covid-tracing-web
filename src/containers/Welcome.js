@@ -2,7 +2,7 @@
 
 import React, { Component, Fragment } from 'react';
 import { bindActionCreators } from 'redux';
-import { withRouter } from 'react-router';
+import { withRouter, Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import * as tracingActions from 'store/modules/tracing';
 import * as basicActions from 'store/modules/basic';
@@ -25,180 +25,13 @@ import {
     InfoTable,
     SearchTable
 } from 'components';
+import {SPECIAL_LOC} from 'constants/index'
 
 var map = null;
-
-var overlay = null
-var markers = [];
-var polyline = null
+var projection, path, svg,geoJson, features, bounds, center, m, places;
+const HEIGHT = 600, WIDTH = 600
 
 class Welcome extends Component {
-
-    _createVisitInfo = (mainPerson, map) => {
-        let linePath = []
-        mainPerson.get('movingInfo').map((elem, idx)=>{
-
-            const longitude = elem.get('longitude')
-            const latitude = elem.get('latitude')
-
-            linePath.push(
-                this._createMark({
-                    longitude: longitude,
-                    latitude: latitude,
-                    idx: idx,
-                    map: map
-                })
-            )
-        })
-
-        this._createLine({
-            linePath: linePath,
-            map: map
-        })
-    }
-
-    _createMark = ({latitude,longitude, idx, map})=>{
-
-        const pos = new kakao.maps.LatLng(latitude, longitude)
-
-        //마커 옵션
-        var markerOption = {
-            imageSrc : MARKER_OPT.imageSrc,
-            imageSize : new kakao.maps.Size(MARKER_OPT.imageSize.x, MARKER_OPT.imageSize.y),
-            imgOptions :  {
-                spriteSize : new kakao.maps.Size(MARKER_OPT.imgOptions.spriteSize.x, MARKER_OPT.imgOptions.spriteSize.y), // 스프라이트 이미지의 크기
-                spriteOrigin : new kakao.maps.Point(MARKER_OPT.imgOptions.spriteOrigin.x, MARKER_OPT.imgOptions.spriteOrigin.y(idx)), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
-                offset: new kakao.maps.Point(MARKER_OPT.imgOptions.offset.x, MARKER_OPT.imgOptions.offset.y) // 마커 좌표에 일치시킬 이미지 내에서의 좌표
-            },
-        }
-
-        //마커 생성
-        // var marker = new kakao.maps.Marker({
-        //     position: pos
-        // });
-
-        var markerImage = new kakao.maps.MarkerImage(
-            markerOption.imageSrc, 
-            markerOption.imageSize,
-            markerOption.imgOptions
-        );
-
-        var marker = new kakao.maps.Marker({
-            position: pos, // 마커의 위치
-            image: markerImage 
-        })
-
-        marker.setMap(map);
-        markers.push(marker) //add list
-        return pos
-    }
-
-    _createLine = ({linePath,map}) => {
-        //if(linePath.size<=1) return
-
-        polyline = new kakao.maps.Polyline({
-            path: linePath, // 선을 구성하는 좌표배열 입니다
-            strokeWeight: 5, // 선의 두께 입니다
-            strokeColor: '#238CFA', // 선의 색깔입니다
-            strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
-            strokeStyle: 'solid' // 선의 스타일입니다
-        });
-
-        polyline.setMap(map);  
-    }
-
-    _changeMapLevel = () => {
-        const { mapOption, tracingActions } = this.props;
-        if(map.getLevel()!==MAP_FOCUS_LEVEL){
-            //tracingActions.chLevel(MAP_FOCUS_LEVEL)
-            map.setLevel(MAP_FOCUS_LEVEL);
-            //map.relayout();
-        }
-    }
-
-    _createMapControl = () => {
-        var zoomControl = new kakao.maps.ZoomControl();
-        map.addControl(zoomControl, kakao.maps.ControlPosition.TOPLEFT);
-        var mapTypeControl = new kakao.maps.MapTypeControl();
-        map.addControl(mapTypeControl, kakao.maps.ControlPosition.BOTTOMLEFT);
-    }
-
-    _createOverlay = (moveLatLon, node, idx) => {
-        //#infowindow은 common/App.css에 정의
-        var content = `
-            <div id="infowindow">
-                <div class="infowindow-info">
-                    <header>
-                        ${idx}번째 방문지점 정보 상세
-                        <div class="infowindow-close" onClick="(()=>{overlay.setMap(null)})()" title="닫기"></div>
-                    </header>
-                    <div class="infowindow-address">
-                        ${node.get('location')}
-                    </div>
-                    <div class="infowindow-h2">
-                        접촉자 ()
-                    </div>
-                    <div class="infowindow-grp">
-                        <div class="infowindow-key">식별번호</div>
-                        <div class="infowindow-key">방문지점수</div>
-                    <div>
-                    <div class="infowindow-tb">
-                        <div class="infowindow-tb-row">
-                            <div class="infowindow-tb-val">11</div>
-                            <div class="infowindow-tb-val">11</div>
-                        <div>
-                        <div class="infowindow-tb-row">
-                            <div class="infowindow-tb-val">11</div>
-                            <div class="infowindow-tb-val">11</div>
-                        <div>
-                        <div class="infowindow-tb-row">
-                            <div class="infowindow-tb-val">11</div>
-                            <div class="infowindow-tb-val">11</div>
-                        <div>
-                        <div class="infowindow-tb-row">
-                            <div class="infowindow-tb-val">11</div>
-                            <div class="infowindow-tb-val">11</div>
-                        <div>
-                        <div class="infowindow-tb-row">
-                            <div class="infowindow-tb-val">11</div>
-                            <div class="infowindow-tb-val">11</div>
-                        <div>
-                        <div class="infowindow-tb-row">
-                            <div class="infowindow-tb-val">11</div>
-                            <div class="infowindow-tb-val">11</div>
-                        <div>
-                    </div>
-                </div>
-            </div>
-        ` // 오버레이
-
-        overlay = new kakao.maps.CustomOverlay({
-            content: content,
-            map: map,
-            position: moveLatLon 
-        });
-    }
-
-    _chCenter = (node, idx) => {
-        const { tracingActions } = this.props;
-        tracingActions.chSelect(idx);
-
-        // var moveLatLon = new kakao.maps.LatLng(node.get('latitude'), node.get('longitude'));
-
-        this._overlayClear();
-        this._changeMapLevel()
-        map.panTo(markers[idx-1].getPosition());
-        this._createOverlay(markers[idx-1].getPosition(), node, idx)
-    }
-
-    //지도 정보 초기화
-    _clearVisitInfo = (arg) => {
-        for(let i=0; i<markers.length; i++){
-            markers[i].setMap(arg)
-        }
-        markers = []
-        if(polyline) polyline.setMap(arg)
-    }
 
     /**------------- basic page function sets------------------*/
     _sbSelect = (idx) => {
@@ -206,39 +39,18 @@ class Welcome extends Component {
         basicActions.sbSelect(idx);
     }
 
-    _sbFold = () => {
-        const { basicActions, sidebarFold } = this.props;
-        basicActions.sbFold(!sidebarFold)
-        var mapContainer = document.getElementById('map');
-        const gap = SIDEBAR_OPT.foldFalse - SIDEBAR_OPT.foldTrue
-        if(sidebarFold){
-            //mapContainer.style.width = mapContainer.style.width + gap
-        }
-        else{
-            //mapContainer.style.width = mapContainer.style.width - gap
-        }
-        map.relayout();
-    }
-
-    _overlayClear = () => {
-        if(overlay){
-            overlay.setMap(null)
-            overlay = null
-        }
-    }
-
     //접촉자 선택
-    _selectContacter = (id) =>{
-        const { tracingActions } = this.props;
-        tracingActions.getContactorInfo(id)
-        this._overlayClear()
+    _selectContacter = ({id,type}) =>{
+        const { tracingActions, history } = this.props;
+        // tracingActions.getContactorInfo(id)
+        history.push(`/tracing/${id}/${type}`);
     }
 
     //확진자 선택
-    _selectConfirmer = (id) =>{
-        const { tracingActions } = this.props;
-        tracingActions.getConfirmerInfo(id)
-        this._overlayClear()
+    _selectConfirmer = ({id,type}) =>{
+        const { tracingActions, history } = this.props;
+        // tracingActions.getConfirmerInfo(id)
+        history.push(`/tracing/${id}/${type}`);
     }
 
     _chListPage = () => {
@@ -246,15 +58,77 @@ class Welcome extends Component {
         tracingActions.chList(!isHide)
     }
 
+    _proviceClick = (d) => {
+        const { tracingActions,filter } = this.props;
+        tracingActions.filterRegion(SPECIAL_LOC[d.properties.name]);
+        tracingActions.getGlobalInfo({
+            region: SPECIAL_LOC[d.properties.name],
+            date: filter.get('date'),
+            confPageIndex: 1,
+            cntctPageIndex: 1
+        })
+        var x, y, zoomLevel, CENTERED;
+ 
+        // if( d && CENTERED != d){
+        //     var centroid = path.centroid( d);
+        //     x = centroid[0];
+        //     y = centroid[1];
+        //     if( d.properties.name == '제주특별자치도' || d.properties.name == '인천광역시')
+        //         zoomLevel = 10;
+        //     else if( SPECIAL_CITIES.indexOf( d.properties.name) != -1)
+        //         zoomLevel = 15;
+        //     else
+        //         zoomLevel = 3;
+        //     CENTERED = d;
+        //     console.log('centered', CENTERED);
+        // } else {
+        //     x = WIDTH / 2;
+        //     y = HEIGHT / 2;
+        //     zoomLevel = 1;
+        //     CENTERED = null;
+        // }
+
+        if( d && CENTERED != d){
+            var centroid = path.centroid( d);
+            x = centroid[0];
+            y = centroid[1];
+            CENTERED = d;
+        }
+        
+ 
+        m.selectAll( "path")
+            .classed( "active", CENTERED && function(d) { return d === CENTERED;});
+ 
+        // m.transition()
+        //     .duration( 750)
+        //     .attr( "transform", "translate(" + WIDTH / 2 + "," + HEIGHT / 2 + ")scale(" + zoomLevel + ")translate(" + -x + "," + -y + ")")
+        //     .style( "stroke-width", 1.5 / zoomLevel + "px");
+    }
+
+    _clickKorea = () => {
+        const {
+            tracingActions,
+            filter
+        } = this.props;
+
+        tracingActions.filterRegion('kr');
+        tracingActions.getGlobalInfo({
+            region: 'kr',
+            date: filter.get('date'),
+            confPageIndex: 1,
+            cntctPageIndex: 1
+        })
+    }
+
     componentDidMount() {
 
         const {
             tracingActions,
-            mainPerson
+            mainPerson,
+            filter
         } = this.props;
 
-        //default props initialze
-        tracingActions.getGlobalInfo('kr','0000-00-00', 1,1);
+        this._clickKorea()
 
         //map settings
         const script = document.createElement("script");
@@ -262,12 +136,6 @@ class Welcome extends Component {
         script.src = null
         document.head.appendChild(script);
         script.onload = () => {
-
-            var SPECIAL_CITIES = ['서울특별시', '인천광역시', '대전광역시', '대구광역시', '부산광역시', '울산광역시', '광주광역시', '세종특별자치시', '제주특별자치도'];
-            var HEIGHT = 600, WIDTH = 600
-            var projection, path, svg,
-                geoJson, features, bounds, center,
-                m, places;
 
             //svg 생성
             svg = d3.select('#korea').append('svg')
@@ -304,19 +172,12 @@ class Welcome extends Component {
                     .attr( "class", function(d) { console.log(d);
                         return "municipality c " + d.properties.code;})
                     .attr( "d", path)
-                    //.on("click", province_clicked_event);
+                    .on("click", this._proviceClick);
             })
         }
     }
 
     componentDidUpdate(){
-        const {
-            mainPerson
-        } = this.props;
-
-        this._clearVisitInfo(null) //마커 초기화
-        if(mainPerson)
-            this._createVisitInfo(mainPerson, map)
     }
 
     render() {
@@ -327,6 +188,7 @@ class Welcome extends Component {
             sidebarFold,
             nodeSelect,
             isHide,
+            filter,
             globalInfo
         } = this.props;
 
@@ -340,6 +202,8 @@ class Welcome extends Component {
                     globalInfo={globalInfo}
                     selectContacter={this._selectContacter}
                     selectConfirmer={this._selectConfirmer}
+                    filter={filter}
+                    clickKorea={this._clickKorea}
                 />
             </Fragment>
         )
@@ -358,6 +222,7 @@ export default withRouter(
             mainPerson: state.tracing.get('person'),
             mapOption: state.tracing.get('mapOption'), 
             globalInfo: state.tracing.get('globalInfo'), 
+            filter: state.tracing.get('filter'),
         }),
         // props 로 넣어줄 액션 생성함수
         dispatch => ({

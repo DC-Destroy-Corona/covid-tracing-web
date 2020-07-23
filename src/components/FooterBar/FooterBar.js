@@ -14,7 +14,7 @@ const SelectTable = ({
     return (
         <div className="SelectTable" style={style}>
                 <div id="comp-title">
-                    <span>{title} <span id="bold">{`( ${data.size} )`}</span></span>
+                    <span>{title} </span>
                     <button id="export-btn">
                         <MdDescription style={{
                             marginTop: 1,

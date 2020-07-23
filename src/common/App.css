@@ -163,7 +163,7 @@
     fill: orange;
 }
 
-#map .active{
+.SearchTable #m .active{
     fill: #2fa4e7;
 }
 

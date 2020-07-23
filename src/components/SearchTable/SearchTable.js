@@ -8,7 +8,10 @@ const PersonsList = ({
     columns, 
     title, 
     type, 
-    selectFunc
+    selectFunc,
+    currentPageIndex,
+    totalPageIndex,
+    pageIndexList
 }) => {
     return (
         <div className="PersonsList">
@@ -16,7 +19,9 @@ const PersonsList = ({
                 <span>{title} <span id="bold">{`( ${data.size} )`}</span></span>
             </header>
             <div className="list-body">
-                <div className="table-thead">
+                <div className="table-thead" style={{
+                    borderBottom: '1px solid #aaa'
+                }}>
                     <div className="table-no">No.</div>
                     <div className="table-idx">식별번호</div>
                     {
@@ -30,9 +35,18 @@ const PersonsList = ({
                 <div className="table-body">
                         {data.map((elem, idx)=>{
                             return(
-                                <div className="table-row" key={idx} onClick={()=>{
+                                <div 
+                                    className="table-row" 
+                                    key={idx} 
+                                    style={{
+                                        backgroundColor: idx%2==0 ? '#F2F5F9' : '#fff'
+                                    }}
+                                    onClick={()=>{
                                     const id = type===1 ? elem.get('confPatientId') : elem.get('cntctPatientId')
-                                    selectFunc(id)
+                                    selectFunc({
+                                        id: id,
+                                        type: type
+                                    })
                                 }}>
                                     {
                                         type===1 ? 
@@ -42,6 +56,7 @@ const PersonsList = ({
                                             <div className="table-arg1">{elem.get('gender')}</div>
                                             <div className="table-arg2">{elem.get('contactorNum')}</div>
                                             <div className="table-arg3">{elem.get('visitPointNum')}</div>
+                                            <div className="table-arg4">2020/07/29</div>
                                         </Fragment> 
                                         :
                                         <Fragment>
@@ -50,6 +65,7 @@ const PersonsList = ({
                                             <div className="table-arg1">{elem.get('gender')}</div>
                                             <div className="table-arg2">{elem.get('confPatientId')}</div>
                                             <div className="table-arg3">{elem.get('visitPointNum')}</div>
+                                            <div className="table-arg4">2020/07/29</div>
                                         </Fragment> 
                                     }
                                 </div>
@@ -59,18 +75,18 @@ const PersonsList = ({
             </div>
             <footer>
                 <div className="table-index">
-                    1/100 page
+                    {currentPageIndex}/{totalPageIndex} page
                 </div>
                 <div className="table-index-btns">
-                    <button>맨끝</button>
-                    <button>다음</button>
+                    {currentPageIndex===totalPageIndex ? null : <button>맨끝</button>}
+                    {currentPageIndex!==totalPageIndex ? <button>다음</button> : null}
                     <button>5</button>
                     <button>4</button>
                     <button>3</button>
                     <button>2</button>
                     <button>1</button>
-                    <button>이전</button>
-                    <button>처음</button>
+                    {currentPageIndex!==1 ? <button>이전</button> : null}
+                    {currentPageIndex===1 ? null : <button>처음</button>}
                 </div>
             </footer>
         </div>
@@ -82,10 +98,13 @@ const SearchTable = ({
     chListPage,
     globalInfo, 
     selectContacter, 
-    selectConfirmer}) => 
+    selectConfirmer,
+    filter,
+    clickKorea}) => 
     {
     return (
         <div className="SearchTable">
+            <div className="SearchTable-wrap">
             <div className="navigation-bar">
                 <div className="table-title">
                     <div>
@@ -94,6 +113,104 @@ const SearchTable = ({
                     <span>확진자 및 접촉자 상세</span>
                 </div>
                 <div className="navi-cont">
+                    <button 
+                    onClick={clickKorea}
+                    className="select-global-loc" 
+                    disabled={filter.get('region')=='kr'}
+                    >
+                        전국
+                    </button>
+                    <div className="navi-cont-elem-small">
+                        <div className="navi-cont-elem-s-box" style={{borderRight: '1px solid #eee'}}>
+                            <div className="navi-cont-elem-s-box-key">확진</div>
+                            <div className="navi-cont-elem-s-box-val">{globalInfo.getIn(['info','totalConfPatient'])}</div>
+                        </div>
+                        <div className="navi-cont-elem-s-box">
+                            <div className="navi-cont-elem-s-box-key">접촉</div>
+                            <div className="navi-cont-elem-s-box-val">{globalInfo.getIn(['info','totalCntctPatient'])}</div>
+                        </div>
+                    </div>
+                    <div className="navi-cont-info">
+                        <div className="navi-cont-elem" style={{height: 385}}>
+                            <header>지역별 현황</header>
+                            <div style={{padding: '5px 8px'}}>
+                                <div className="navi-cont-elem-row" style={{borderBottom: '1px solid #eee', paddingBottom: 5}}>
+                                    <div className="navi-cont-elem-tit">지역</div>
+                                    <div className="navi-cont-elem-tit">확진</div>
+                                </div>
+                                <div className="navi-cont-elem-body">
+                                <div className="navi-cont-elem-row">
+                                    <div className="navi-cont-elem-tit">서울</div>
+                                    <div className="navi-cont-elem-tit"></div>
+                                </div>
+                                <div className="navi-cont-elem-row">
+                                    <div className="navi-cont-elem-tit">부산</div>
+                                    <div className="navi-cont-elem-tit"></div>
+                                </div>
+                                <div className="navi-cont-elem-row">
+                                    <div className="navi-cont-elem-tit">대구</div>
+                                    <div className="navi-cont-elem-tit"></div>
+                                </div>
+                                <div className="navi-cont-elem-row">
+                                    <div className="navi-cont-elem-tit">인천</div>
+                                    <div className="navi-cont-elem-tit"></div>
+                                </div>
+                                <div className="navi-cont-elem-row">
+                                    <div className="navi-cont-elem-tit">광주</div>
+                                    <div className="navi-cont-elem-tit"></div>
+                                </div>
+                                <div className="navi-cont-elem-row">
+                                    <div className="navi-cont-elem-tit">대전</div>
+                                    <div className="navi-cont-elem-tit"></div>
+                                </div>
+                                <div className="navi-cont-elem-row">
+                                    <div className="navi-cont-elem-tit">울산</div>
+                                    <div className="navi-cont-elem-tit"></div>
+                                </div>
+                                <div className="navi-cont-elem-row">
+                                    <div className="navi-cont-elem-tit">세종</div>
+                                    <div className="navi-cont-elem-tit"></div>
+                                </div>
+                                <div className="navi-cont-elem-row">
+                                    <div className="navi-cont-elem-tit">경기</div>
+                                    <div className="navi-cont-elem-tit"></div>
+                                </div>
+                                <div className="navi-cont-elem-row">
+                                    <div className="navi-cont-elem-tit">강원</div>
+                                    <div className="navi-cont-elem-tit"></div>
+                                </div>
+                                <div className="navi-cont-elem-row">
+                                    <div className="navi-cont-elem-tit">충북</div>
+                                    <div className="navi-cont-elem-tit"></div>
+                                </div>
+                                <div className="navi-cont-elem-row">
+                                    <div className="navi-cont-elem-tit">충남</div>
+                                    <div className="navi-cont-elem-tit"></div>
+                                </div>
+                                <div className="navi-cont-elem-row">
+                                    <div className="navi-cont-elem-tit">전북</div>
+                                    <div className="navi-cont-elem-tit"></div>
+                                </div>
+                                <div className="navi-cont-elem-row">
+                                    <div className="navi-cont-elem-tit">전남</div>
+                                    <div className="navi-cont-elem-tit"></div>
+                                </div>
+                                <div className="navi-cont-elem-row">
+                                    <div className="navi-cont-elem-tit">경북</div>
+                                    <div className="navi-cont-elem-tit"></div>
+                                </div>
+                                <div className="navi-cont-elem-row">
+                                    <div className="navi-cont-elem-tit">경남</div>
+                                    <div className="navi-cont-elem-tit"></div>
+                                </div>
+                                <div className="navi-cont-elem-row">
+                                    <div className="navi-cont-elem-tit">제주</div>
+                                    <div className="navi-cont-elem-tit"></div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div id="korea">
                     </div>
                 </div>
@@ -105,6 +222,10 @@ const SearchTable = ({
                     columns={CONTACTER_LEFT_THEAD} 
                     data={globalInfo.getIn(['info', 'confPatientList'])} 
                     selectFunc={selectConfirmer}
+                    globalInfo={globalInfo}
+                    currentPageIndex={globalInfo.getIn(['info', 'currentConfPageIndex'])}
+                    totalPageIndex={globalInfo.getIn(['info', 'totalConfPageIndex'])}
+                    pageIndexList={filter.get('confPageIndexList')}
                 />
                 <PersonsList 
                     title={'접촉자 리스트'} 
@@ -112,7 +233,12 @@ const SearchTable = ({
                     columns={CONTACTER_RIGHT_THEAD}
                     data={globalInfo.getIn(['info', 'cntctPatientList'])} 
                     selectFunc={selectContacter}
+                    globalInfo={globalInfo}
+                    currentPageIndex={globalInfo.getIn(['info', 'currentCntctPageIndex'])}
+                    totalPageIndex={globalInfo.getIn(['info', 'totalCntctPageIndex'])}
+                    pageIndexList={filter.get('cntctPageIndexList')}
                 />
+            </div>
             </div>
         </div>
     )

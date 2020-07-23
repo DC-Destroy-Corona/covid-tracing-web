@@ -13,8 +13,6 @@ import {
     SIDEBAR_OPT,
     MARKER_OPT
 } from 'constants/index'
-import * as d3 from "d3";
-import * as topojson from "topojson-client";
 
 import {
     MapPallet,
@@ -250,12 +248,18 @@ class Tracing extends Component {
 
         const {
             tracingActions,
-            mainPerson
+            mainPerson,
+            match,
+            location
         } = this.props;
+
+        // if(match.params.type===1)
+        //     tracingActions.getContactorInfo(match.params.id)
+        // else
+        //     tracingActions.getContactorInfo(match.params.id)
 
         //default props initialze
         tracingActions.chSelect(null);
-        tracingActions.getGlobalInfo();
 
         //map settings
         const script = document.createElement("script");
@@ -272,51 +276,6 @@ class Tracing extends Component {
                 map = new kakao.maps.Map(el, mapOption)
 
                 this._createMapControl()
-            })
-
-
-            var SPECIAL_CITIES = ['서울특별시', '인천광역시', '대전광역시', '대구광역시', '부산광역시', '울산광역시', '광주광역시', '세종특별자치시', '제주특별자치도'];
-            var HEIGHT = 600, WIDTH = 600
-            var projection, path, svg,
-                geoJson, features, bounds, center,
-                m, places;
-
-            //svg 생성
-            svg = d3.select('#korea').append('svg')
-            .attr('width', WIDTH)
-            .attr('height', HEIGHT);
-
-            //map 및 place 생성
-            m = svg.append("g").attr("id", "m");
-            places = svg.append("g").attr("id", "places");
-
-            //지도 투영-메르카토르 투영법 사용
-            projection = d3.geoMercator().translate( [WIDTH / 2, HEIGHT / 2]);
-            path = d3.geoPath().projection(projection);
-
-            //topjson파일 read
-            const TOPO_URL = 'https://raw.githubusercontent.com/southkorea/southkorea-maps/master/kostat/2018/json/skorea-provinces-2018-topo-simple.json'
-            d3.json(TOPO_URL).then((data)=>{
-                geoJson = topojson.feature( data, data.objects['skorea_provinces_2018_geo']);
-                features = geoJson.features;
-                bounds = d3.geoBounds(geoJson);
-                center = d3.geoCentroid(geoJson);
- 
-                var distance = d3.geoDistance( bounds[0],bounds[1]);
-                var scale = HEIGHT / distance / Math.sqrt(2) * 1.2;
- 
-                projection.scale(3300).center(center);
-
-                console.log('center', center);
-                console.log('scale', scale);
-     
-                m.selectAll("path")
-                    .data( features)
-                    .enter().append( "path")
-                    .attr( "class", function(d) { console.log(d);
-                        return "municipality c " + d.properties.code;})
-                    .attr( "d", path)
-                    //.on("click", province_clicked_event);
             })
         }
     }
@@ -362,19 +321,10 @@ class Tracing extends Component {
                     selectContacter={this._selectContacter}
                     selectConfirmer={this._selectConfirmer}
                 /> */}
-                {
-                    !isHide ? 
-                    <SearchTable
-                        isHide={isHide}
-                        chListPage={this._chListPage}
-                    />
-                    :
-                    // <FooterBar></FooterBar>
-                    <InfoTable
-                        chListPage={this._chListPage}
-                    >
-                    </InfoTable>
-                }
+                <InfoTable
+                    chListPage={this._chListPage}
+                >
+                </InfoTable>
             </Fragment>
         )
     }

@@ -20,6 +20,11 @@ const SELECT_PERSON = "tracing/SELECT_PERSON";
 const GET_GLOBAL_INFO = "tracing/GET_GLOBAL_INFO";
 const GET_CONTACTER_INFO = "tracing/GET_CONTACTER_INFO";
 const GET_CONFIRMER_INFO = "tracing/GET_CONFIRMER_INFO";
+const FILTER_REGION = 'tracing/FILTER_REGION';
+const FILTER_DATE = 'tracing/FILTER_DATE';
+const FILTER_CNTCT_INDEX = 'tracing/FILTER_CNTCT_INDEX'
+const FILTER_CONF_INDEX = 'tracing/FILTER_CONF_INDEX'
+
 
 /*--------create action--------*/
 export const chCenter = createAction(CH_CENTER);
@@ -27,6 +32,10 @@ export const chLevel = createAction(CH_LEVEL);
 export const chSelect = createAction(CH_SELECT);
 export const chList = createAction(CH_LIST);
 export const selectPerson = createAction(SELECT_PERSON);
+export const filterRegion = createAction(FILTER_REGION);
+export const filterDate = createAction(FILTER_DATE);
+export const filterCntctIndex = createAction(FILTER_CNTCT_INDEX);
+export const filterConfIndex = createAction(FILTER_CONF_INDEX);
 
 
 export const getGlobalInfo = createAction(GET_GLOBAL_INFO, tracingApi.getGlobalInfo);
@@ -39,6 +48,14 @@ const initialState = Map({
         select: null,
         isHide: false,
     }),
+    filter:Map({
+        region: 'kr',
+        date:'0000-00-00',
+        cntctPageIndex: 1,
+        confPageIndex: 1,
+        cntctPageIndexList:[1,1],
+        confPageIndexList:[1,1],
+    }),
     mapOption: Map({
         center: Map({
             latitude: 523951.25,
@@ -50,6 +67,13 @@ const initialState = Map({
         info: Map({
             totalConfPatient: 0,
             totalCntctPatient: 0,
+            totalCntctPageIndex: 0,
+            totalConfPageIndex: 0,
+            regions:List([]),
+            currentCntctPageIndex: 0,
+            currentConfPageIndex: 0,
+            date: '0000-00-00',
+            selectRegion: 'kr',
 
             //확진자 리스트
             confPatientList: List([]),
@@ -122,6 +146,22 @@ export default handleActions({
             return state.setIn(["pageSets", "select"], action.payload);
         },
 
+        [FILTER_REGION]: (state, action) => {
+            return state.setIn(["filter", "region"], action.payload);
+        },
+
+        [FILTER_DATE]: (state, action) => {
+            return state.setIn(["filter", "date"], action.payload);
+        },
+
+        [FILTER_CNTCT_INDEX]: (state, action) => {
+            return state.setIn(["filter", "cntctPageIndex"], action.payload);
+        },
+
+        [FILTER_CONF_INDEX]: (state, action) => {
+            return state.setIn(["filter", "confPageIndex"], action.payload);
+        },
+
         /*------------Related API-------------*/
 
         //전체 데이터 조회
@@ -136,6 +176,13 @@ export default handleActions({
                         info: Map({
                             totalConfPatient: data.totalConfPatient,
                             totalCntctPatient: data.totalCntctPatient,
+                            totalConfPageIndex: data.totalConfPageIndex,
+                            totalCntctPageIndex: data.totalCntctPageIndex,
+                            regions: Map(data.regions),
+                            currentCntctPageIndex: data.currentCntctPageIndex,
+                            currentConfPageIndex: data.currentConfPageIndex,
+                            date: data.date,
+                            selectRegion: data.selectRegion,
 
                             //확진자 리스트
                             confPatientList: List(
