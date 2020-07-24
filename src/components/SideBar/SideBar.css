@@ -1,0 +1,133 @@
+.SideBar {
+    position: absolute;
+    top: 49px;
+    right: 5px;
+    bottom: 275px;
+    width: 300px;
+    z-index: 9999;
+    background-color: #F8F8F8;
+    border: 1px solid #dadada;
+    border-radius: 2px;
+    opacity: 0.85;
+}
+
+.SideBar > .body {
+    position: absolute;
+    top: 33px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding-top: 10px;
+    display: block;
+    overflow: auto;
+    
+}
+
+.SideBar > .body::-webkit-scrollbar {
+    width: 10px;
+}
+
+.SideBar > .body::-webkit-scrollbar-thumb {
+    background-color: #aaa;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+}
+.SideBar > .body::-webkit-scrollbar-track {
+    background-color: #cfcfcf;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+}
+
+.VisitNode{
+    display: block;
+    background-color: #fff;
+    width: 275px;
+    height: 100px;
+    margin: 0 auto;
+    margin-bottom: 8px;
+    border-radius: 3px;
+    border: 1px solid #eee;
+    cursor: pointer;
+    padding: 0;
+}
+
+.VisitNode > .head {
+    position: relative;
+    border-bottom: 1px solid #eee;
+    height: 30px;
+    width: 100%;
+}
+
+.VisitNode > .head > .idx{
+    float: left;
+    width: 31px;
+    height: 100%;
+    border-right: 1px solid #eee;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+    background-color: #eee;
+}
+
+.VisitNode > .head > .loc{
+    float: left;
+    font-size: 12px;
+    text-align: left;
+    padding: 3px 2px 2px 5px;
+}
+
+.VisitNode > .head > .idx > span {
+    display: block;
+    margin-top: 5px;
+}
+
+.VisitNode > .body {
+    position: relative;
+    height: 70px;
+    width: 100%;
+}
+
+.VisitNode > .body > .elem{
+    margin: 2px 5px;
+    width: 69%;
+    text-align: left;
+    margin-top: 5px;
+}
+
+.VisitNode > .body > .total{
+    position: absolute;
+    top: -6px;
+    right: -1px;
+    bottom: 7px;
+    width: 25%;
+    font-size: 12px;
+    border-left: 1px solid #eee;
+}
+
+.VisitNode > .body .total-key{
+    padding-top: 4px;
+    padding-bottom: 4px;
+    background-color: #eee;
+}
+
+.VisitNode > .body .total-val{
+    margin-top: 12px;
+}
+
+.VisitNode > .body > .elem > .val{
+    display: block;
+    float: right;
+}
+
+.VisitNode > .body > .elem > span{
+    font-size: 12px;
+}
+
+.VisitNode:focus{
+    outline: 1px solid #aaa;
+}
+
+.VisitNode:hover{
+    background-color: #efefef;
+}
