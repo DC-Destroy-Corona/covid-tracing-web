@@ -37,7 +37,141 @@ const ConfirmerInfoList = ({
                             </div>
                             
                         </Fragment>
-
+                        <Fragment>
+                            <div className="table-confId">123456</div>
+                            <div className="table-gender">여자</div>
+                            <div className="table-region">대구광역시</div>
+                            <div className="table-confDate">2020-04-02</div>
+                            <div className="table-visit content" onClick={onclick}>
+                                        정보보기
+                                        <div className="ico">
+                                            <FaRegArrowAltCircleRight size={14}/>
+                                    </div>
+                            </div>
+                            
+                        </Fragment><Fragment>
+                            <div className="table-confId">123456</div>
+                            <div className="table-gender">여자</div>
+                            <div className="table-region">대구광역시</div>
+                            <div className="table-confDate">2020-04-02</div>
+                            <div className="table-visit content" onClick={onclick}>
+                                        정보보기
+                                        <div className="ico">
+                                            <FaRegArrowAltCircleRight size={14}/>
+                                    </div>
+                            </div>
+                            
+                        </Fragment><Fragment>
+                            <div className="table-confId">123456</div>
+                            <div className="table-gender">여자</div>
+                            <div className="table-region">대구광역시</div>
+                            <div className="table-confDate">2020-04-02</div>
+                            <div className="table-visit content" onClick={onclick}>
+                                        정보보기
+                                        <div className="ico">
+                                            <FaRegArrowAltCircleRight size={14}/>
+                                    </div>
+                            </div>
+                            
+                        </Fragment><Fragment>
+                            <div className="table-confId">123456</div>
+                            <div className="table-gender">여자</div>
+                            <div className="table-region">대구광역시</div>
+                            <div className="table-confDate">2020-04-02</div>
+                            <div className="table-visit content" onClick={onclick}>
+                                        정보보기
+                                        <div className="ico">
+                                            <FaRegArrowAltCircleRight size={14}/>
+                                    </div>
+                            </div>
+                            
+                        </Fragment><Fragment>
+                            <div className="table-confId">123456</div>
+                            <div className="table-gender">여자</div>
+                            <div className="table-region">대구광역시</div>
+                            <div className="table-confDate">2020-04-02</div>
+                            <div className="table-visit content" onClick={onclick}>
+                                        정보보기
+                                        <div className="ico">
+                                            <FaRegArrowAltCircleRight size={14}/>
+                                    </div>
+                            </div>
+                            
+                        </Fragment><Fragment>
+                            <div className="table-confId">123456</div>
+                            <div className="table-gender">여자</div>
+                            <div className="table-region">대구광역시</div>
+                            <div className="table-confDate">2020-04-02</div>
+                            <div className="table-visit content" onClick={onclick}>
+                                        정보보기
+                                        <div className="ico">
+                                            <FaRegArrowAltCircleRight size={14}/>
+                                    </div>
+                            </div>
+                            
+                        </Fragment><Fragment>
+                            <div className="table-confId">123456</div>
+                            <div className="table-gender">여자</div>
+                            <div className="table-region">대구광역시</div>
+                            <div className="table-confDate">2020-04-02</div>
+                            <div className="table-visit content" onClick={onclick}>
+                                        정보보기
+                                        <div className="ico">
+                                            <FaRegArrowAltCircleRight size={14}/>
+                                    </div>
+                            </div>
+                            
+                        </Fragment><Fragment>
+                            <div className="table-confId">123456</div>
+                            <div className="table-gender">여자</div>
+                            <div className="table-region">대구광역시</div>
+                            <div className="table-confDate">2020-04-02</div>
+                            <div className="table-visit content" onClick={onclick}>
+                                        정보보기
+                                        <div className="ico">
+                                            <FaRegArrowAltCircleRight size={14}/>
+                                    </div>
+                            </div>
+                            
+                        </Fragment><Fragment>
+                            <div className="table-confId">123456</div>
+                            <div className="table-gender">여자</div>
+                            <div className="table-region">대구광역시</div>
+                            <div className="table-confDate">2020-04-02</div>
+                            <div className="table-visit content" onClick={onclick}>
+                                        정보보기
+                                        <div className="ico">
+                                            <FaRegArrowAltCircleRight size={14}/>
+                                    </div>
+                            </div>
+                            
+                        </Fragment>
+                        <Fragment>
+                            <div className="table-confId">123456</div>
+                            <div className="table-gender">여자</div>
+                            <div className="table-region">대구광역시</div>
+                            <div className="table-confDate">2020-04-02</div>
+                            <div className="table-visit content" onClick={onclick}>
+                                        정보보기
+                                        <div className="ico">
+                                            <FaRegArrowAltCircleRight size={14}/>
+                                    </div>
+                            </div>
+                            
+                        </Fragment>
+                        <Fragment>
+                            <div className="table-confId">123456</div>
+                            <div className="table-gender">여자</div>
+                            <div className="table-region">대구광역시</div>
+                            <div className="table-confDate">2020-04-02</div>
+                            <div className="table-visit content" onClick={onclick}>
+                                        정보보기
+                                        <div className="ico">
+                                            <FaRegArrowAltCircleRight size={14}/>
+                                    </div>
+                            </div>
+                            
+                        </Fragment>
                         {/* {data.map((elem, idx)=>{
                             return(
                                 <div 

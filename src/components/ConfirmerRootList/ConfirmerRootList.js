@@ -4,6 +4,7 @@ import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import * as editActions from 'store/modules/edit';
 import './ConfirmerRootList.css';
+import { AiFillAppstore } from "react-icons/ai";
 import { FaMapSigns } from "react-icons/fa";
 import { MdDateRange, MdCheck } from "react-icons/md";
 import { BsPlus } from "react-icons/bs";
@@ -12,7 +13,7 @@ import {
 } from 'components';
 import Modal from 'react-modal';
 
-const VisitNode = ({ streetNameAddr, firstDateTime }) => {
+const VisitNode = ({ streetNameAddr, startDateTime, endDateTime,type,province }) => {
     return (
         <button className="VisitNode">
             <div className="node-row">
@@ -35,9 +36,35 @@ const VisitNode = ({ streetNameAddr, firstDateTime }) => {
                         marginRight: 3,
                         float: 'left'
                     }} />
-                    <span className="key">방문 일자</span>
-                    <span className="val">{firstDateTime}</span>
+                    <span className="key">노출 일자</span>
+                    <span className="val">{startDateTime}</span>
+                    <span className="val mark"> ~ </span>
+                    <span className="val">{endDateTime}</span>
                     {/* <span className="val">2020-05-17 13:05</span> */}
+                </div>
+            </div>
+            <div className="node-row-type">
+                <div className="elem">
+                    <AiFillAppstore style={{
+                        marginTop: 2,
+                        marginRight: 3,
+                        float: 'left'
+                    }} />
+                    <span className="key">유형(type)</span>
+                    <span className="val">{type}</span>
+                    {/* <span className="val">경상북도 경산시 하양읍 하양로 13-13(대구가톨릭대학교 공학관 526호)</span> */}
+                </div>
+            </div>
+            <div className="node-row-province">
+                <div className="elem">
+                    <AiFillAppstore style={{
+                        marginTop: 2,
+                        marginRight: 3,
+                        float: 'left'
+                    }} />
+                    <span className="key">지역 구분</span>
+                    <span className="val">{province}</span>
+                    {/* <span className="val">경상북도 경산시 하양읍 하양로 13-13(대구가톨릭대학교 공학관 526호)</span> */}
                 </div>
             </div>
         </button>
@@ -108,20 +135,10 @@ class ConfirmerRootList extends Component {
                     </button>
                     <VisitNode
                         streetNameAddr='경상북도 경산시 하양읍 하양로 13-13(대구가톨릭대학교 공학관 526호)'
-                        firstDateTime='2020-05-17'
-                    />
-                    <VisitNode
-                        streetNameAddr='경상북도 경산시 하양읍 하양로 13-13(대구가톨릭대학교 공학관 526호)'
-                        firstDateTime='2020-05-17'
-                    /><VisitNode
-                        streetNameAddr='경상북도 경산시 하양읍 하양로 13-13(대구가톨릭대학교 공학관 526호)'
-                        firstDateTime='2020-05-17'
-                    /><VisitNode
-                        streetNameAddr='경상북도 경산시 하양읍 하양로 13-13(대구가톨릭대학교 공학관 526호)'
-                        firstDateTime='2020-05-17'
-                    /><VisitNode
-                        streetNameAddr='경상북도 경산시 하양읍 하양로 13-13(대구가톨릭대학교 공학관 526호)'
-                        firstDateTime='2020-05-17'
+                        startDateTime='2020-05-17'
+                        endDateTime ='2020-05-20'
+                        type ='school'
+                        province = 'Busan'
                     />
                 </div>
             </div>

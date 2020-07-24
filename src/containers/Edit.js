@@ -20,12 +20,16 @@ class Edit extends Component {
         const { basicActions } = this.props;
         basicActions.sbSelect(idx);
     }
-    componentDidMount() {
 
+    componentDidMount() {
+        const { editActions } = this.props;
+        const confPageIndex = 1;
+        const beaconPageIndex = 1;
+        editActions.getConfPatientAndBeaconList(confPageIndex, beaconPageIndex);
     }
 
     render() {
-        const { 
+        const {
             select
         } = this.props;
         return (
@@ -48,10 +52,11 @@ export default withRouter(
         // props 로 넣어줄 스토어 상태값
         state => ({
             select: state.basic.getIn(['basic', 'select']),
-            confirmerInfo : {
+            
+            confirmerInfo: {
                 confPatientId: state.edit.getIn(['confirmerInfo', 'confPatientId']),
                 gender: state.edit.getIn(['confirmerInfo', 'gender']),
-                region:state.edit.getIn(['confirmerInfo', 'region']),
+                region: state.edit.getIn(['confirmerInfo', 'region']),
                 confDatetime: state.edit.getIn(['confirmerInfo', 'confDatetime']),
             },
         }),

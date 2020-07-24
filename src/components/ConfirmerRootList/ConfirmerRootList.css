@@ -73,7 +73,7 @@
     display: block;
     background-color: #fff;
     width: 500px;
-    height: 100px;
+    height: 157px;
     margin: 0 auto;
     margin-bottom: 8px;
     border-radius: 3px;
@@ -98,11 +98,30 @@
     height: 30px;
     width: 490px;
     float: left;
+    border-bottom: 1px solid #eee;
     font-size: 12px;
     text-align: left;
     padding: 2px 2px 0px 5px;
 }
-
+.VisitNode > .node-row-type{
+    position: relative;
+    height: 30px;
+    border-bottom: 1px solid #eee;
+    width: 490px;
+    float: left;
+    font-size: 12px;
+    text-align: left;
+    padding: 2px 2px 0px 5px;
+}
+.VisitNode > .node-row-province{
+    position: relative;
+    height: 30px;
+    width: 490px;
+    float: left;
+    font-size: 12px;
+    text-align: left;
+    padding: 2px 2px 0px 5px;
+}
 .VisitNode > .node-row > .elem{
     margin: 5px 5px;
     width: 485px;
@@ -117,7 +136,20 @@
     display: flex;
     flex-direction: row;
 }
-
+.VisitNode > .node-row-type> .elem{
+    margin: 5px 5px;
+    width: 485px;
+    text-align: left;
+    display: flex;
+    flex-direction: row;
+}
+.VisitNode > .node-row-province> .elem{
+    margin: 5px 5px;
+    width: 485px;
+    text-align: left;
+    display: flex;
+    flex-direction: row;
+}
 .VisitNode >  .node-row > .elem > .val{
     display: block;
     float: left;
@@ -131,12 +163,41 @@
 .VisitNode >  .node-row-date > .elem > .val{
     display: block;
     float: left;
-    width: 380px;
+    width: 100px;
     margin-left: 30px;
+    margin-top: 2px;
+}
+.VisitNode >  .node-row-date > .elem > .val.mark{
+    display: block;
+    float: left;
+    width: 30px;
+    margin-left: 10px;
     margin-top: 2px;
 }
 
 .VisitNode >  .node-row-date > .elem > span{
+    font-size: 12px;
+}
+
+.VisitNode >  .node-row-type > .elem > .val{
+    display: block;
+    float: left;
+    width: 380px;
+    margin-left: 27px;
+}
+
+.VisitNode >  .node-row-type > .elem > span{
+    font-size: 12px;
+}
+
+.VisitNode >  .node-row-province > .elem > .val{
+    display: block;
+    float: left;
+    width: 380px;
+    margin-left: 30px;
+}
+
+.VisitNode >  .node-row-province > .elem > span{
     font-size: 12px;
 }
 .VisitNode:focus{

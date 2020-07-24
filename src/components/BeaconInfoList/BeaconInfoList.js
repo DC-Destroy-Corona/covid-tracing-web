@@ -22,7 +22,7 @@ const BeaconInfoList = ({
                         <div className="table-streetNameAddrDES"><strong>상세 주소</strong></div>
                     </div>
                     <div className="table-body">
-                        <Fragment>
+                        {/* <Fragment>
                             <div className="table-uuid">74278bda-b644-4520-8f0c-720eaf059935</div>
                             <div className="table-major">65504</div>
                             <div className="table-minor">65505</div>
@@ -105,7 +105,7 @@ const BeaconInfoList = ({
                             <div className="table-minor">65505</div>
                             <div className="table-streetNameAddr">대구광역시 달성군 현풍읍 테크노북로4길 11(대구테크노폴리스남해오네뜨1차)</div>
                             <div className="table-streetNameAddrDES content">107동 1801호</div>
-                        </Fragment>
+                        </Fragment> */}
                         {/* {data.map((elem, idx)=>{
                             return(
                                 <div 

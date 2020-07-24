@@ -34,6 +34,8 @@ const CONFIRMER_REG_INPUT_CLEAR = 'edit/CONFIRMER_REG_INPUT_CLEAR';
 const VISITPOINT_REG_INPUT_CLEAR = 'edit/VISITPOINT_REG_INPUT_CLEAR';
 const BEACON_REG_INPUT_CLEAR = 'edit/BEACON_REG_INPUT_CLEAR';
 
+const GET_CONF_PATIENT_AND_BEACON_LIST = 'edit/GET_CONF_PATIENT_AND_BEACON_LIST';
+
 /*--------create action--------*/
 export const inputConfPatientId = createAction(INPUT_CONFPATIENTID);
 export const selectGender = createAction(SELECT_GENDER);
@@ -64,8 +66,22 @@ export const confirmerRegInputClear = createAction(CONFIRMER_REG_INPUT_CLEAR);
 export const visitPointRegInputClear = createAction(VISITPOINT_REG_INPUT_CLEAR);
 export const beaconRegInputClear = createAction(BEACON_REG_INPUT_CLEAR);
 
+export const getConfPatientAndBeaconList = createAction(GET_CONF_PATIENT_AND_BEACON_LIST, EditApi.getConfPatientAndBeaconList);
+
 /*--------state definition--------*/
 const initialState = Map({
+
+    globalInfo: Map({
+        beaconList: List([]),
+        confPatientList: List([]),
+        currentBeaconPageIndex: 0,
+        currentConfPageIndex: 0,
+        totalBeacon: 0,
+        totalBeaconPageIndex: 0,
+        totalConfPageIndex: 0,
+        totalConfPatient: 0,
+    }),
+
     confirmerInfo: Map({
         confPatientId: '',
         gender: '',
@@ -82,15 +98,15 @@ const initialState = Map({
         province: ''
     }),
 
-    ConfirmerInfoList :List([]),
-    visitPointHistory: List([]),
+    // ConfirmerInfoList: List([]),
+    // visitPointHistory: List([]),
 
     beaconInfo: Map({
         beaconUuid: '',
         beaconMajor: '',
         beaconMinor: '',
         beaconStreetNameAddr: '',
-        beaconStreetNameAddrDES :''
+        beaconStreetNameAddrDES: ''
     }),
 
     registerResult: null,
@@ -102,72 +118,55 @@ const initialState = Map({
 export default handleActions({
 
     [INPUT_CONFPATIENTID]: (state, action) => {
-        console.log("test " + action.payload);
         return state.setIn(['confirmerInfo', 'confPatientId'], action.payload);
     },
     [SELECT_GENDER]: (state, action) => {
-        console.log("test " + action.payload);
         return state.setIn(['confirmerInfo', 'gender'], action.payload);
     },
     [SELECT_REGION]: (state, action) => {
-        console.log("test " + action.payload);
         return state.setIn(['confirmerInfo', 'region'], action.payload);
     },
     [PICK_CONFDATETIME]: (state, action) => {
-        console.log("test " + action.payload);
         return state.setIn(['confirmerInfo', 'confDatetime'], action.payload);
     },
     [SET_IS_MODAL_WITH_TRUE]: (state, action) => {
-        console.log("showModal " + action.payload);
         return state.set('showModal', action.payload);
     },
 
     [SET_IS_MODAL_WITH_FALSE]: (state, action) => {
-        console.log("showModal " + action.payload);
         return state.set('showModal', action.payload);
     },
     [INPUT_STREETNAMEADDR]: (state, action) => {
-        console.log("test " + action.payload);
         return state.setIn(['visitPointInfo', 'streetNameAddr'], action.payload);
     },
     [PICK_FIRST_DATETIME]: (state, action) => {
-        console.log("test " + action.payload);
         return state.setIn(['visitPointInfo', 'firstDateTime'], action.payload);
     },
     [INPUT_LATITUDE]: (state, action) => {
-        console.log("test " + action.payload);
         return state.setIn(['visitPointInfo', 'latitude'], action.payload);
     },
     [INPUT_LONGITUDE]: (state, action) => {
-        console.log("test " + action.payload);
         return state.setIn(['visitPointInfo', 'longitude'], action.payload);
     },
     [INPUT_TYPE]: (state, action) => {
-        console.log("test " + action.payload);
         return state.setIn(['visitPointInfo', 'type'], action.payload);
     },
     [INPUT_PROVINCE]: (state, action) => {
-        console.log("test " + action.payload);
         return state.setIn(['visitPointInfo', 'province'], action.payload);
     },
     [INPUT_BEACON_UUID]: (state, action) => {
-        console.log("test " + action.payload);
         return state.setIn(['beaconInfo', 'beaconUuid'], action.payload);
     },
     [INPUT_BEACON_MAJOR]: (state, action) => {
-        console.log("test " + action.payload);
         return state.setIn(['beaconInfo', 'beaconMajor'], action.payload);
     },
     [INPUT_BEACON_MINOR]: (state, action) => {
-        console.log("test " + action.payload);
         return state.setIn(['beaconInfo', 'beaconMinor'], action.payload);
     },
     [INPUT_BEACON_STREETNAMEADDR]: (state, action) => {
-        console.log("test " + action.payload);
         return state.setIn(['beaconInfo', 'beaconStreetNameAddr'], action.payload);
     },
     [INPUT_BEACON_STREETNAMEADDR_DES]: (state, action) => {
-        console.log("test " + action.payload);
         return state.setIn(['beaconInfo', 'beaconStreetNameAddrDES'], action.payload);
     },
     [CONFIRMER_REG_INPUT_CLEAR]: (state, action) => {
@@ -194,9 +193,30 @@ export default handleActions({
             beaconMajor: '',
             beaconMinor: '',
             beaconStreetNameAddr: '',
-            beaconStreetNameAddrDES:''
+            beaconStreetNameAddrDES: ''
         }));
     },
+
+
+
+
+    ...pender({
+        type: GET_CONF_PATIENT_AND_BEACON_LIST,
+        onSuccess: (state, action) => {
+            console.error("onSuccess ==> GET_CONF_PATIENT_AND_BEACON_LIST");
+            const data = action.payload.data.data;
+            return state.set('globalInfo', Map({
+                beaconList: List(data.beaconList),
+                confPatientList: List(data.confPatientList),
+                currentBeaconPageIndex: data.currentBeaconPageIndex,
+                currentConfPageIndex: data.currentConfPageIndex,
+                totalBeacon: data.totalBeacon,
+                totalBeaconPageIndex: data.totalBeaconPageIndex,
+                totalConfPageIndex: data.totalConfPageIndex,
+                totalConfPatient: data.totalConfPatient,
+            }));
+        },
+    }),
     ...pender({
         type: REGISTER_CONFIRMER,
         onSuccess: (state, action) => {
@@ -225,4 +245,5 @@ export default handleActions({
             ));
         },
     }),
+
 }, initialState);
