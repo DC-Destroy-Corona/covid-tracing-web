@@ -7,6 +7,7 @@ import {
     MdKeyboardArrowRight,
 } from 'react-icons/md'
 import Moment from 'react-moment';
+import moment from 'react-moment';
 
 const VisitNodeFold = ({idx,chCenter, node, nodeSelect}) => {
     return(
@@ -31,7 +32,6 @@ const VisitNodeFold = ({idx,chCenter, node, nodeSelect}) => {
 
 const VisitNode = ({node, type, idx,chCenter, sidebarFold, nodeSelect}) => {
     //const back = nodeSelect===idx ? '#238CFA' : ''
-    console.log(node.get('datetime'))
     return (
         <button className="VisitNode" onClick={
             ()=>{
@@ -72,8 +72,8 @@ const VisitNode = ({node, type, idx,chCenter, sidebarFold, nodeSelect}) => {
                             }}/>
                             <span className="key">최초</span>
                             <span className="val">
-                                <Moment format="YYYY/MM/DD hh:mm">
-                                        {node.get('firstDateTime')}
+                                <Moment format="YYYY-MM-DD hh:mm">
+                                    {new Date(node.get('firstDateTime'))}
                                 </Moment>
                             </span>
                         </div>
@@ -85,8 +85,8 @@ const VisitNode = ({node, type, idx,chCenter, sidebarFold, nodeSelect}) => {
                             }}/>
                             <span className="key">최종</span>
                             <span className="val">
-                                <Moment format="YYYY/MM/DD hh:mm">
-                                        {node.get('lastDateTime')}
+                                <Moment format="YYYY-MM-DD hh:mm">
+                                    {new Date(node.get('lastDateTime'))}
                                 </Moment>
                             </span>
                         </div>
@@ -108,22 +108,51 @@ const VisitNode = ({node, type, idx,chCenter, sidebarFold, nodeSelect}) => {
                                 marginRight: 2,
                                 float: 'left'
                             }}/>
-                            <span className="key">시각</span>
+                            <span className="key">최초</span>
                             <span className="val">
                                 <span className="moment-time">
-                                    <Moment format="YYYY/MM/DD hh:mm">
-                                        {node.get('dateTime')}
+                                    <Moment format="YYYY-MM-DD">
+                                        {new Date(node.get('firstDateTime'))}
+                                    </Moment>
+                                </span>
+                            </span>
+                        </div>
+                        <div className="elem">
+                            <MdAccessTime style={{
+                                marginTop: 1,
+                                marginRight: 2,
+                                float: 'left'
+                            }}/>
+                            <span className="key">최종</span>
+                            <span className="val">
+                                <span className="moment-time">
+                                    <Moment format="YYYY-MM-DD">
+                                        {new Date(node.get('lastDateTime'))}
                                     </Moment>
                                 </span>
                             </span>
                         </div>
                     </Fragment>
                 }
-                <div className="total">
+                {type===1 ? <div className="total">
                     <div className="total-key">접촉자 수</div>
                     <div className="total-val">
-                    <span id="bold">{node.get('cntctPatientNum')}</span></div>
+                    <span id="bold" style={node.get('personNum')!==0 ? {
+                        fontWeight: 'bolder',
+                        fontSize:18,
+                        color: '#DA4A4A'
+                    } : null}>{node.get('personNum')}</span></div>
                 </div>
+                :
+                <div className="total">
+                    <div className="total-key">확진자 수</div>
+                    <div className="total-val">
+                    <span id="bold" style={node.get('personNum')!==0 ? {
+                        fontWeight: 'bolder',
+                        fontSize:18,
+                        color: '#DA4A4A'
+                    } : null}>{node.get('personNum')}</span></div>
+                </div>}
             </div>
         </button>
     )

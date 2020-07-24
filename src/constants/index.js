@@ -52,10 +52,12 @@ export const SIDEBAR_OPT = {
 }
 
 export const MARKER_OPT = {
-    imageSrc: 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png',
+    // imageSrc: 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png',
+    imageSrc: 'https://i7.pngguru.com/preview/169/109/302/drawing-pin-world-map-logo-push-vector-thumbnail.jpg',
+    spriteImageSrc: 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markers_sprites2.png',
     imageSize: {
-        x: 36,
-        y: 37
+        x: 26,
+        y: 38
     },
     imgOptions: {
         spriteSize: {
@@ -75,7 +77,7 @@ export const MARKER_OPT = {
 
 export const API_BASE_URL = 'http://203.250.32.29:8083'
 
-export const SPECIAL_LOC = {
+export const SPECIAL_LOC_KEY = {
     '서울특별시': 'seoul',
     '인천광역시': 'incheon',
     "경기도": 'gyeongido',
@@ -93,6 +95,26 @@ export const SPECIAL_LOC = {
     "울산광역시": 'ulsan',
     "대구광역시": 'daegu',
     "제주특별자치도": 'jeju'
+};
+
+export const SPECIAL_LOC_VAL = {
+    'seoul': '서울특별시',
+    'incheon': '인천광역시',
+    'gyeongido': "경기도",
+    'gangwondo': "강원도",
+    'chungcheongbukdo': "충청북도",
+    'chungcheongnamdo': "충청남도",
+    'sejong': "세종특별자치시",
+    'daejeon': "대전광역시",
+    'jeonrabukdo': "전라북도",
+    'jeonranamdo': "전라남도" ,
+    'gwangju': "광주광역시",
+    'gyeongsangnamdo': "경상남도",
+    'gyeongsangbukdo': "경상북도",
+    'busan': "부산광역시",
+    'ulsan': "울산광역시",
+    'daegu': "대구광역시",
+    'jeju': "제주특별자치도"
 };
 
 export const PAGE_INDEX_STANDARD = 35

@@ -20,7 +20,7 @@ const MainSideBarItem = ({children, isSelect, text, href, onClick}) => {
 const MainSideBar = ({select, sbSelect}) => {
     return (
         <div className="MainSideBar">
-            <MainSideBarItem text="동선조회" href="/tracing" onClick={()=>sbSelect(1)} isSelect={select==1}>
+            <MainSideBarItem text="동선조회" href="/" onClick={()=>sbSelect(1)} isSelect={select==1}>
                 <MdSearch size={30}/>
             </MainSideBarItem>
             <MainSideBarItem text="관리메뉴" href="/edit" onClick={()=>sbSelect(2)} isSelect={select==2}>

@@ -7,6 +7,8 @@ import { connect } from 'react-redux';
 import * as tracingActions from 'store/modules/tracing';
 import * as basicActions from 'store/modules/basic';
 import TextTruncate from 'react-text-truncate';
+import redmark from 'resources/marker.png'
+import bluemark from 'resources/bluemark.png'
 import {
     DEFAULT_MAP_OPTION,
     MAP_FOCUS_LEVEL,
@@ -23,18 +25,28 @@ import {
     InfoTable,
     SearchTable
 } from 'components';
+import { relativeTimeThreshold } from 'moment';
+
+const {kakao} = window
 
 var map = null;
 
 var overlay = null
 var markers = [];
+var targetMarkers = [];
+var cntctMarkers = [];
 var polyline = null
+var targetPolyline = null
 
 class Tracing extends Component {
 
-    _createVisitInfo = (mainPerson, map) => {
+    _createVisitInfo = (info, map, isTarget) => {
+        const {
+            nodeSelect
+        } = this.props;
+
         let linePath = []
-        mainPerson.get('movingInfo').map((elem, idx)=>{
+        info.map((elem, idx)=>{
 
             const longitude = elem.get('longitude')
             const latitude = elem.get('latitude')
@@ -44,30 +56,32 @@ class Tracing extends Component {
                     longitude: longitude,
                     latitude: latitude,
                     idx: idx,
-                    map: map
+                    map: map,
+                    opt: elem.get('personNum')==0,
+                    isTarget: isTarget
                 })
             )
         })
 
         this._createLine({
             linePath: linePath,
-            map: map
+            map: map,
+            isTarget: isTarget
         })
     }
 
-    _createMark = ({latitude,longitude, idx, map})=>{
+    _createMark = ({latitude,longitude, idx, map, opt, isTarget})=>{
 
         const pos = new kakao.maps.LatLng(latitude, longitude)
 
         //마커 옵션
         var markerOption = {
-            imageSrc : MARKER_OPT.imageSrc,
             imageSize : new kakao.maps.Size(MARKER_OPT.imageSize.x, MARKER_OPT.imageSize.y),
-            imgOptions :  {
-                spriteSize : new kakao.maps.Size(MARKER_OPT.imgOptions.spriteSize.x, MARKER_OPT.imgOptions.spriteSize.y), // 스프라이트 이미지의 크기
-                spriteOrigin : new kakao.maps.Point(MARKER_OPT.imgOptions.spriteOrigin.x, MARKER_OPT.imgOptions.spriteOrigin.y(idx)), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
-                offset: new kakao.maps.Point(MARKER_OPT.imgOptions.offset.x, MARKER_OPT.imgOptions.offset.y) // 마커 좌표에 일치시킬 이미지 내에서의 좌표
-            },
+            // imgOptions :  {
+            //     spriteSize : new kakao.maps.Size(MARKER_OPT.imgOptions.spriteSize.x, MARKER_OPT.imgOptions.spriteSize.y), // 스프라이트 이미지의 크기
+            //     spriteOrigin : new kakao.maps.Point(MARKER_OPT.imgOptions.spriteOrigin.x, MARKER_OPT.imgOptions.spriteOrigin.y(idx)), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
+            //     offset: new kakao.maps.Point(MARKER_OPT.imgOptions.offset.x, MARKER_OPT.imgOptions.offset.y) // 마커 좌표에 일치시킬 이미지 내에서의 좌표
+            // },
         }
 
         //마커 생성
@@ -75,34 +89,54 @@ class Tracing extends Component {
         //     position: pos
         // });
 
-        var markerImage = new kakao.maps.MarkerImage(
-            markerOption.imageSrc, 
+        var markerImageRed = new kakao.maps.MarkerImage(
+            redmark, 
+            markerOption.imageSize,
+            markerOption.imgOptions
+        );
+
+        var markerImageBlue = new kakao.maps.MarkerImage(
+            bluemark, 
             markerOption.imageSize,
             markerOption.imgOptions
         );
 
         var marker = new kakao.maps.Marker({
             position: pos, // 마커의 위치
-            image: markerImage 
+            image: opt? markerImageBlue : markerImageRed 
         })
 
         marker.setMap(map);
-        markers.push(marker) //add list
+
+        if(isTarget){
+            markers.push(marker) //add list
+        }
+        else{
+            targetMarkers.push(marker)
+        }
+        
         return pos
     }
 
-    _createLine = ({linePath,map}) => {
-        //if(linePath.size<=1) return
+    _createLine = ({linePath,map, isTarget}) => {
+        if(linePath.size<=1) return
 
-        polyline = new kakao.maps.Polyline({
+        let temp = new kakao.maps.Polyline({
             path: linePath, // 선을 구성하는 좌표배열 입니다
             strokeWeight: 5, // 선의 두께 입니다
-            strokeColor: '#238CFA', // 선의 색깔입니다
+            strokeColor: isTarget ? '#238CFA' : '#C92A2A', // 선의 색깔입니다
             strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
             strokeStyle: 'solid' // 선의 스타일입니다
         });
 
-        polyline.setMap(map);  
+        if(isTarget){
+            polyline=temp;
+            polyline.setMap(map);
+        }  
+        else{
+            targetPolyline=temp;
+            targetPolyline.setMap(map);
+        }
     }
 
     _changeMapLevel = () => {
@@ -130,11 +164,11 @@ class Tracing extends Component {
                         ${idx}번째 방문지점 정보 상세
                         <div class="infowindow-close" onClick="(()=>{overlay.setMap(null)})()" title="닫기"></div>
                     </header>
-                    <div class="infowindow-address">
+                    <div class="infowindow-h2">
                         ${node.get('location')}
                     </div>
                     <div class="infowindow-h2">
-                        접촉자 ()
+                        접촉자 ( ${node.get('personNum')} )
                     </div>
                 </div>
             </div>
@@ -153,14 +187,43 @@ class Tracing extends Component {
 
         // var moveLatLon = new kakao.maps.LatLng(node.get('latitude'), node.get('longitude'));
 
+        tracingActions.chClick(false);
         this._overlayClear();
+        tracingActions.clearTarget()
         this._changeMapLevel()
         map.panTo(markers[idx-1].getPosition());
         this._createOverlay(markers[idx-1].getPosition(), node, idx)
     }
 
-    //지도 정보 초기화
+    _chTargetCenter = (node, idx) => {
+        const { tracingActions } = this.props;
+        //tracingActions.chSelect(idx);
+
+        // var moveLatLon = new kakao.maps.LatLng(node.get('latitude'), node.get('longitude'));
+
+        this._overlayClear();
+        this._changeMapLevel()
+        map.panTo(targetMarkers[idx-1].getPosition());
+        this._createOverlay(targetMarkers[idx-1].getPosition(), node, idx)
+    }
+
     _clearVisitInfo = (arg) => {
+        for(let i=0; i<markers.length; i++){
+            markers[i].setMap(arg)
+        }
+        markers = []
+        if(polyline) polyline.setMap(arg)
+    }
+
+    _clearTargetInfo = (arg) => {
+        for(let i=0; i<targetMarkers.length; i++){
+            targetMarkers[i].setMap(arg)
+        }
+        targetMarkers = []
+        if(targetPolyline) polyline.setMap(arg)
+    }
+
+    _clearContactorInfo = (arg) => {
         for(let i=0; i<markers.length; i++){
             markers[i].setMap(arg)
         }
@@ -209,6 +272,12 @@ class Tracing extends Component {
         this._overlayClear()
     }
 
+    _selectTarget = (id, type) =>{
+        const { tracingActions } = this.props;
+        tracingActions.chClick(true);
+        tracingActions.getTargetInfo(id, type)
+    }
+
     _chListPage = () => {
         const { tracingActions, isHide } = this.props;
         tracingActions.chList(!isHide)
@@ -223,47 +292,78 @@ class Tracing extends Component {
             location
         } = this.props;
 
-        if(match.params.type===1)
+        tracingActions.chSelect(null);
+        tracingActions.chClick(false);
+        tracingActions.clearPerson()
+        tracingActions.clearTarget()
+
+        if(match.params.type==1)
             tracingActions.getConfirmerInfo(match.params.id)
-        else
-            tracingActions.getConfirmerInfo(match.params.id)
+        else{
+            //tracingActions.getConfirmerInfo(match.params.id)
+            tracingActions.getContactorInfo(match.params.id)
+        }
+            
 
         //default props initialze
-        tracingActions.chSelect(null);
+        
 
         //map settings
-        const script = document.createElement("script");
-        script.async = true;
-        script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.REACT_APP_KAKAO_MAP_KEY}&autoload=false`
-        document.head.appendChild(script);
-        script.onload = () => {
-            kakao.maps.load(() => {
-                const el = document.getElementById('map')
-                const mapOption = {
-                    center: new kakao.maps.Coords(DEFAULT_MAP_OPTION.center.latitude, DEFAULT_MAP_OPTION.center.longitude),
-                    level: DEFAULT_MAP_OPTION.level
-                }
-                map = new kakao.maps.Map(el, mapOption)
+        // const script = document.createElement("script");
+        // script.async = true;
+        // document.head.appendChild(script);
+        // script.onload = () => {
+        //     kakao.maps.load(() => {
+        //         const el = document.getElementById('map')
+        //         const mapOption = {
+        //             center: new kakao.maps.Coords(DEFAULT_MAP_OPTION.center.latitude, DEFAULT_MAP_OPTION.center.longitude),
+        //             level: DEFAULT_MAP_OPTION.level
+        //         }
+        //         map = new kakao.maps.Map(el, mapOption)
 
-                this._createMapControl()
-            })
-        }
+        //         this._createMapControl()
+        //     })
+        // }
+        kakao.maps.load(() => {
+            const el = document.getElementById('map')
+            const mapOption = {
+                center: new kakao.maps.Coords(DEFAULT_MAP_OPTION.center.latitude, DEFAULT_MAP_OPTION.center.longitude),
+                level: DEFAULT_MAP_OPTION.level
+            }
+            map = new kakao.maps.Map(el, mapOption)
+
+            this._createMapControl()
+            this._clearVisitInfo(null) //마커 초기화
+        })
     }
 
     componentDidUpdate(){
         const {
             mainPerson,
-            nodeSelect
+            nodeSelect,
+            targetPerson
         } = this.props;
 
-        this._clearVisitInfo(null) //마커 초기화
         if(mainPerson){
-            this._createVisitInfo(mainPerson, map)
-
-            //처음 진입했을 때
-            if(nodeSelect===null && mainPerson.get('movingInfo').size>=1)
-                this._chCenter(mainPerson.getIn(['movingInfo','0']),1)
+            //this._clearVisitInfo(null) //마커 초기화
+            this._createVisitInfo(mainPerson.get('movingInfo'), map, true)   
+            // this._createVisitInfo(mainPerson.get('cntctPatientInfo'), map, false)   
         }
+
+        if(targetPerson){
+            //this._clearVisitInfo(null) //마커 초기화
+            this._clearTargetInfo(null)
+            this._createVisitInfo(targetPerson.get('movingInfo'), map, false)   
+            // this._createVisitInfo(mainPerson.get('cntctPatientInfo'), map, false)   
+        }
+
+        
+        //처음 진입했을 때
+        if(nodeSelect===null && mainPerson && mainPerson.get('movingInfo').size>=1){
+            tracingActions.chSelect(1);
+            this._chCenter(mainPerson.getIn(['movingInfo',0]),1)
+        }
+            
             
     }
 
@@ -275,7 +375,9 @@ class Tracing extends Component {
             sidebarFold,
             nodeSelect,
             isHide,
-            globalInfo
+            globalInfo,
+            targetPerson,
+            clicked
         } = this.props;
 
         return (
@@ -291,6 +393,11 @@ class Tracing extends Component {
                 <MapPallet 
                     sidebarFold={sidebarFold}
                     person={mainPerson}
+                    nodeSelect={nodeSelect}
+                    selectTarget={this._selectTarget}
+                    clicked={clicked}
+                    targetPerson={targetPerson}
+                    chTargetCenter={this._chTargetCenter}
                 />
                 <Header/>
                 {/* <FooterBar 
@@ -311,8 +418,10 @@ export default withRouter(
             select: state.basic.getIn(['basic', 'select']),
             sidebarFold: state.basic.getIn(['basic', 'sidebarFold']),
             nodeSelect: state.tracing.getIn(['pageSets', 'select']),
+            clicked: state.tracing.getIn(['pageSets', 'clicked']),
             isHide: state.tracing.getIn(['pageSets', 'isHide']),
             mainPerson: state.tracing.get('person'),
+            targetPerson: state.tracing.get('targetPerson'),
             mapOption: state.tracing.get('mapOption'), 
             globalInfo: state.tracing.get('globalInfo'), 
         }),

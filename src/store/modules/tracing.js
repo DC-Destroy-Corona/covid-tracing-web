@@ -16,6 +16,7 @@ const CH_CENTER = "tracing/CH_CENTER";
 const CH_LEVEL = "tracing/CH_LEVEL";
 const CH_SELECT = "tracing/CH_SELECT";
 const CH_LIST = "tracing/CH_LIST";
+const CH_CLICK = "tracing/CH_CLICK";
 const SELECT_PERSON = "tracing/SELECT_PERSON";
 const GET_GLOBAL_INFO = "tracing/GET_GLOBAL_INFO";
 const GET_CONTACTER_INFO = "tracing/GET_CONTACTER_INFO";
@@ -24,6 +25,9 @@ const FILTER_REGION = 'tracing/FILTER_REGION';
 const FILTER_DATE = 'tracing/FILTER_DATE';
 const FILTER_CNTCT_INDEX = 'tracing/FILTER_CNTCT_INDEX'
 const FILTER_CONF_INDEX = 'tracing/FILTER_CONF_INDEX'
+const CLEAR_PERSON = 'tracing/CLEAR_PERSON'
+const CLEAR_TARGET = 'tracing/CLEAR_TARGET'
+const GET_TARGET_INFO = 'tracing/GET_TARGET_INFO'
 
 
 /*--------create action--------*/
@@ -31,11 +35,16 @@ export const chCenter = createAction(CH_CENTER);
 export const chLevel = createAction(CH_LEVEL);
 export const chSelect = createAction(CH_SELECT);
 export const chList = createAction(CH_LIST);
+export const chClick = createAction(CH_CLICK);
+
 export const selectPerson = createAction(SELECT_PERSON);
 export const filterRegion = createAction(FILTER_REGION);
 export const filterDate = createAction(FILTER_DATE);
 export const filterCntctIndex = createAction(FILTER_CNTCT_INDEX);
 export const filterConfIndex = createAction(FILTER_CONF_INDEX);
+export const clearPerson = createAction(CLEAR_PERSON);
+export const clearTarget = createAction(CLEAR_TARGET);
+export const getTargetInfo = createAction(GET_TARGET_INFO, tracingApi.getTargetInfo);
 
 
 export const getGlobalInfo = createAction(GET_GLOBAL_INFO, tracingApi.getGlobalInfo);
@@ -47,14 +56,15 @@ const initialState = Map({
     pageSets: Map({
         select: null,
         isHide: false,
+        clicked: false,
     }),
     filter:Map({
         region: 'kr',
         date:'0000-00-00',
         cntctPageIndex: 1,
         confPageIndex: 1,
-        cntctPageIndexList:[1,1],
-        confPageIndexList:[1,1],
+        cntctPageIndexList: List([]),
+        confPageIndexList: List([]),
     }),
     mapOption: Map({
         center: Map({
@@ -89,7 +99,8 @@ const initialState = Map({
             ]),
         }),
     }),
-    person: null
+    person: null,
+    targetPerson: null
     // Map({
     //     type: 2,
     //     id: 12590,
@@ -138,6 +149,10 @@ export default handleActions({
             return state.setIn(["pageSets", "select"], action.payload);
         },
 
+        [CH_CLICK]: (state, action) => {
+            return state.setIn(["pageSets", "clicked"], action.payload);
+        },
+
         [CH_LIST]: (state, action) => {
             return state.setIn(["pageSets", "isHide"], action.payload);
         },
@@ -160,6 +175,14 @@ export default handleActions({
 
         [FILTER_CONF_INDEX]: (state, action) => {
             return state.setIn(["filter", "confPageIndex"], action.payload);
+        },
+
+        [CLEAR_PERSON]: (state, action) => {
+            return state.set('person', null);
+        },
+
+        [CLEAR_TARGET]: (state, action) => {
+            return state.set('targetPerson', null);
         },
 
         /*------------Related API-------------*/
@@ -231,12 +254,21 @@ export default handleActions({
                                 location: item.location,
                                 latitude: item.latitude, // y
                                 longitude: item.longitude, // x
-                                datetime: item.datetime,
-                                cntctPatientNum: item.cntctPatientNum,
+                                firstDateTime: item.firstDatetime,
+                                lastDateTime: item.lastDatetime,
+                                personNum: item.personNum,
+                                contactorInfo: List(item.contactorInfo.map((elem)=>Map({id: elem.id})))
                             }))
                         ),
                         // cntctPatientInfo: List(data.cntctPatientInfo.map(item=>Map(item))),
-                        cntctPatientInfo: List([]),
+                        // cntctPatientInfo: List(data.contactorInfo.map((item)=>Map({
+                        //     //접촉자 아이디
+                        //     userId: item.userId,
+                        //     confPatientId: item.confPatientId,
+                        //     cntctDatetime: item.confPatientId,
+                        //     latitude: item.latitude, // y
+                        //     longitude: item.longitude, // x
+                        // }))),
                     }),
                 );
             },
@@ -258,15 +290,53 @@ export default handleActions({
                                 location: item.location,
                                 latitude: item.latitude, // y
                                 longitude: item.longitude, // x
-                                firstDateTime: item.firstDateTime,
-                                lastDateTime: item.lastDateTime,
-                                cntctPatientNum: item.cntctPatientNum,
+                                firstDateTime: item.firstDatetime,
+                                lastDateTime: item.lastDatetime,
+                                personNum: item.personNum,
+                                contactorInfo: List(item.contactorInfo.map((elem)=>Map({id: elem.id})))
                             }))
                         ),
                     }),
                 );
             },
         }),
+
+        //타겟 정보 조회
+        ...pender({
+            type: GET_TARGET_INFO,
+            onSuccess: (state, action) => {
+                const data = action.payload.data.data;
+
+                return state.set(
+                    "targetPerson",
+                    Map({
+                        type: data.type,
+                        id: data.id,
+                        movingInfo: List(
+                            data.movingInfo.map((item)=>Map({
+                                location: item.location,
+                                latitude: item.latitude, // y
+                                longitude: item.longitude, // x
+                                firstDateTime: item.firstDatetime,
+                                lastDateTime: item.lastDatetime,
+                                personNum: item.personNum,
+                                contactorInfo: item.contactorInfo.map((elem)=>Map({id: elem.id}))
+                            }))
+                        ),
+                        // cntctPatientInfo: List(data.cntctPatientInfo.map(item=>Map(item))),
+                        // cntctPatientInfo: List(data.contactorInfo.map((item)=>Map({
+                        //     //접촉자 아이디
+                        //     userId: item.userId,
+                        //     confPatientId: item.confPatientId,
+                        //     cntctDatetime: item.confPatientId,
+                        //     latitude: item.latitude, // y
+                        //     longitude: item.longitude, // x
+                        // }))),
+                    }),
+                );
+            },
+        }),
+
     },
     initialState
 );

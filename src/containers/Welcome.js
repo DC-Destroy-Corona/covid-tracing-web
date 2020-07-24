@@ -25,10 +25,10 @@ import {
     InfoTable,
     SearchTable
 } from 'components';
-import {SPECIAL_LOC} from 'constants/index'
+import {SPECIAL_LOC_KEY} from 'constants/index'
 
 var map = null;
-var projection, path, svg,geoJson, features, bounds, center, m, places;
+var projection, path, svg,geoJson, features, bounds, center, m, places, CENTERED;
 const HEIGHT = 600, WIDTH = 600
 
 class Welcome extends Component {
@@ -60,14 +60,19 @@ class Welcome extends Component {
 
     _proviceClick = (d) => {
         const { tracingActions,filter } = this.props;
-        tracingActions.filterRegion(SPECIAL_LOC[d.properties.name]);
+        if(d){
+            tracingActions.filterRegion(SPECIAL_LOC_KEY[d.properties.name]);
+        }
+        else{
+            tracingActions.filterRegion('kr');
+        }
         tracingActions.getGlobalInfo({
-            region: SPECIAL_LOC[d.properties.name],
+            region: d ? SPECIAL_LOC_KEY[d.properties.name] : 'kr',
             date: filter.get('date'),
             confPageIndex: 1,
             cntctPageIndex: 1
         })
-        var x, y, zoomLevel, CENTERED;
+        var x, y, zoomLevel;
  
         // if( d && CENTERED != d){
         //     var centroid = path.centroid( d);
@@ -95,14 +100,31 @@ class Welcome extends Component {
             CENTERED = d;
         }
         
- 
-        m.selectAll( "path")
-            .classed( "active", CENTERED && function(d) { return d === CENTERED;});
- 
+        if(d){
+            m.selectAll( "path").classed( "active", CENTERED && function(d) { return d === CENTERED;});
+        }
+        else{
+            m.selectAll( "path").classed( "active", d);
+        }
+        
         // m.transition()
         //     .duration( 750)
         //     .attr( "transform", "translate(" + WIDTH / 2 + "," + HEIGHT / 2 + ")scale(" + zoomLevel + ")translate(" + -x + "," + -y + ")")
         //     .style( "stroke-width", 1.5 / zoomLevel + "px");
+    }
+
+    _initIndex = () => {
+        const {
+            tracingActions,
+            filter
+        } = this.props;
+
+        tracingActions.getGlobalInfo({
+            region: filter.get('region'),
+            date: filter.get('date'),
+            confPageIndex: filter.get('confPageIndex'),
+            cntctPageIndex: filter.get('cntctPageIndex')
+        })
     }
 
     _clickKorea = () => {
@@ -118,6 +140,7 @@ class Welcome extends Component {
             confPageIndex: 1,
             cntctPageIndex: 1
         })
+        this._proviceClick(false)
     }
 
     _changeIndex = ({type, index}) =>{
@@ -152,12 +175,11 @@ class Welcome extends Component {
             filter
         } = this.props;
 
-        this._clickKorea()
-
         //map settings
         const script = document.createElement("script");
         script.async = true;
-        script.src = null
+        // script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.REACT_APP_KAKAO_MAP_KEY}&autoload=false`
+        script.src=null
         document.head.appendChild(script);
         script.onload = () => {
 
@@ -198,6 +220,13 @@ class Welcome extends Component {
                     .attr( "d", path)
                     .on("click", this._proviceClick);
             })
+
+            if(mainPerson){
+                this._initIndex()
+            }
+            else{ //최초진입
+                this._clickKorea()
+            }
         }
     }
 

@@ -35,3 +35,13 @@ export const getConfirmerInfo = (confPatientId) => {
         return res;
     });
 }
+
+export const getTargetInfo = (id, type) => {
+    const baseURL = type==1 ? `${API_BASE_URL}/epid/confPatient/${id}/movingInfo` : `${API_BASE_URL}/epid/cntctPatient/${id}/movingInfo`
+
+    return axios.get(baseURL)
+    .then(res=> {
+        console.log(res);
+        return res;
+    });
+}

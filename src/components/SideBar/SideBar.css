@@ -35,6 +35,11 @@
     padding-top: 3px;
 }
 
+.SideBar .moment-time{
+    color: #313338;
+    font-weight: 500;
+}
+
 .SideBar .fold {
     float: left;
     height: 100%;
