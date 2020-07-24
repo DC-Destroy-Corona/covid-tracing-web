@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import * as editActions from 'store/modules/edit';
 import './ConfirmerRootList.css';
 import { AiFillAppstore } from "react-icons/ai";
-import { FaMapSigns } from "react-icons/fa";
+import { FaMapSigns, FaMap } from "react-icons/fa";
 import { MdDateRange, MdCheck } from "react-icons/md";
 import { BsPlus } from "react-icons/bs";
 import {
@@ -57,7 +57,7 @@ const VisitNode = ({ streetNameAddr, startDateTime, endDateTime,type,province })
             </div>
             <div className="node-row-province">
                 <div className="elem">
-                    <AiFillAppstore style={{
+                    <FaMap style={{
                         marginTop: 2,
                         marginRight: 3,
                         float: 'left'
@@ -118,7 +118,7 @@ class ConfirmerRootList extends Component {
                                 // left: '70px',
                                 // right: '70px',
                                 margin: 'auto',
-                                height: '400px',
+                                height: '440px',
                                 maxWidth: '500px',
                                 overflow: 'hidden'
                                 // bottom: '85px',
@@ -134,7 +134,7 @@ class ConfirmerRootList extends Component {
                             저장하기
                     </button>
                     <VisitNode
-                        streetNameAddr='경상북도 경산시 하양읍 하양로 13-13(대구가톨릭대학교 공학관 526호)'
+                        streetNameAddr='경상북도 경산시 하양읍 하양로 13-13 (대구가톨릭대학교 공학관 526호)dfsfsdfsdfsdsfsfsdsd'
                         startDateTime='2020-05-17'
                         endDateTime ='2020-05-20'
                         type ='school'

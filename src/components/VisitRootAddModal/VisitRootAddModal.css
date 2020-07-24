@@ -30,7 +30,7 @@
 
 #VisitRootAddModal .wrap{
     font-size: 13px;
-    height: 300px;
+    height: 400px;
     padding: 10px 11px 15px 11px;
 }
 
@@ -51,15 +51,22 @@
     width: 300px;
 }
 .datepicker_form > .react-datepicker-wrapper {
-    width: 300px;
+    width: 220px;
 }
 #VisitRootAddModal .datepicker_form input{
-    width: 300px;
+    width: 220px;
+}
+#VisitRootAddModal .wrap-item .input-item {
+    display: flex;
+    flex-direction: row;
+}
+.input-item > .input-item-content {
+    width: 80px;
 }
 .input-item > .datepicker_form > .calender_icon {
     position: absolute;
-    margin-left: 425px;
-    top: 92px;
+    margin-left: 205px;
+    margin-top: -20px;
 }
 #VisitRootAddModal .must > span::after{
     position: absolute;
@@ -94,7 +101,7 @@ button#reg_btn{
 }
 #VisitRootAddModal .center {
     margin: 0 80px;
-    width: 480px;
+    width: 400px;
     display: flex;
     flex-direction: row;
 }

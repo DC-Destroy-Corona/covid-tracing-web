@@ -13,7 +13,8 @@ const PICK_CONFDATETIME = 'edit/PICK_CONFDATETIME';
 const INPUT_STREETNAMEADDR = 'edit/INPUT_STREETNAMEADDR';
 const INPUT_LATITUDE = 'edit/INPUT_LATITUDE';
 const INPUT_LONGITUDE = 'edit/INPUT_LONGITUDE';
-const PICK_FIRST_DATETIME = 'edit/PICK_FIRST_DATETIME';
+const PICK_START_DATETIME = 'edit/PICK_START_DATETIME';
+const PICK_END_DATETIME = 'edit/PICK_END_DATETIME';
 const INPUT_TYPE = 'edit/INPUT_TYPE';
 const INPUT_PROVINCE = 'edit/INPUT_PROVINCE';
 
@@ -45,7 +46,8 @@ export const pickConfDateTime = createAction(PICK_CONFDATETIME);
 export const inputStreetNameAddr = createAction(INPUT_STREETNAMEADDR);
 export const inputLatitude = createAction(INPUT_LATITUDE);
 export const inputLongitude = createAction(INPUT_LONGITUDE);
-export const pickFirstDatetime = createAction(PICK_FIRST_DATETIME);
+export const pickStartDateTime = createAction(PICK_START_DATETIME);
+export const pickEndDateTime = createAction(PICK_END_DATETIME);
 export const inputType = createAction(INPUT_TYPE);
 export const inputProvince = createAction(INPUT_PROVINCE);
 
@@ -91,7 +93,8 @@ const initialState = Map({
 
     visitPointInfo: Map({
         streetNameAddr: '',
-        firstDatetime: '',
+        startDateTime: '',
+        endDateTime: '',
         latitude: '',
         longitude: '',
         type: '',
@@ -139,8 +142,11 @@ export default handleActions({
     [INPUT_STREETNAMEADDR]: (state, action) => {
         return state.setIn(['visitPointInfo', 'streetNameAddr'], action.payload);
     },
-    [PICK_FIRST_DATETIME]: (state, action) => {
-        return state.setIn(['visitPointInfo', 'firstDateTime'], action.payload);
+    [PICK_START_DATETIME]: (state, action) => {
+        return state.setIn(['visitPointInfo', 'startDateTime'], action.payload);
+    },
+    [PICK_END_DATETIME]: (state, action) => {
+        return state.setIn(['visitPointInfo', 'endDateTime'], action.payload);
     },
     [INPUT_LATITUDE]: (state, action) => {
         return state.setIn(['visitPointInfo', 'latitude'], action.payload);
@@ -180,7 +186,8 @@ export default handleActions({
     [VISITPOINT_REG_INPUT_CLEAR]: (state, action) => {
         return state.set('visitPointInfo', Map({
             streetNameAddr: '',
-            firstDatetime: '',
+            startDateTime: '',
+            endDateTime: '',
             latitude: '',
             longitude: '',
             type: '',

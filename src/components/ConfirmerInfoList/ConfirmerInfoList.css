@@ -11,7 +11,7 @@
 }
 .ConfirmerInfoList > .infoList {
     border-top-left-radius: 7px;
-    width: 600px;
+    width: 640px;
     margin: 0;
     height: 460px;
 }
@@ -26,7 +26,7 @@
     right: 0;
     top: 50px;
     bottom: 45px;
-    width: 560px;
+    width: 580px;
     height: 385px;
     /* overflow-x: scroll;
     overflow-y: scroll; */
@@ -41,7 +41,7 @@
     font-size: 13.5px;
     height: 30px;
     white-space: nowrap;
-    width: 555px;
+    width: 570px;
 }
 
 .ConfirmerInfoList .table-thead > div{
@@ -102,7 +102,7 @@
 }
 
 .ConfirmerInfoList .table-gender{
-    width: 90px;
+    width: 100px;
     border-right: 1px solid #f1f1f1;
 }
 
@@ -117,7 +117,7 @@
 }
 
 .ConfirmerInfoList .table-visit{
-    width: 105px;
+    width: 113px;
 }
 .table-visit .ico {
     position: absolute;
@@ -143,7 +143,7 @@
     background-color: #fff;
     cursor: pointer;
     border: none;
-    width: 100px;
+    width: 110px;
 }
 .table-visit.content:focus{
     outline: 1px solid #aaa;

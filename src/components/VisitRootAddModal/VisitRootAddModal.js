@@ -19,9 +19,13 @@ class VisitRootAddModal extends Component {
         const { editActions } = this.props;
         editActions.inputStreetNameAddr(e.target.value);
     }
-    _pickFirstDatetime  = (date) => {
+    _pickStartDateTime  = (date) => {
         const { editActions } = this.props;
-        editActions.pickFirstDatetime(date);
+        editActions.pickStartDateTime(date);
+    }
+    _pickEndDateTime  = (date) => {
+        const { editActions } = this.props;
+        editActions.pickEndDateTime(date);
     }
     _inputLatitude  = (e) => {
         const { editActions } = this.props;
@@ -67,7 +71,8 @@ class VisitRootAddModal extends Component {
             
             editActions.registerVisitPoint({
                 streetNameAddr : visitPointInfo.streetNameAddr,
-                firstDateTime : visitPointInfo.firstDateTime,
+                startDateTime : visitPointInfo.startDateTime,
+                endDateTime : visitPointInfo.endDateTime,
                 latitude : visitPointInfo.latitude,
                 longitude : visitPointInfo.longitude,
                 type : visitPointInfo.type,
@@ -89,7 +94,8 @@ class VisitRootAddModal extends Component {
 
         const {
             streetNameAddr,
-            firstDateTime,
+            startDateTime,
+            endDateTime,
             latitude,
             longitude,
             type,
@@ -121,19 +127,46 @@ class VisitRootAddModal extends Component {
                     </div>
                     <div className="wrap-item">
                         <div className="input-title must">
-                            <span>방문 일자</span>
+                            <span>노출 일자</span>
                         </div>
                         <div className="input-item">
+                            <div className="input-item-content">
+                                <span>- 최초일자</span>
+                            </div>
                         <div className="datepicker_form">
                         <DatePicker 
-                        selected={firstDateTime}
-                        onChange={this._pickFirstDatetime}
+                        selected={startDateTime}
+                        onChange={this._pickStartDateTime}
                         dateFormat="yyyy-MM-dd"
                         />
                         <div className="calender_icon">
                             <FcCalendar size={20} />
                         </div>
+                        
                     </div>
+                    
+                        </div>
+                    </div>
+                    <div className="wrap-item">
+                        <div className="input-title">
+                            <span style={{color:'white'}}>.</span>
+                        </div>
+                        <div className="input-item">
+                        <div className="input-item-content">
+                            <span>- 최종일자</span>
+                        </div>
+                        <div className="datepicker_form">
+                        <DatePicker 
+                        selected={endDateTime}
+                        onChange={this._pickEndDateTime}
+                        dateFormat="yyyy-MM-dd"
+                        />
+                        <div className="calender_icon">
+                            <FcCalendar size={20} />
+                        </div>
+                        
+                    </div>
+                    
                         </div>
                     </div>
                     <div className="wrap-item">
@@ -207,7 +240,7 @@ class VisitRootAddModal extends Component {
                     <button 
                     id="reg_btn"
                     disabled ={
-                        streetNameAddr ==''|| firstDateTime==''||latitude==''|| 
+                        streetNameAddr ==''|| startDateTime==''|| endDateTime==''||latitude==''|| 
                         longitude=='' || type=='' || province=='' ?
                         true : false
                     }
@@ -231,7 +264,8 @@ export default withRouter(
             },
             visitPointInfo : {
                 streetNameAddr : state.edit.getIn(['visitPointInfo', 'streetNameAddr']),
-                firstDateTime : state.edit.getIn(['visitPointInfo', 'firstDateTime']),
+                startDateTime : state.edit.getIn(['visitPointInfo', 'startDateTime']),
+                endDateTime : state.edit.getIn(['visitPointInfo', 'endDateTime']),
                 latitude : state.edit.getIn(['visitPointInfo', 'latitude']),
                 longitude : state.edit.getIn(['visitPointInfo', 'longitude']),
                 type : state.edit.getIn(['visitPointInfo', 'type']),
