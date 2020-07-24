@@ -103,7 +103,7 @@ class Tracing extends Component {
 
         var marker = new kakao.maps.Marker({
             position: pos, // 마커의 위치
-            image: opt? markerImageBlue : markerImageRed 
+            image: opt? (isTarget ? markerImageBlue : markerImageRed) : markerImageRed 
         })
 
         marker.setMap(map);
@@ -220,7 +220,7 @@ class Tracing extends Component {
             targetMarkers[i].setMap(arg)
         }
         targetMarkers = []
-        if(targetPolyline) polyline.setMap(arg)
+        if(targetPolyline) targetPolyline.setMap(arg)
     }
 
     _clearContactorInfo = (arg) => {
@@ -355,6 +355,9 @@ class Tracing extends Component {
             this._clearTargetInfo(null)
             this._createVisitInfo(targetPerson.get('movingInfo'), map, false)   
             // this._createVisitInfo(mainPerson.get('cntctPatientInfo'), map, false)   
+        }
+        else{
+            this._clearTargetInfo(null)
         }
 
         
