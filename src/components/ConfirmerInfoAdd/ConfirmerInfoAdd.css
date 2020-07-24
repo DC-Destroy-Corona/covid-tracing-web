@@ -1,5 +1,5 @@
 .confirmerInfoAdd {
-    width: 720px;
+    width: 600px;
     position: absolute;
     top: 50px;
     left: 106px;
@@ -48,7 +48,7 @@
     color: #333;
     cursor: pointer;
     outline: none;
-    width: 526px;
+    width: 420px;
     height: 31px;
     font-size: 13px;
     padding: 5px 32px 5px 15px;
@@ -80,7 +80,7 @@
   }
   
   .Dropdown-menu {
-    width: 526px;
+    width: 420px;
     margin-left: 160px;
     background-color: white;
     border: 1px solid #ccc;

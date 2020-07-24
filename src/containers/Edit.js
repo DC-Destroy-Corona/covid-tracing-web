@@ -21,6 +21,7 @@ class Edit extends Component {
         basicActions.sbSelect(idx);
     }
     componentDidMount() {
+
     }
 
     render() {
@@ -47,6 +48,12 @@ export default withRouter(
         // props 로 넣어줄 스토어 상태값
         state => ({
             select: state.basic.getIn(['basic', 'select']),
+            confirmerInfo : {
+                confPatientId: state.edit.getIn(['confirmerInfo', 'confPatientId']),
+                gender: state.edit.getIn(['confirmerInfo', 'gender']),
+                region:state.edit.getIn(['confirmerInfo', 'region']),
+                confDatetime: state.edit.getIn(['confirmerInfo', 'confDatetime']),
+            },
         }),
         // props 로 넣어줄 액션 생성함수
         dispatch => ({

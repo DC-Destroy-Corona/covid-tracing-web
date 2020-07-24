@@ -118,7 +118,7 @@ class ConfirmerInfoAdd extends Component {
                     }}> </div>
                     <InputItem
                         display={false}
-                        name='소재지'
+                        name='거주지'
                         label='region'
                         must={true}
                     />
@@ -149,7 +149,7 @@ class ConfirmerInfoAdd extends Component {
                     </div>
                 </InputContainer>
                 <hr style={{
-                    width:'700px',
+                    width:'580px',
                     marginTop:'5px',
                     marginLeft:'10px',
                     marginBottom:'0'

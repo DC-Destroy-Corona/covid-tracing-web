@@ -1,105 +1,79 @@
-import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
-import { withRouter } from 'react-router';
-import { connect } from 'react-redux';
-import * as editActions from 'store/modules/edit';
+import React, { Fragment } from 'react';
 import './ConfirmerInfoList.css';
-import {
-    ConfirmerInfoListContent
-} from 'components';
-import Modal from 'react-modal';
+
+import { FaRegArrowAltCircleRight } from 'react-icons/fa';
 import { get } from 'immutable';
 
-class ConfirmerInfoList extends Component {
-    _setIsModalWithTrue = () => {
-        // this.setState({ showModal: true });
-        const { editActions, showModal
-            } = this.props;   
-        editActions.setIsModalWithTrue(!showModal);
-        }
-    
-        _setIsModalWithFalse = () => {
-        // this.setState({ showModal: false });
-        const { editActions, showModal
-        } = this.props;   
-        editActions.setIsModalWithFalse(!showModal);
-        }
-        
-    componentDidMount () {
-    }
-
-    render(){
-        const {showModal} = this.props;
-
-        return (
-            <div className="ConfirmerInfoList" >
-                <div className="infoList">
+const ConfirmerInfoList = ({
+    data
+}) => {
+    return (
+        <div className="ConfirmerInfoList" >
+            <div className="infoList">
                 <div id="comp-title">
                     <span><strong>확진자 목록</strong></span>
                 </div>
-                <div className="body">
-                {/* <button className="reg_btn" onClick={this._setIsModalWithTrue}>
-                    + 방문 지점 등록
-                    </button>
-                    <Modal 
-                    isOpen={showModal}
-                    style={{
-                        overlay: {
-                            zIndex: 9999,
-                            backgroundColor: 'rgba(33,33,33,0.2)'
-                        },
-                        content: {
-                            padding: 0,
-                            borderRadius: '2px',
-                            border: '1px solid #dadce0',
-                            backgroundColor: '#fff',
-                            top: '0',
-                            left: '0',
-                            right: '0',
-                            bottom: '0',
-                            // left: '70px',
-                            // right: '70px',
-                            margin: 'auto',
-                            height: '400px',
-                            maxWidth: '500px',
-                            overflow: 'hidden'
-                            // bottom: '85px',
-                        }
-                    }}
-                    >
-                        <VisitRootAddModal />
-                        
-                    </Modal> */}
-                    <ConfirmerInfoListContent 
-                    confPatientId='123'
-                    gender ='남자'
-                    region='대구광역시'
-                    confDatetime = '2020-07-02'
-                    _setIsModalWithTrue ={this._setIsModalWithTrue}
-                    showModal ={showModal}
-                    />
-                </div>
+                <div className="list-body">
+                    <div className="table-thead" style={{
+                        borderBottom: '1px solid #aaa'
+                    }}>
+                        <div className="table-confId"><strong>확진 번호</strong></div>
+                        <div className="table-gender"><strong>성별</strong></div>
+                        <div className="table-region"><strong>거주지</strong></div>
+                        <div className="table-confDate"><strong>확진 일자</strong></div>
+                        <div className="table-visit"><strong>방문 지점</strong></div>
+                    </div>
+                    <div className="table-body">
+                        <Fragment>
+                            <div className="table-confId">123456</div>
+                            <div className="table-gender">여자</div>
+                            <div className="table-region">대구광역시</div>
+                            <div className="table-confDate">2020-04-02</div>
+                            <div className="table-visit content" onClick={onclick}>
+                                        정보보기
+                                        <div className="ico">
+                                            <FaRegArrowAltCircleRight size={14}/>
+                                    </div>
+                            </div>
+                            
+                        </Fragment>
+
+                        {/* {data.map((elem, idx)=>{
+                            return(
+                                <div 
+                                    className="table-row" 
+                                    key={idx} 
+                                    style={{
+                                        backgroundColor: idx%2==0 ? '#F2F5F9' : '#fff'
+                                    }}
+                                    onClick={()=>{
+                                    const id = elem.get('confPatientId')
+                                }}>
+                                        <Fragment>
+                                            <div className="table-no">{idx+1}</div>
+                                            <div className="table-confId">{elem.get('confPatientId')}</div>
+                                            <div className="table-gender">{elem.get('gender')}</div>
+                                            <div className="table-region">{elem.get('region')}</div>
+                                            <div className="table-confDate">{elem.get('confDate')}</div>
+                                            <div className="table-visit content">*/}
+                        {/* {elem.get('visit')} */}
+                        {/*<button className="wrap-btn">
+                                                    정보보기
+                                                    <FaRegArrowAltCircleRight size={15} style={{ 
+                                                        marginTop:'5px',
+                                                        marginLeft :'5px'
+                                                    }} />
+                                                </button>
+                                            </div>
+                                        </Fragment> 
+                                </div>
+                            )
+                        })} */}
+                    </div>
                 </div>
             </div>
-        )
-    }
-    
+        </div>
+    )
 }
 
-export default withRouter(
-    //subscribe redux store
-    connect(
-        state => ({
-            confirmerInfo : {
-                confPatientId: state.edit.getIn(['confirmerInfo', 'confPatientId']),
-                gender: state.edit.getIn(['confirmerInfo', 'gender']),
-                confDatetime: state.edit.getIn(['confirmerInfo', 'confDatetime']),
-            },
-            showModal : state.edit.get('showModal'),
-        }),
-        // props 로 넣어줄 액션 생성함수
-        dispatch => ({
-            editActions: bindActionCreators(editActions, dispatch),
-        })
-    )(ConfirmerInfoList)
-);
+export default ConfirmerInfoList;

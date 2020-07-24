@@ -11,10 +11,8 @@ import {
 import './BeaconInfoAdd.css';
 class BeaconInfoAdd extends Component {
     _inputBeaconUuid =(e) => {
-        const {editActions, regexp} = this.props;
-        if(e.target.value === '' || regexp.test(e.target.value)){
+        const {editActions} = this.props;
             editActions.inputBeaconUuid(e.target.value);
-        }
     }
     _inputBeaconMajor =(e) => {
         const {editActions, regexp} = this.props;
@@ -32,6 +30,10 @@ class BeaconInfoAdd extends Component {
         const { editActions } = this.props;
         editActions.inputBeaconStreetNameAddr(e.target.value);
     }
+    _inputbeaconStreetNameAddrDES  = (e) => {
+        const { editActions } = this.props;
+        editActions.inputbeaconStreetNameAddrDES(e.target.value);
+    }
     _registerBeacon =() => {
         
         const { 
@@ -44,6 +46,7 @@ class BeaconInfoAdd extends Component {
             beaconMajor : beaconInfo.beaconMajor,
             beaconMinor : beaconInfo.beaconMinor,
             beaconStreetNameAddr : beaconInfo.beaconStreetNameAddr,
+            beaconStreetNameAddrDES : beaconInfo.beaconStreetNameAddrDES
         });
 
         editActions.beaconRegInputClear();
@@ -61,7 +64,8 @@ class BeaconInfoAdd extends Component {
             beaconUuid,
             beaconMajor,
             beaconMinor,
-            beaconStreetNameAddr
+            beaconStreetNameAddr,
+            beaconStreetNameAddrDES
         } = beaconInfo;
         return (
             <div className="BeaconInfoAdd">
@@ -99,18 +103,18 @@ class BeaconInfoAdd extends Component {
                         label='beaconStreetNameAddr'
                         must={true}
                         value={beaconStreetNameAddr}
-                        placeholder='beaconStreetNameAddr'
+                        placeholder='도로명 주소'
                         onChange={this._inputBeaconStreetNameAddr}
                     />
-                    {/* <InputItem
+                    <InputItem
                         display={true}
-                        name='---'
-                        // label='confirmer_id'
+                        name='상세 주소 입력'
+                        label='beaconStreetNameAddrDES'
                         must={true}
-                        // value={confirmerId}
-                        placeholder='---'
-                    // onChange={this._inputText}
-                    /> */}
+                        value={beaconStreetNameAddrDES}
+                        placeholder='주소 입력'
+                        onChange={this._inputText}
+                    />
                 </InputContainer>
                 <SubmitBtn 
                     disabled ={
@@ -133,7 +137,8 @@ export default withRouter(
                 beaconUuid :state.edit.getIn(['beaconInfo', 'beaconUuid']),
                 beaconMajor :state.edit.getIn(['beaconInfo', 'beaconMajor']),
                 beaconMinor :state.edit.getIn(['beaconInfo', 'beaconMinor']),
-                beaconStreetNameAddr :state.edit.getIn(['beaconInfo', 'beaconStreetNameAddr'])
+                beaconStreetNameAddr :state.edit.getIn(['beaconInfo', 'beaconStreetNameAddr']),
+                beaconStreetNameAddrDES :state.edit.getIn(['beaconInfo', 'beaconStreetNameAddrDES'])
             },
         }),
         // props 로 넣어줄 액션 생성함수

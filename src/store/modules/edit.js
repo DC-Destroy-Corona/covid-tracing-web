@@ -21,6 +21,7 @@ const INPUT_BEACON_UUID = 'edit/INPUT_BEACON_UUID';
 const INPUT_BEACON_MAJOR = 'edit/INPUT_BEACON_MAJOR';
 const INPUT_BEACON_MINOR = 'edit/INPUT_BEACON_MINOR';
 const INPUT_BEACON_STREETNAMEADDR = 'edit/INPUT_BEACON_STREETNAMEADDR';
+const INPUT_BEACON_STREETNAMEADDR_DES = 'edit/INPUT_BEACON_STREETNAMEADDR_DES';
 
 const REGISTER_CONFIRMER = 'edit/REGISTER_CONFIRMER';
 const REGISTER_VISITPOINT = 'edit/REGISTER_VISITPOINT';
@@ -50,6 +51,7 @@ export const inputBeaconUuid = createAction(INPUT_BEACON_UUID);
 export const inputBeaconMajor = createAction(INPUT_BEACON_MAJOR);
 export const inputBeaconMinor = createAction(INPUT_BEACON_MINOR);
 export const inputBeaconStreetNameAddr = createAction(INPUT_BEACON_STREETNAMEADDR);
+export const inputBeaconStreetNameAddrDES = createAction(INPUT_BEACON_STREETNAMEADDR_DES);
 
 export const registerConfirmer = createAction(REGISTER_CONFIRMER, EditApi.registerConfirmer);
 export const registerVisitPoint = createAction(REGISTER_VISITPOINT, EditApi.registerVisitPoint);
@@ -80,14 +82,15 @@ const initialState = Map({
         province: ''
     }),
 
-    // ConfirmerInfoList :List([]),
+    ConfirmerInfoList :List([]),
     visitPointHistory: List([]),
 
     beaconInfo: Map({
         beaconUuid: '',
         beaconMajor: '',
         beaconMinor: '',
-        beaconStreetNameAddr: ''
+        beaconStreetNameAddr: '',
+        beaconStreetNameAddrDES :''
     }),
 
     registerResult: null,
@@ -163,6 +166,10 @@ export default handleActions({
         console.log("test " + action.payload);
         return state.setIn(['beaconInfo', 'beaconStreetNameAddr'], action.payload);
     },
+    [INPUT_BEACON_STREETNAMEADDR_DES]: (state, action) => {
+        console.log("test " + action.payload);
+        return state.setIn(['beaconInfo', 'beaconStreetNameAddrDES'], action.payload);
+    },
     [CONFIRMER_REG_INPUT_CLEAR]: (state, action) => {
         return state.set('confirmerInfo', Map({
             confPatientId: '',
@@ -186,7 +193,8 @@ export default handleActions({
             beaconUuid: '',
             beaconMajor: '',
             beaconMinor: '',
-            beaconStreetNameAddr: ''
+            beaconStreetNameAddr: '',
+            beaconStreetNameAddrDES:''
         }));
     },
     ...pender({

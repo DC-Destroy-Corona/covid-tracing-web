@@ -1,22 +1,9 @@
-import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
-import { withRouter } from 'react-router';
-import { connect } from 'react-redux';
-import * as editActions from 'store/modules/edit';
-import * as basicActions from 'store/modules/basic';
-import {
-    InputContainer,
-    InputItem,
-    SubmitBtn
-} from 'components';
+import React, { Fragment } from 'react';
 import './BeaconInfoList.css';
-class BeaconInfoList extends Component {
-
-    componentDidMount() {
-    }
-
-    render() {
-        
+    
+const BeaconInfoList = ({
+        data
+    }) => {
         return (
             <div className="BeaconInfoList">
                 <div className="infoList">
@@ -24,26 +11,128 @@ class BeaconInfoList extends Component {
                     <span><strong>비콘 목록</strong></span>
                 </div>
                 
-                <div className="body">
-                    
-                </div>
+                <div className="list-body">
+                    <div className="table-thead" style={{
+                        borderBottom: '1px solid #aaa'
+                    }}>
+                        <div className="table-uuid"><strong>Beacon uuid</strong></div>
+                        <div className="table-major"><strong>major</strong></div>
+                        <div className="table-minor"><strong>minor</strong></div>
+                        <div className="table-streetNameAddr"><strong>도로명 주소</strong></div>
+                        <div className="table-streetNameAddrDES"><strong>상세 주소</strong></div>
+                    </div>
+                    <div className="table-body">
+                        <Fragment>
+                            <div className="table-uuid">74278bda-b644-4520-8f0c-720eaf059935</div>
+                            <div className="table-major">65504</div>
+                            <div className="table-minor">65505</div>
+                            <div className="table-streetNameAddr">경북 경산시 하양읍 하양로 13-13 (대구가톨릭대학교)</div>
+                            <div className="table-streetNameAddrDES content">공학관 D2-526호</div>
+                        </Fragment>
+                        <Fragment>
+                            <div className="table-uuid">74278bda-b644-4520-8f0c-720eaf059935</div>
+                            <div className="table-major">65504</div>
+                            <div className="table-minor">65505</div>
+                            <div className="table-streetNameAddr">대구광역시 달성군 현풍읍 테크노북로4길 11(대구테크노폴리스남해오네뜨1차)</div>
+                            <div className="table-streetNameAddrDES content">107동 1801호</div>
+                        </Fragment>
+                        <Fragment>
+                            <div className="table-uuid">74278bda-b644-4520-8f0c-720eaf059935</div>
+                            <div className="table-major">65504</div>
+                            <div className="table-minor">65505</div>
+                            <div className="table-streetNameAddr">경북 경산시 하양읍 하양로 13-13 (대구가톨릭대학교)</div>
+                            <div className="table-streetNameAddrDES content">공학관 D2-526호</div>
+                        </Fragment>
+                        <Fragment>
+                            <div className="table-uuid">74278bda-b644-4520-8f0c-720eaf059935</div>
+                            <div className="table-major">65504</div>
+                            <div className="table-minor">65505</div>
+                            <div className="table-streetNameAddr">대구광역시 달성군 현풍읍 테크노북로4길 11(대구테크노폴리스남해오네뜨1차)</div>
+                            <div className="table-streetNameAddrDES content">107동 1801호</div>
+                        </Fragment>
+                        <Fragment>
+                            <div className="table-uuid">74278bda-b644-4520-8f0c-720eaf059935</div>
+                            <div className="table-major">65504</div>
+                            <div className="table-minor">65505</div>
+                            <div className="table-streetNameAddr">경북 경산시 하양읍 하양로 13-13 (대구가톨릭대학교)</div>
+                            <div className="table-streetNameAddrDES content">공학관 D2-526호</div>
+                        </Fragment>
+                        <Fragment>
+                            <div className="table-uuid">74278bda-b644-4520-8f0c-720eaf059935</div>
+                            <div className="table-major">65504</div>
+                            <div className="table-minor">65505</div>
+                            <div className="table-streetNameAddr">대구광역시 달성군 현풍읍 테크노북로4길 11(대구테크노폴리스남해오네뜨1차)</div>
+                            <div className="table-streetNameAddrDES content">107동 1801호</div>
+                        </Fragment>
+                        <Fragment>
+                            <div className="table-uuid">74278bda-b644-4520-8f0c-720eaf059935</div>
+                            <div className="table-major">65504</div>
+                            <div className="table-minor">65505</div>
+                            <div className="table-streetNameAddr">경북 경산시 하양읍 하양로 13-13 (대구가톨릭대학교)</div>
+                            <div className="table-streetNameAddrDES content">공학관 D2-526호</div>
+                        </Fragment>
+                        <Fragment>
+                            <div className="table-uuid">74278bda-b644-4520-8f0c-720eaf059935</div>
+                            <div className="table-major">65504</div>
+                            <div className="table-minor">65505</div>
+                            <div className="table-streetNameAddr">대구광역시 달성군 현풍읍 테크노북로4길 11(대구테크노폴리스남해오네뜨1차)</div>
+                            <div className="table-streetNameAddrDES content">107동 1801호</div>
+                        </Fragment>
+                        <Fragment>
+                            <div className="table-uuid">74278bda-b644-4520-8f0c-720eaf059935</div>
+                            <div className="table-major">65504</div>
+                            <div className="table-minor">65505</div>
+                            <div className="table-streetNameAddr">경북 경산시 하양읍 하양로 13-13 (대구가톨릭대학교)</div>
+                            <div className="table-streetNameAddrDES content">공학관 D2-526호</div>
+                        </Fragment>
+                        <Fragment>
+                            <div className="table-uuid">74278bda-b644-4520-8f0c-720eaf059935</div>
+                            <div className="table-major">65504</div>
+                            <div className="table-minor">65505</div>
+                            <div className="table-streetNameAddr">대구광역시 달성군 현풍읍 테크노북로4길 11(대구테크노폴리스남해오네뜨1차)</div>
+                            <div className="table-streetNameAddrDES content">107동 1801호</div>
+                        </Fragment>
+                        <Fragment>
+                            <div className="table-uuid">74278bda-b644-4520-8f0c-720eaf059935</div>
+                            <div className="table-major">65504</div>
+                            <div className="table-minor">65505</div>
+                            <div className="table-streetNameAddr">경북 경산시 하양읍 하양로 13-13 (대구가톨릭대학교)</div>
+                            <div className="table-streetNameAddrDES content">공학관 D2-526호</div>
+                        </Fragment>
+                        <Fragment>
+                            <div className="table-uuid">74278bda-b644-4520-8f0c-720eaf059935</div>
+                            <div className="table-major">65504</div>
+                            <div className="table-minor">65505</div>
+                            <div className="table-streetNameAddr">대구광역시 달성군 현풍읍 테크노북로4길 11(대구테크노폴리스남해오네뜨1차)</div>
+                            <div className="table-streetNameAddrDES content">107동 1801호</div>
+                        </Fragment>
+                        {/* {data.map((elem, idx)=>{
+                            return(
+                                <div 
+                                    className="table-row" 
+                                    key={idx} 
+                                    style={{
+                                        backgroundColor: idx%2==0 ? '#F2F5F9' : '#fff'
+                                    }}
+                                    onClick={()=>{
+                                    const id = elem.get('uuid')
+                                }}>
+                                        <Fragment>
+                                            <div className="table-no">{idx+1}</div>
+                                            <div className="table-uuid">{elem.get('beaconUuid')}</div>
+                                            <div className="table-major">{elem.get('beaconMajor')}</div>
+                                            <div className="table-minor">{elem.get('beaconMinor')}</div>
+                                            <div className="table-streetNameAddr">{elem.get('beaconStreetNameAddr')}</div>
+                                            <div className="table-streetNameAddrDES content">{elem.get('beaconStreetNameAddrDES')}</div>
+                                        </Fragment> 
+                                </div>
+                            )
+                        })} */}
+                    </div>
                 </div>
             </div>
-        )
-    }
+        </div>
+    )
 }
 
-
-export default withRouter(
-    connect(
-        // props 로 넣어줄 스토어 상태값
-        state => ({
-            confirmerId: state.edit.getIn(['confirmerInfo', 'confirmerId']),
-            gender: state.edit.getIn(['confirmerInfo', 'gender']),
-        }),
-        // props 로 넣어줄 액션 생성함수
-        dispatch => ({
-            editActions: bindActionCreators(editActions, dispatch),
-        })
-    )(BeaconInfoList)
-)
+export default BeaconInfoList;

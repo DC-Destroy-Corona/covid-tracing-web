@@ -1,9 +1,9 @@
 .ConfirmerRootList {
     position: absolute;
     top: 50px;
-    left: 1410px;
+    left: 1360px;
     bottom: 275px;
-    width: 500px;
+    width: 550px;
     z-index: 9999;
     background-color: #F8F8F8;
     border: 1px solid #b3b3b3;
@@ -48,7 +48,7 @@
     font-weight: bold;
     font-size: 13px;
     cursor: pointer;
-    margin: 0 0 10px 280px;
+    margin: 0 0 10px 330px;
 }
 .ConfirmerRootList > .body > .save-btn{
     font-weight: bold;
@@ -72,7 +72,7 @@
 .VisitNode{
     display: block;
     background-color: #fff;
-    width: 450px;
+    width: 500px;
     height: 100px;
     margin: 0 auto;
     margin-bottom: 8px;
@@ -86,7 +86,7 @@
     position: relative;
     border-bottom: 1px solid #eee;
     height: 55px;
-    width: 440px;
+    width: 490px;
     float: left;
     font-size: 12px;
     text-align: left;
@@ -96,7 +96,7 @@
 .VisitNode > .node-row-date{
     position: relative;
     height: 30px;
-    width: 440px;
+    width: 490px;
     float: left;
     font-size: 12px;
     text-align: left;
@@ -105,14 +105,14 @@
 
 .VisitNode > .node-row > .elem{
     margin: 5px 5px;
-    width: 430px;
+    width: 485px;
     text-align: left;
     display: flex;
     flex-direction: row;
 }
 .VisitNode > .node-row-date> .elem{
     margin: 5px 5px;
-    width: 430px;
+    width: 485px;
     text-align: left;
     display: flex;
     flex-direction: row;
@@ -121,7 +121,7 @@
 .VisitNode >  .node-row > .elem > .val{
     display: block;
     float: left;
-    width: 335px;
+    width: 380px;
     margin-left: 15px;
 }
 
@@ -131,7 +131,7 @@
 .VisitNode >  .node-row-date > .elem > .val{
     display: block;
     float: left;
-    width: 330px;
+    width: 380px;
     margin-left: 30px;
     margin-top: 2px;
 }
