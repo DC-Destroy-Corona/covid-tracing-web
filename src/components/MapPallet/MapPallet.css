@@ -1,14 +1,3 @@
-.MapNavi {
-    position: absolute;
-    z-index: 9999;
-    top: 55px;
-    left: 109px;
-    border-radius: 5px;
-    width: 200px;
-    height: 60px;
-    background-color: #fff;
-    border: 1px solid #dadada;
-}
 
 .map-pallet {
     width: 100%;
@@ -23,7 +12,166 @@
     padding: 0;
     top: 49px;
     left: 104px;
-    bottom: 275px;
-    right: 309px;
+    bottom: 5px;
     border: 1px solid #eee;
+}
+
+.PersonInfo{
+    position: absolute;
+    top: 82px;
+    left: 144px;
+    border-radius: 5px;
+    width: 200px;
+    height: 163px;
+    z-index: 9999;
+    background-color: #ffffff;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid #dadada;
+}
+
+.PersonInfo header{
+    text-align: center;
+    font-size: 15px;
+    font-weight: 500;
+    color:#313338;
+    background-color: #F9F9F9;
+    border-bottom: 1px solid #dadada;
+    margin-bottom: 3px;
+}
+
+.PersonInfo .PersonInfo-row{
+    display: block;
+    width: 95%;
+    font-size: 13px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+    margin-bottom: 3px;
+    padding-left: 5px;
+    font-weight: 400;
+}
+
+.PersonInfo .PersonInfo-key{
+    width: 50%;
+    display: inline-block;
+}
+
+.PersonInfo .PersonInfo-key::before{
+    content: '';
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    background-color: #313338;
+    margin-bottom: 2px;
+    margin-right: 5px;
+    
+}
+
+.PersonInfo .PersonInfo-val{
+    width: 50%;
+    display: inline-block;
+    text-align: right;
+}
+
+.PersonInfo .color-bold{
+    background-color: #3396FF;
+    color: white;
+    padding: 1px 8px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.map-pallet-back a{
+    position: absolute;
+    top: 52px;
+    left: 144px;
+    z-index: 9999;
+    background-color: #fff;
+    position: absolute;
+    border: 1px solid #dadada;
+    color: #313338;
+    outline: none;
+    cursor: pointer;
+    text-decoration: none !important;
+    padding: 3px 10px;
+    font-size: 14px;
+    font-weight: bolder;
+    border-radius: 5px;
+}
+
+.map-pallet-back a:hover{
+    text-decoration: none !important;
+    background-color: #3396FF;
+    color: #f9f9f9;
+    border: 0;
+}
+
+.map-pallet .HidePallet{
+    z-index: 9999;
+    position: absolute;
+    top: 49px;
+    bottom: 5px;
+    width: 110px;
+    overflow: auto;
+    padding-top: 34px;
+}
+
+.map-pallet .hide-pallet-node{
+    margin: 0 auto;
+    width: 90px;
+    height: 30px;
+    border: 1px solid #dadada;
+    background-color: #fff;
+    border-radius: 3px;
+    text-align: center;
+    padding-top: 9px;
+    margin-bottom: 8px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.map-pallet .hide-pallet-node span {
+    font-weight: bolder;
+    color: #C92A2A;
+    font-size: 15px;
+}
+
+.map-pallet .hide-pallet-node:hover{
+    color: #313338 !important;
+    border:3px solid #3396FF;
+}
+
+.hide-btn-ls {
+    z-index: 9999;
+    position: absolute;
+    top: 49px;
+    bottom: 5px;
+    width: 50px;
+    overflow: auto;
+    padding-top: 34px;
+}
+
+.hide-btn-ls-idx {
+    margin: 0 auto;
+    border-radius: 50%;
+    color: #313338;
+    width: 35px;
+    height: 31px;;
+    background-color: #eee;
+    border: 1px solid #313338;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    padding-top: 4px;
+    cursor: pointer;
+    margin-bottom:10px;
+}
+
+.hide-btn-ls-idx:hover{
+    background-color: #3396FF;
+    color: white;
+    border: 0;
 }

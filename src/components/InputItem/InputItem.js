@@ -2,7 +2,7 @@ import React from 'react';
 import './InputItem.css';
 import {input} from 'react-inputs-validation';
 
-const InputItem = ({ display, name, label, must, placeholder, disabled, value, onChange }) => {
+const InputItem = ({ children, display, name, label, must, placeholder, disabled, value, onChange }) => {
     const inputItemClass='InputItem'
     let inputItem = must ? `${inputItemClass} must` : inputItemClass;
     let color = disabled ? '#EDEDED' : 'white';
@@ -15,7 +15,7 @@ const InputItem = ({ display, name, label, must, placeholder, disabled, value, o
                 </label>
             </strong>
             <div className="input-element" style={{display:displaytype}} >
-                <input 
+                {children? children : <input 
                     id={label} 
                     placeholder={placeholder} 
                     disabled={disabled} 
@@ -25,8 +25,7 @@ const InputItem = ({ display, name, label, must, placeholder, disabled, value, o
                     value={value}
                     name={label}
                     onChange={onChange}
-                />
-                
+                />}
             </div>
         </div>
     );

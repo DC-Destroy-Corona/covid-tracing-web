@@ -37,6 +37,9 @@ const BEACON_REG_INPUT_CLEAR = 'edit/BEACON_REG_INPUT_CLEAR';
 
 const GET_CONF_PATIENT_AND_BEACON_LIST = 'edit/GET_CONF_PATIENT_AND_BEACON_LIST';
 
+const INPUT_BEACON_LATITUDE = 'edit/INPUT_BEACON_LATITUDE'
+const INPUT_BEACON_LONGITUDE = 'edit/INPUT_BEACON_LONGITUDE'
+
 /*--------create action--------*/
 export const inputConfPatientId = createAction(INPUT_CONFPATIENTID);
 export const selectGender = createAction(SELECT_GENDER);
@@ -56,9 +59,14 @@ export const inputBeaconMajor = createAction(INPUT_BEACON_MAJOR);
 export const inputBeaconMinor = createAction(INPUT_BEACON_MINOR);
 export const inputBeaconStreetNameAddr = createAction(INPUT_BEACON_STREETNAMEADDR);
 export const inputBeaconStreetNameAddrDES = createAction(INPUT_BEACON_STREETNAMEADDR_DES);
+export const inputBeaconLongitude = createAction(INPUT_BEACON_LONGITUDE);
+export const inputBeaconLatitude = createAction(INPUT_BEACON_LATITUDE);
 
 export const registerConfirmer = createAction(REGISTER_CONFIRMER, EditApi.registerConfirmer);
-export const registerVisitPoint = createAction(REGISTER_VISITPOINT, EditApi.registerVisitPoint);
+export const registerVisitPoint = createAction(REGISTER_VISITPOINT);
+
+//EditApi.registerVisitPoint
+
 export const registerBeacon = createAction(REGISTER_BEACON, EditApi.registerBeacon);
 
 export const setIsModalWithFalse = createAction(SET_IS_MODAL_WITH_FALSE);
@@ -89,9 +97,13 @@ const initialState = Map({
         gender: '',
         region: '',
         confDatetime: '',
+        movingInfoList: List([
+
+        ])
     }),
 
     visitPointInfo: Map({
+        confPatientMovingInfoId: 0,
         streetNameAddr: '',
         startDateTime: '',
         endDateTime: '',
@@ -109,7 +121,9 @@ const initialState = Map({
         beaconMajor: '',
         beaconMinor: '',
         beaconStreetNameAddr: '',
-        beaconStreetNameAddrDES: ''
+        beaconStreetNameAddrDES: '',
+        latitude: '',
+        longitude: '',
     }),
 
     registerResult: null,
@@ -175,12 +189,22 @@ export default handleActions({
     [INPUT_BEACON_STREETNAMEADDR_DES]: (state, action) => {
         return state.setIn(['beaconInfo', 'beaconStreetNameAddrDES'], action.payload);
     },
+    [INPUT_BEACON_LATITUDE]: (state, action) => {
+        return state.setIn(['beaconInfo', 'latitude'], action.payload);
+    },
+    [INPUT_BEACON_LONGITUDE]: (state, action) => {
+        return state.setIn(['beaconInfo', 'longitude'], action.payload);
+    },
+    [INPUT_BEACON_STREETNAMEADDR_DES]: (state, action) => {
+        return state.setIn(['beaconInfo', 'beaconStreetNameAddrDES'], action.payload);
+    },
     [CONFIRMER_REG_INPUT_CLEAR]: (state, action) => {
         return state.set('confirmerInfo', Map({
             confPatientId: '',
             gender: '',
             region: '',
             confDatetime: '',
+            movingInfoList: List([])
         }));
     },
     [VISITPOINT_REG_INPUT_CLEAR]: (state, action) => {
@@ -200,8 +224,24 @@ export default handleActions({
             beaconMajor: '',
             beaconMinor: '',
             beaconStreetNameAddr: '',
-            beaconStreetNameAddrDES: ''
+            beaconStreetNameAddrDES: '',
+            latitude: '',
+            longitude:''
         }));
+    },
+
+    [REGISTER_VISITPOINT]: (state, action) => {
+        return state.updateIn(['confirmerInfo', 'movingInfoList'], movingInfoList=>
+        movingInfoList.unshift(Map({
+            confPatientMovingInfoId: state.getIn(['confirmerInfo', 'movingInfoList']).size+1,
+            streetNameAddr: action.payload.streetNameAddr,
+            firstDateTime: action.payload.startDateTime,
+            lastDateTime: action.payload.endDateTime,
+            latitude: action.payload.latitude,
+            longitude: action.payload.longitude,
+            type: action.payload.type,
+            province: action.payload.province,
+        })))
     },
 
 
@@ -210,11 +250,10 @@ export default handleActions({
     ...pender({
         type: GET_CONF_PATIENT_AND_BEACON_LIST,
         onSuccess: (state, action) => {
-            console.error("onSuccess ==> GET_CONF_PATIENT_AND_BEACON_LIST");
             const data = action.payload.data.data;
             return state.set('globalInfo', Map({
-                beaconList: List(data.beaconList),
-                confPatientList: List(data.confPatientList),
+                beaconList: List(data.beaconList.map(item=>Map(item))),
+                confPatientList: List(data.confPatientList.map(item=>Map(item))),
                 currentBeaconPageIndex: data.currentBeaconPageIndex,
                 currentConfPageIndex: data.currentConfPageIndex,
                 totalBeacon: data.totalBeacon,
@@ -227,29 +266,26 @@ export default handleActions({
     ...pender({
         type: REGISTER_CONFIRMER,
         onSuccess: (state, action) => {
-            console.log("test registerConfirmerResult" + action.payload.data);
-            return state.set('registerConfPatient', Map(
-                action.payload.data
-            ));
+            //console.log("test registerConfirmerResult" + action.payload.data);
+            return state;
         },
     }),
 
     ...pender({
-        type: REGISTER_VISITPOINT,
-        onSuccess: (state, action) => {
-            console.log("test registerVisitPointResult" + action.payload.data);
-            return state.set('registerVisitPointResult', Map(
-                action.payload.data
-            ));
-        },
-    }),
-    ...pender({
         type: REGISTER_BEACON,
         onSuccess: (state, action) => {
-            console.log("test registerVisitPointResult" + action.payload.data);
-            return state.set('registerBeaconResult', Map(
-                action.payload.data
-            ));
+            // console.log("test registerVisitPointResult" + action.payload.data);
+            // return state
+            return state.set('beaconInfo', Map({
+                beaconUuid: '',
+                beaconMajor: '',
+                beaconMinor: '',
+                beaconStreetNameAddr: '',
+                beaconStreetNameAddrDES: ''
+            })).updateIn(['globalInfo','beaconList'], beaconList=> 
+            beaconList.unshift(Map(
+                action.payload.data.data.beacon
+            )));
         },
     }),
 

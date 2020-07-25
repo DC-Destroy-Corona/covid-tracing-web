@@ -2,13 +2,16 @@
     position: absolute;
     top: 49px;
     right: 5px;
-    bottom: 275px;
+    bottom: 5px;
     width: 300px;
     z-index: 9999;
     background-color: #F8F8F8;
     border: 1px solid #dadada;
     border-radius: 2px;
-    opacity: 0.85;
+}
+
+#SideBar-fold {
+    width: 35px;
 }
 
 .SideBar > .body {
@@ -21,6 +24,36 @@
     display: block;
     overflow: auto;
     
+}
+
+.SideBar #comp-title {
+    padding: 0;
+}
+
+.SideBar #comp-title > span{
+    display: block;
+    padding-top: 3px;
+}
+
+.SideBar .moment-time{
+    color: #313338;
+    font-weight: 500;
+}
+
+.SideBar .fold {
+    float: left;
+    height: 100%;
+    margin: 0;
+    padding-top: 3px;
+    font-size: 20px;
+    background-color: #fff;
+    outline: none;
+    border: 0;
+    cursor: pointer;
+}
+
+.SideBar .fold:hover{
+    background-color: #F1F1F1
 }
 
 .SideBar > .body::-webkit-scrollbar {
@@ -42,8 +75,6 @@
 .VisitNode{
     display: block;
     background-color: #fff;
-    width: 275px;
-    height: 100px;
     margin: 0 auto;
     margin-bottom: 8px;
     border-radius: 3px;
@@ -54,6 +85,7 @@
 
 .VisitNode > .head {
     position: relative;
+    display: block;
     border-bottom: 1px solid #eee;
     height: 30px;
     width: 100%;
@@ -70,11 +102,16 @@
     background-color: #eee;
 }
 
-.VisitNode > .head > .loc{
-    float: left;
+.VisitNode .loc{
+    display: block;
     font-size: 12px;
     text-align: left;
     padding: 3px 2px 2px 5px;
+}
+
+.VisitNode .loc span {
+    padding-left: 2px;
+    font-size: 11px;
 }
 
 .VisitNode > .head > .idx > span {
@@ -97,9 +134,9 @@
 
 .VisitNode > .body > .total{
     position: absolute;
-    top: -6px;
-    right: -1px;
-    bottom: 7px;
+    top: -5px;
+    right: 0px;
+    bottom: 10px;
     width: 25%;
     font-size: 12px;
     border-left: 1px solid #eee;
@@ -125,9 +162,38 @@
 }
 
 .VisitNode:focus{
-    outline: 1px solid #aaa;
+    outline: 0;
+    border: 2px solid #238CFA;
 }
 
 .VisitNode:hover{
     background-color: #efefef;
 }
+
+.VisitNodeFold{
+    display: block;
+    cursor: pointer;
+    border-radius: 30%;
+    text-align: center;
+    border: 1px solid #a9afb4;
+    width: 28px;
+    height: 28px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    background-color: #FFFFFF;
+    color: black;
+    font-weight: bolder;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.VisitNodeFold:hover{
+    background-color: gray;
+    color: white;
+}
+
+.VisitNodeFold:focus{
+    outline: 0;
+    border: 2px solid #fff;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');

@@ -13,6 +13,8 @@ import DatePicker from "react-datepicker";
 import Dropdown from 'react-dropdown';
 import "react-datepicker/dist/react-datepicker.css";
 import { FcCalendar } from "react-icons/fc";
+import { color } from 'd3';
+import moment from 'moment';
 
 class ConfirmerInfoAdd extends Component {
 
@@ -40,13 +42,28 @@ class ConfirmerInfoAdd extends Component {
     _registerConfirmer = () => {
         const { 
             editActions,
-            confirmerInfo
+            confirmerInfo,
         } = this.props;
+
+        console.log(confirmerInfo.confPatientId)
+
         editActions.registerConfirmer({
-            confPatientId : confirmerInfo.confPatientId,
-            gender : confirmerInfo.gender,
-            region : confirmerInfo.region,
-            confDatetime : confirmerInfo.confDatetime
+            confPatient: {
+                confPatientId : confirmerInfo.confPatientId,
+                gender : confirmerInfo.gender,
+                region : confirmerInfo.region,
+                confDatetime : moment(confirmerInfo.confDatetime).format('YYYY-MM-DD').toString(),
+                movingInfoList: confirmerInfo.movingInfoList.map((item)=>{return {
+                    confPatientMovingInfoId: item.get('confPatientMovingInfoId'),
+                    streetNameAddr: item.get('streetNameAddr'),
+                    firstDatetime:moment(item.get('firstDatetime')).format('YYYY-MM-DD').toString(),
+                    lastDatetime: moment(item.get('lastDatetime')).format('YYYY-MM-DD').toString(),
+                    latitude: item.get('latitude'),
+                    longitude: item.get('longitude'),
+                    type: item.get('type'),
+                    province: item.get('province')
+                }})
+            }
         });
         editActions.confirmerRegInputClear();
     }
@@ -56,7 +73,8 @@ class ConfirmerInfoAdd extends Component {
 
     render() {
         const {
-            confirmerInfo
+            confirmerInfo,
+            children
         } = this.props;
 
         
@@ -152,8 +170,17 @@ class ConfirmerInfoAdd extends Component {
                     width:'580px',
                     marginTop:'5px',
                     marginLeft:'10px',
-                    marginBottom:'0'
+                    marginBottom: 10,
+                    border: 0, 
+                    borderTop: '1px solid #ccc',
+                    color: '#eee'
                 }} />
+                <div className="conf-add-ls">
+                    <div className="conf-add-ls-item">
+
+                    </div>
+                    {children}
+                </div>
                 <SubmitBtn 
                     disabled ={
                         confPatientId==''|| gender=='' || region=='' || confDatetime=='' ?
@@ -176,6 +203,7 @@ export default withRouter(
                 gender: state.edit.getIn(['confirmerInfo', 'gender']),
                 region: state.edit.getIn(['confirmerInfo', 'region']),
                 confDatetime: state.edit.getIn(['confirmerInfo', 'confDatetime']),
+                movingInfoList: state.edit.getIn(['confirmerInfo', 'movingInfoList']),
             },
             visitPointInfo : {
                 streetNameAddr : state.edit.getIn(['visitPointInfo', 'streetNameAddr']),

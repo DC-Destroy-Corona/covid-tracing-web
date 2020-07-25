@@ -1,8 +1,9 @@
 .BeaconInfoList {
-    width: 1190px;
-    position: absolute;
+    margin-top: 20px;
+    width: 1250px;
+    /* position: absolute;
     top: 520px;
-    left: 720px;
+    left: 720px; */
     border: 1px solid #b3b3b3;
     border-radius: 7px;
     box-shadow: 0 1px 2px 0 rgba(40,50,60,.06);
@@ -11,7 +12,7 @@
 
 .BeaconInfoList > .infoList {
     border-top-left-radius: 7px;
-    width: 1190px;
+    width: 1250px;
     margin: 0;
     height: 410px;
 }
@@ -22,12 +23,13 @@
     border-top-right-radius: 7px;
 }
 .BeaconInfoList .list-body{
-    position: absolute;
+    /* position: absolute;
     left: 10px;
     right: 0;
     top: 50px;
-    bottom: 45px;
-    width: 1175px;
+    bottom: 45px; */
+    position: relative;
+    width: 1250px;
     height: 350px;
     /* overflow-x: scroll;
     overflow-y: scroll; */
@@ -42,7 +44,7 @@
     font-size: 13.5px;
     height: 30px;
     white-space: nowrap;
-    width: 1175px;
+    width: 1250px;
 }
 
 .BeaconInfoList .table-thead > div{

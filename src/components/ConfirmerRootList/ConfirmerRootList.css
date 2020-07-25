@@ -1,27 +1,14 @@
 .ConfirmerRootList {
-    position: absolute;
-    top: 50px;
-    left: 1360px;
-    bottom: 275px;
-    width: 550px;
-    z-index: 9999;
-    background-color: #F8F8F8;
-    border: 1px solid #b3b3b3;
-    border-top-right-radius: 7px;
-    border-bottom-right-radius: 7px;
-    opacity: 0.85;
+
     height: 460px;
 }
 
 .ConfirmerRootList > .body {
-    position: absolute;
-    top: 40px;
-    right: 0;
-    bottom: 0;
-    left: 0;
     padding-top: 5px;
     display: block;
-    overflow: auto;
+    overflow: scroll;
+    overflow-x: hidden;
+    height: 236px;
     border-bottom-right-radius: 7px;
 }
 
@@ -48,7 +35,15 @@
     font-weight: bold;
     font-size: 13px;
     cursor: pointer;
-    margin: 0 0 10px 330px;
+    margin: 0 auto;
+    display: block;
+    width: 500px;
+    background-color: #eee;
+    outline: 0;
+    border: 1px solid #dadada;
+    margin-bottom: 15px;
+    margin-top: 10px;
+    border-radius: 2px;
 }
 .ConfirmerRootList > .body > .save-btn{
     font-weight: bold;
@@ -57,11 +52,12 @@
     float: right;
     margin: 0 20px 10px 0;
 }
-.register-btn:focus{
+/* .register-btn:focus{
     outline: 1px solid #aaa;
-}
+} */
 .register-btn:hover{
-    background-color: #efefef;
+    background-color: #3396FF;
+    /* color: #fff; */
 }
 .save-btn:focus{
     outline: 1px solid #aaa;
@@ -75,9 +71,9 @@
     width: 500px;
     height: 157px;
     margin: 0 auto;
-    margin-bottom: 8px;
+    margin-bottom: 15px;
     border-radius: 3px;
-    border: 1px solid #eee;
+    border: 1px solid #ccc;
     cursor: pointer;
     padding: 0;
 }

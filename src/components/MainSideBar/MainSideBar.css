@@ -1,11 +1,12 @@
 .MainSideBar{
-    position: absolute;
+    position: fixed;
     top: 45px;
     left: 0;
     width: 100px;
     bottom: 0;
     z-index: 9999;
     background-color: #f9f9f9;
+    /* background-color: #292929; */
     border-top: 1px solid #a9afb4;
     border-right: 1px solid #a9afb4;
 }

@@ -12,6 +12,7 @@ import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 import { FcCalendar } from "react-icons/fc"; 
+import moment from 'moment'
 
 class VisitRootAddModal extends Component {
     
@@ -21,9 +22,11 @@ class VisitRootAddModal extends Component {
     }
     _pickStartDateTime  = (date) => {
         const { editActions } = this.props;
+        console.log(moment(date).format('YYYY-MM-DD').toString())
         editActions.pickStartDateTime(date);
     }
     _pickEndDateTime  = (date) => {
+        console.log(date)
         const { editActions } = this.props;
         editActions.pickEndDateTime(date);
     }
@@ -68,6 +71,8 @@ class VisitRootAddModal extends Component {
             } = this.props;
             // const {confirmerInfo} =location.state;
             // editActions.registerVisitPoint(confirmerInfo.confPatientId);
+
+            console.log(visitPointInfo)
             
             editActions.registerVisitPoint({
                 streetNameAddr : visitPointInfo.streetNameAddr,

@@ -16,8 +16,13 @@ export const getConfPatientAndBeaconList = (confPageIndex, beaconPageIndex) => {
 }
 
 export const registerConfirmer = (confirmerInfo) => {
-    const baseURL = `${API_BASE_URL}/epid/record/confPatient`
-    return null;
+    const baseURL = `${API_BASE_URL}/epid/record/confPatient/${confirmerInfo.confPatient.confPatientId}/movingInfoList`
+    return axios
+        .post(baseURL, confirmerInfo) //get 방식이면 get으로 변경 필요
+        .then(res => {
+            console.log(res);
+            return res;
+        });
     // return axios
     //     .post(baseURL, confirmerInfo) //get 방식이면 get으로 변경 필요
     //     .then(res => {
@@ -38,10 +43,21 @@ export const registerVisitPoint = (confPatientId) => {
 } // visitPointInfo 부분 수정 필요..?
 
 export const registerBeacon = (BeaconInfo) => {
+
+    const sendData = {
+        uuid: BeaconInfo.get('beaconUuid'),
+        major: BeaconInfo.get('beaconMajor'),
+        minor: BeaconInfo.get('beaconMinor'),
+        latitude: BeaconInfo.get('latitude'),
+        longitude: BeaconInfo.get('longitude'),
+        streetNameAddr: BeaconInfo.get('beaconStreetNameAddr'),
+        streetNameAddrDesc: BeaconInfo.get('beaconStreetNameAddrDES')
+    }
     // const baseURL = `${API_BASE_URL}/visitPoint`
-    const baseURL = `${API_BASE_URL}/`
+    const baseURL = `${API_BASE_URL}/epid/beacon
+    `
     return axios
-        .post(baseURL, BeaconInfo) //get 방식이면 get으로 변경 필요
+        .post(baseURL, sendData) //get 방식이면 get으로 변경 필요
         .then(res => {
             console.log(res);
             return res;

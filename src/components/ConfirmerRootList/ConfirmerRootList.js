@@ -12,6 +12,7 @@ import {
     VisitRootAddModal
 } from 'components';
 import Modal from 'react-modal';
+import moment from 'moment'
 
 const VisitNode = ({ streetNameAddr, startDateTime, endDateTime,type,province }) => {
     return (
@@ -87,7 +88,7 @@ class ConfirmerRootList extends Component {
     }
     
     render() {
-        const { showModal } = this.props;
+        const { showModal, movingInfoList } = this.props;
         return (
             <div className="ConfirmerRootList">
                 <div id="comp-title">
@@ -97,7 +98,7 @@ class ConfirmerRootList extends Component {
                     <button className="register-btn"
                         onClick={this._setIsModalWithTrue}>
                         <BsPlus style={{ paddingTop:'3px', marginRight:'3px'}} />
-                        등록하기
+                        추가하기
                     </button>
                     <Modal
                         isOpen={showModal}
@@ -128,18 +129,25 @@ class ConfirmerRootList extends Component {
                         <VisitRootAddModal />
 
                     </Modal>
-                    <button className="save-btn"
+                    {/* <button className="save-btn"
                         onClick={onclick}>
                             <MdCheck style={{ paddingTop:'3px', marginRight:'3px'}} />
                             저장하기
-                    </button>
-                    <VisitNode
-                        streetNameAddr='경상북도 경산시 하양읍 하양로 13-13 (대구가톨릭대학교 공학관 526호)dfsfsdfsdfsdsfsfsdsd'
-                        startDateTime='2020-05-17'
-                        endDateTime ='2020-05-20'
-                        type ='school'
-                        province = 'Busan'
-                    />
+                    </button> */}
+                    {
+                        movingInfoList.map((item,idx)=>{
+                            return(
+                                <VisitNode key={idx}
+                                    streetNameAddr={item.get('streetNameAddr')}
+                                    startDateTime={moment(item.get('firstDateTime')).format('YYYY-MM-DD')}
+                                    endDateTime ={moment(item.get('lastDateTime')).format('YYYY-MM-DD')}
+                                    type ={item.get('type')}
+                                    province = {item.get('province')}
+                                />
+                            )
+                        })
+                    }
+                    
                 </div>
             </div>
         )
@@ -155,6 +163,8 @@ export default withRouter(
                 gender: state.edit.getIn(['confirmerInfo', 'gender']),
                 confDatetime: state.edit.getIn(['confirmerInfo', 'confDatetime']),
             },
+
+            movingInfoList: state.edit.getIn(['confirmerInfo','movingInfoList']),
             visitPointInfo: {
                 streetNameAddr: state.edit.getIn(['visitPointInfo', 'streetNameAddr']),
                 firstDateTime: state.edit.getIn(['visitPointInfo', 'firstDateTime']),

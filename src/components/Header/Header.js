@@ -10,6 +10,9 @@ const Header = () => {
             <div className="logo">
                 <img src={govLogo} draggable="false"/>
             </div>
+            <div className="title">
+                <span>COVID-19 TRACE SYSTEM</span>
+            </div>
             <button>
                 <MdAccountCircle size={26} style={{
                     margin: '0 auto',
