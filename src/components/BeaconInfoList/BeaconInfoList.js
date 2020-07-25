@@ -20,8 +20,8 @@ const BeaconInfoList = ({
                         <div className="table-major"><strong>major</strong></div>
                         <div className="table-minor"><strong>minor</strong></div>
                         <div className="table-streetNameAddr"><strong>도로명 주소</strong></div>
-                        <div className="table-major"><strong>major</strong></div>
-                        <div className="table-major"><strong>major</strong></div>
+                        <div className="table-major"><strong>longitude</strong></div>
+                        <div className="table-major"><strong>latitude</strong></div>
                     </div>
                     <div className="table-body">
                         {
@@ -32,10 +32,10 @@ const BeaconInfoList = ({
                                         <div className="table-uuid">{item.get('uuid')}</div>
                                         <div className="table-major">{item.get('major')}</div>
                                         <div className="table-minor">{item.get('minor')}</div>
-                                        <div className="table-streetNameAddr">{item.get('streetNameAddr')}</div>
+                                        <div className="table-streetNameAddr">{item.get('streetNameAddr') ?item.get('streetNameAddr') : '정의되지 않은 지역'}</div>
                                         {/* <div className="table-streetNameAddrDES content">{item.get('streetNameAddrDesc')}</div> */}
-                                        <div className="table-major">{item.get('major')}</div>
-                                        <div className="table-minor">{item.get('minor')}</div>
+                                        <div className="table-major">{item.get('longitude')}</div>
+                                        <div className="table-minor">{item.get('latitude')}</div>
                                     </Fragment>
                                 )
                             })
