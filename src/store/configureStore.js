@@ -12,11 +12,11 @@ export default function configureStore(history) {
     compose(
       applyMiddleware(
         routerMiddleware(history), // for dispatching history actions
-        createLogger(),
+        // createLogger(),
         penderMiddleware()
       ) //미들웨어 적용
       ,
-      //window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() //리덕스 개발도구
+      // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() //리덕스 개발도구
     )
   );
 

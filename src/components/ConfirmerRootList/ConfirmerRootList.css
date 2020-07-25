@@ -1,0 +1,205 @@
+.ConfirmerRootList {
+
+    height: 460px;
+}
+
+.ConfirmerRootList > .body {
+    padding-top: 5px;
+    display: block;
+    overflow: scroll;
+    overflow-x: hidden;
+    height: 236px;
+    border-bottom-right-radius: 7px;
+}
+
+.ConfirmerRootList > .body::-webkit-scrollbar {
+    width: 10px;
+}
+
+.ConfirmerRootList > .body::-webkit-scrollbar-thumb {
+    background-color: #aaa;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+}
+.ConfirmerRootList > .body::-webkit-scrollbar-track {
+    background-color: #cfcfcf;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+}
+.ConfirmerRootList > #comp-title {
+    border-top-right-radius: 7px;
+    font-size: 15px;
+}
+.ConfirmerRootList > .body > .register-btn{
+    font-weight: bold;
+    font-size: 13px;
+    cursor: pointer;
+    margin: 0 auto;
+    display: block;
+    width: 500px;
+    background-color: #eee;
+    outline: 0;
+    border: 1px solid #dadada;
+    margin-bottom: 15px;
+    margin-top: 10px;
+    border-radius: 2px;
+}
+.ConfirmerRootList > .body > .save-btn{
+    font-weight: bold;
+    font-size: 13px;
+    cursor: pointer;
+    float: right;
+    margin: 0 20px 10px 0;
+}
+/* .register-btn:focus{
+    outline: 1px solid #aaa;
+} */
+.register-btn:hover{
+    background-color: #3396FF;
+    /* color: #fff; */
+}
+.save-btn:focus{
+    outline: 1px solid #aaa;
+}
+.save-btn:hover{
+    background-color: #efefef;
+}
+.VisitNode{
+    display: block;
+    background-color: #fff;
+    width: 500px;
+    height: 157px;
+    margin: 0 auto;
+    margin-bottom: 15px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    padding: 0;
+}
+
+.VisitNode > .node-row {
+    position: relative;
+    border-bottom: 1px solid #eee;
+    height: 55px;
+    width: 490px;
+    float: left;
+    font-size: 12px;
+    text-align: left;
+    padding: 3px 2px 2px 5px;
+}
+
+.VisitNode > .node-row-date{
+    position: relative;
+    height: 30px;
+    width: 490px;
+    float: left;
+    border-bottom: 1px solid #eee;
+    font-size: 12px;
+    text-align: left;
+    padding: 2px 2px 0px 5px;
+}
+.VisitNode > .node-row-type{
+    position: relative;
+    height: 30px;
+    border-bottom: 1px solid #eee;
+    width: 490px;
+    float: left;
+    font-size: 12px;
+    text-align: left;
+    padding: 2px 2px 0px 5px;
+}
+.VisitNode > .node-row-province{
+    position: relative;
+    height: 30px;
+    width: 490px;
+    float: left;
+    font-size: 12px;
+    text-align: left;
+    padding: 2px 2px 0px 5px;
+}
+.VisitNode > .node-row > .elem{
+    margin: 5px 5px;
+    width: 485px;
+    text-align: left;
+    display: flex;
+    flex-direction: row;
+}
+.VisitNode > .node-row-date> .elem{
+    margin: 5px 5px;
+    width: 485px;
+    text-align: left;
+    display: flex;
+    flex-direction: row;
+}
+.VisitNode > .node-row-type> .elem{
+    margin: 5px 5px;
+    width: 485px;
+    text-align: left;
+    display: flex;
+    flex-direction: row;
+}
+.VisitNode > .node-row-province> .elem{
+    margin: 5px 5px;
+    width: 485px;
+    text-align: left;
+    display: flex;
+    flex-direction: row;
+}
+.VisitNode >  .node-row > .elem > .val{
+    display: block;
+    float: left;
+    width: 380px;
+    margin-left: 15px;
+}
+
+.VisitNode >  .node-row > .elem > span{
+    font-size: 12px;
+}
+.VisitNode >  .node-row-date > .elem > .val{
+    display: block;
+    float: left;
+    width: 100px;
+    margin-left: 30px;
+    margin-top: 2px;
+}
+.VisitNode >  .node-row-date > .elem > .val.mark{
+    display: block;
+    float: left;
+    width: 30px;
+    margin-left: 10px;
+    margin-top: 2px;
+}
+
+.VisitNode >  .node-row-date > .elem > span{
+    font-size: 12px;
+}
+
+.VisitNode >  .node-row-type > .elem > .val{
+    display: block;
+    float: left;
+    width: 380px;
+    margin-left: 27px;
+}
+
+.VisitNode >  .node-row-type > .elem > span{
+    font-size: 12px;
+}
+
+.VisitNode >  .node-row-province > .elem > .val{
+    display: block;
+    float: left;
+    width: 380px;
+    margin-left: 30px;
+}
+
+.VisitNode >  .node-row-province > .elem > span{
+    font-size: 12px;
+}
+.VisitNode:focus{
+    outline: 1px solid #aaa;
+}
+
+.VisitNode:hover{
+    background-color: #efefef;
+}

@@ -7,6 +7,7 @@ import {
     PAGE_INDEX_STANDARD
 } from 'constants/index'
 import { range } from 'd3';
+import moment from 'moment';
 
 const PersonsList = ({
     data, 
@@ -18,12 +19,13 @@ const PersonsList = ({
     totalPageIndex,
     pageIndexList,
     totalElemCnt,
-    changeIndex
+    changeIndex,
+    len
 }) => {
     return (
         <div className="PersonsList">
             <header>
-                <span>{title} <span id="bold">{`( ${data.size} )`}</span></span>
+                <span>{title} <span id="bold">{`( ${len} )`}</span></span>
             </header>
             <div className="list-body">
                 <div className="table-thead" style={{
@@ -63,7 +65,7 @@ const PersonsList = ({
                                             <div className="table-arg1">{elem.get('gender')}</div>
                                             <div className="table-arg2">{elem.get('contactorNum')}</div>
                                             <div className="table-arg3">{elem.get('visitPointNum')}</div>
-                                            <div className="table-arg4">2020/07/29</div>
+                                            <div className="table-arg4">{moment(elem.get('confDatetime')).format('YYYY-MM-DD').toString()}</div>
                                         </Fragment> 
                                         :
                                         <Fragment>
@@ -72,7 +74,7 @@ const PersonsList = ({
                                             <div className="table-arg1">{elem.get('gender')}</div>
                                             <div className="table-arg2">{elem.get('confPatientId')}</div>
                                             <div className="table-arg3">{elem.get('visitPointNum')}</div>
-                                            <div className="table-arg4">2020/07/29</div>
+                                            <div className="table-arg4">{`N/A`}</div>
                                         </Fragment> 
                                     }
                                 </div>
@@ -249,6 +251,7 @@ const SearchTable = ({
                     pageIndexList={filter.get('confPageIndexList')}
                     changeIndex={changeIndex}
                     totalElemCnt={globalInfo.getIn(['info', 'totalConfPatient'])}
+                    len={globalInfo.getIn(['info','totalConfPatient'])}
                 />
                 <PersonsList 
                     title={'접촉자 리스트'} 
@@ -262,6 +265,7 @@ const SearchTable = ({
                     totalPageIndex={globalInfo.getIn(['info', 'totalCntctPageIndex'])}
                     pageIndexList={filter.get('cntctPageIndexList')}
                     changeIndex={changeIndex}
+                    len={globalInfo.getIn(['info', 'totalCntctPatient'])}
                 />
             </div>
             </div>
